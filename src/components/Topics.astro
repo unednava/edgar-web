@@ -1,33 +1,28 @@
 ---
 import { topics } from '../data/site';
-import Icon from './Icon.astro';
 ---
 
-<section id="aprende" class="wrap section">
-  <div class="section-head">
-    <p class="kicker">Qué vas a aprender</p>
-    <h2 class="section-title">Tres temas, un mismo objetivo: que tu publicidad dé resultados.</h2>
-  </div>
+<section id="aprende" class="wrap section topics">
+  <h2 class="section-title">De qué hablo en los videos</h2>
 
-  <ul class="grid">
+  <ul class="rows">
     {
       topics.map((t) => (
-        <li class="topic card" id={t.id}>
-          <span class="icon">
-            <Icon name={t.icon} size={26} />
-          </span>
-          <h3>{t.title}</h3>
+        <li class="row" id={t.id}>
+          <div class="name">
+            <h3>{t.title}</h3>
+            <p class="tools">{t.tools}</p>
+          </div>
           <dl class="qa">
             <div>
-              <dt>Qué vas a entender</dt>
+              <dt>Lo que vas a entender</dt>
               <dd>{t.what}</dd>
             </div>
             <div>
-              <dt>Qué te llevas</dt>
+              <dt>Lo que te llevas</dt>
               <dd>{t.how}</dd>
             </div>
           </dl>
-          <p class="tools">{t.tools}</p>
         </li>
       ))
     }
@@ -35,57 +30,52 @@ import Icon from './Icon.astro';
 </section>
 
 <style>
-  .grid {
+  .topics .section-title {
+    margin-bottom: 32px;
+  }
+  .rows {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    border-top: 1px solid var(--line);
   }
-  .topic {
-    padding: 32px 28px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .icon {
+  .row {
     display: grid;
-    place-items: center;
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    margin-bottom: 8px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 16px clamp(24px, 5vw, 64px);
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line);
   }
   h3 {
-    font-size: 1.3125rem;
-    line-height: 1.25;
-    letter-spacing: -0.015em;
+    font-size: clamp(1.375rem, 2.4vw, 1.625rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     font-weight: 700;
-  }
-  .qa {
-    margin: 4px 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  dt {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: var(--accent);
-  }
-  dd {
-    margin: 2px 0 0;
-    color: var(--ink-2);
-    font-size: 1.0625rem;
   }
   .tools {
-    margin-top: auto;
-    padding-top: 12px;
-    font-size: 0.875rem;
-    font-weight: 500;
+    margin-top: 8px;
+    font-size: 0.9375rem;
     color: var(--muted);
+  }
+  .qa {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 32px;
+  }
+  dt {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  dd {
+    margin: 4px 0 0;
+    color: var(--ink-2);
+  }
+  @media (max-width: 760px) {
+    .row,
+    .qa {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

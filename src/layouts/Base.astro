@@ -12,6 +12,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 // Imagen para redes (1200×630). Se regenera desde scripts/og.html.
 const ogImage = new URL('/og.png', Astro.site).href;
 const ogImageAlt = 'Edgar Navarro · Marketing con IA que sí funciona.';
+// Datos para buscadores: esta web es de una persona (Edgar), no de una empresa.
+const personJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: Astro.site?.href,
+  jobTitle: 'Especialista en publicidad digital',
+  worksFor: { '@type': 'Organization', name: '4Geeks Academy' },
+  sameAs: Object.values(site.social).filter(Boolean),
+});
 ---
 
 <!doctype html>
@@ -50,6 +60,7 @@ const ogImageAlt = 'Edgar Navarro · Marketing con IA que sí funciona.';
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={ogImageAlt} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <script type="application/ld+json" set:html={personJsonLd} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

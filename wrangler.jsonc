@@ -4,6 +4,8 @@
   "name": "web",
   "compatibility_date": "2026-11-01",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    // Las direcciones que no existen muestran dist/404.html (con estado 404).
+    "not_found_handling": "404-page"
   }
 }

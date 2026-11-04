@@ -34,8 +34,19 @@ Rediseño (nov. 2026), hecho con las skills `apple-design` y `apple-design-hig`.
 **El público no es técnico**: nada de referencias a programación (sin fuentes monoespaciadas,
 sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "paid media").
 
-- Tono visual: **amigable y elegante**. Fondo claro `#f6f7f9`, tarjetas blancas con sombra suave,
-  esquinas redondeadas (20 px), botones en forma de píldora.
+- Tono visual: **amigable y elegante**. Fondo claro `#f6f7f9`, esquinas redondeadas, botones en
+  forma de píldora. Casi todo va plano (filas, listas, bordes finos); la única tarjeta con sombra
+  es la animación del inicio, para que lo llamativo esté en un solo sitio.
+- **Que no parezca hecha con IA ni con plantilla** (revisión de nov. 2026). No volver a meter:
+  etiquetas tipo píldora con punto encima del título; texto verde pequeño encima de cada sección;
+  filas de tres tarjetas con icono en un cuadradito de color; tiras de "número grande sobre texto
+  pequeño"; miniaturas de video de relleno; sombras o brillos en todo. En los textos, evitar las
+  cadencias típicas: grupos de tres por costumbre, "no solo X, también Y", titulares con dos puntos
+  que "revelan", eslóganes vacíos ("Sin humo", "A tu ritmo"). Los títulos de sección van sin punto.
+  **Nunca prometer en presente lo que aún no existe** (videos, plantillas, newsletter): en futuro.
+  Lo que más humaniza la web y falta: una foto real de Edgar y un caso real con sus números.
+- Mientras `newsletterAction` esté vacía, los botones principales llevan a LinkedIn (`primaryCta`
+  en `site.ts`) y la sección de newsletter dice que arranca pronto; al pegar la URL cambia sola.
 - **Modo claro por defecto.** El oscuro (fondo `#0b111c`) se activa con el botón de luna/sol del
   encabezado; se guarda la elección en el navegador (`localStorage`) y se aplica antes de pintar.
 - Color de marca: verde "activo" (`#0b7a52` en claro, `#3ddc97` en oscuro), usado con moderación:
@@ -45,8 +56,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   de clientes por semana (SVG propio, sin librerías) se dibuja sola: baja (1), la IA pausa lo que
   falla (2) y se recupera (3); cada paso de la lista se ilumina a su tiempo y hay botón para repetir.
   **Sin dinero, precios ni signos de moneda**: Edgar no quiere que parezca que cobra algo.
-- Movimiento sutil: aparición de esos pasos, botones que reaccionan al pulsar, tarjetas de video
-  que se elevan al pasar el ratón. Con `prefers-reduced-motion` todo aparece sin animación.
+- Movimiento sutil: aparición de esos pasos y botones que reaccionan al pulsar.
+  Con `prefers-reduced-motion` todo aparece sin animación.
 - Barra superior translúcida (desenfoque), sólida con `prefers-reduced-transparency`.
 - Monograma "EN" como logo y como avatar hasta que haya foto.
 - Logos de marcas en "Sobre mí", con sus colores originales sobre tarjetas blancas (en ambos modos).
@@ -54,6 +65,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   logo en blanco, por eso va sobre su rojo de marca (`#c81414`). **Cruz Roja no aparece**: su emblema
   está protegido (Convenios de Ginebra) y requiere autorización expresa.
 - Todos los contrastes de texto ≥ 4.5:1 en ambos modos (valores en `global.css`).
+- Orden: inicio (saludo "Hola, soy Edgar Navarro" + titular + animación), Sobre mí (texto, lema,
+  recorrido y logos), De qué hablo, Los primeros videos (+ lo que traerá cada video), Newsletter.
 - Voz y estructura inspiradas en cómo comunica Vilma Núñez (adaptadas, no copiadas): saludo personal
   al inicio, tuteo cercano, lema propio visible ("Lo que funciona, lo que no y cuánto cuesta"),
   cada tema con su "qué" y su "cómo", recorrido real en pasos y newsletter como invitación ("¿Te sumas?").
@@ -72,15 +85,20 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 
 | Qué                                              | Archivo                         |
 |--------------------------------------------------|---------------------------------|
-| Textos, métricas, caminos, plantilla, marcas, redes | `src/data/site.ts`           |
+| Todos los textos, marcas y redes                 | `src/data/site.ts`              |
 | URL del formulario de la newsletter              | `src/data/site.ts` → `newsletterAction` |
 | Videos (añadir al principio de la lista)         | `src/data/videos.ts`            |
 | Próximos videos (si `videos` está vacío)         | `src/data/videos.ts` → `upcoming` |
 | Colores, tipografía, estilos base                | `src/styles/global.css`         |
 | Orden de las secciones                           | `src/pages/index.astro`         |
 | Textos de la animación del inicio                | `src/data/site.ts` → `heroExample` (la gráfica y sus tiempos en `Hero.astro`) |
-| Saludo "Hola, soy Edgar" y lema                  | `src/data/site.ts` → `hello` |
+| Saludo e introducción del inicio                 | `src/data/site.ts` → `site.greeting`, `site.intro` |
+| Botón principal (LinkedIn o newsletter)          | `src/data/site.ts` → `primaryCta` |
+| Texto y lema de "Sobre mí"                       | `src/data/site.ts` → `about` |
 | Recorrido en "Sobre mí"                          | `src/data/site.ts` → `journey` |
+| Temas ("De qué hablo")                           | `src/data/site.ts` → `topics` |
+| Lo que traerá cada video                         | `src/data/site.ts` → `extras` |
+| Página de error                                  | `src/pages/404.astro`           |
 | Logos de marcas (archivos en `public/logos/`)    | `src/data/site.ts` → `brands` |
 | Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |
 | Iconos                                           | `src/components/Icon.astro`     |
@@ -89,7 +107,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Imagen Open Graph (1200×630)                     | `public/og.png`, plantilla en `scripts/og.html` |
 | Despliegue en Cloudflare                         | `wrangler.jsonc`                |
 
-Componentes en `src/components/`: Header, Hero, Hello, Metrics, Topics, Videos, Templates, About, Newsletter, Footer, Icon.
+Componentes en `src/components/`: Header, Hero, About, Topics, Videos, Newsletter, Footer, Icon.
 
 ## Comandos
 
@@ -149,6 +167,9 @@ npm run preview   # sirve dist/ en local
 
 - Contraste de texto AA/AAA en claro y oscuro; borde del campo de correo `--field-border` ≥ 3:1.
 - Foco visible (`:focus-visible` verde) y enlace "Saltar al contenido".
+- Página 404 propia (`src/pages/404.astro`), servida por Cloudflare gracias a
+  `"not_found_handling": "404-page"` en `wrangler.jsonc`.
+- Datos estructurados `Person` (JSON-LD) en `Base.astro` para buscadores.
 - Los iconos son decorativos (`aria-hidden`); el texto de al lado da el significado.
 - Imágenes de video con `alt=""` porque el título ya está dentro del enlace.
 - En móvil (375 px) no debe haber scroll horizontal en la página.

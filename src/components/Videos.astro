@@ -1,5 +1,5 @@
 ---
-import { site } from '../data/site';
+import { site, extras } from '../data/site';
 import { videos, upcoming } from '../data/videos';
 import Icon from './Icon.astro';
 
@@ -7,16 +7,9 @@ const hasVideos = videos.length > 0;
 const latest = videos.slice(0, 3);
 ---
 
-<section class="wrap section videos" aria-labelledby="videos-title">
+<section id="videos" class="wrap section videos" aria-labelledby="videos-title">
   <div class="head">
-    <div class="section-head">
-      <p class="kicker">Empieza gratis</p>
-      <h2 class="section-title" id="videos-title">Mira, copia y aplica. A tu ritmo.</h2>
-      <p class="lead">
-        {hasVideos ? 'Mis últimos videos' : 'Los primeros videos llegan muy pronto'}: 7 minutos para entender el qué. Y
-        las plantillas, justo debajo, para el cómo.
-      </p>
-    </div>
+    <h2 class="section-title" id="videos-title">{hasVideos ? 'Últimos videos' : 'Los primeros videos'}</h2>
     {
       site.social.youtube && (
         <a class="channel" href={site.social.youtube}>
@@ -26,53 +19,66 @@ const latest = videos.slice(0, 3);
     }
   </div>
 
-  <div class="grid">
-    {
-      hasVideos
-        ? latest.map((v) => (
-            <a class="video card" href={`https://www.youtube.com/watch?v=${v.youtubeId}`}>
-              <img
-                src={`https://i.ytimg.com/vi/${v.youtubeId}/hqdefault.jpg`}
-                alt=""
-                width="480"
-                height="270"
-                loading="lazy"
-              />
-              <span class="body">
-                <span class="meta">
-                  {v.topic} · {v.minutes} min
-                </span>
-                <span class="title">{v.title}</span>
-              </span>
-            </a>
-          ))
-        : upcoming.map((v) => (
-            <article class="video card">
-              <div class="thumb" aria-hidden="true">
-                <span class="play">
-                  <Icon name="play" size={22} />
-                </span>
-              </div>
-              <div class="body">
-                <p class="meta">{v.topic} · Próximamente</p>
-                <h3 class="title">{v.title}</h3>
-              </div>
-            </article>
-          ))
-    }
+  {
+    hasVideos ? (
+      <div class="grid">
+        {latest.map((v) => (
+          <a class="video" href={`https://www.youtube.com/watch?v=${v.youtubeId}`}>
+            <img
+              src={`https://i.ytimg.com/vi/${v.youtubeId}/hqdefault.jpg`}
+              alt=""
+              width="480"
+              height="270"
+              loading="lazy"
+            />
+            <span class="meta">
+              {v.topic} · {v.minutes} min
+            </span>
+            <span class="title">{v.title}</span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <>
+        <p class="lead">Estos son los temas con los que arranco. Cada video dura unos 7 minutos.</p>
+        <ol class="upcoming">
+          {upcoming.map((v) => (
+            <li>
+              <span class="title">{v.title}</span>
+              <span class="topic">{v.topic}</span>
+            </li>
+          ))}
+        </ol>
+      </>
+    )
+  }
+
+  <div id="plantillas" class="extras">
+    <h3>{extras.title}</h3>
+    <p>{extras.text}</p>
+    <ul>
+      {
+        extras.items.map((item) => (
+          <li>
+            <span class="check" aria-hidden="true">
+              <Icon name="check" size={18} />
+            </span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
 
 <style>
-  .videos {
-    padding-top: 0;
-  }
   .head {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-end;
-    gap: 0 24px;
+    align-items: baseline;
+    gap: 8px 24px;
+    margin-bottom: 16px;
   }
   .channel {
     display: inline-flex;
@@ -80,68 +86,122 @@ const latest = videos.slice(0, 3);
     gap: 6px;
     font-weight: 600;
     text-decoration: none;
-    margin-bottom: 40px;
   }
+  .lead {
+    max-width: 640px;
+  }
+
+  /* Próximos videos: lista sencilla, sin miniaturas de relleno */
+  .upcoming {
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    counter-reset: v;
+    border-top: 1px solid var(--line);
+  }
+  .upcoming li {
+    counter-increment: v;
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    gap: 4px 16px;
+    align-items: baseline;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .upcoming li::before {
+    content: counter(v);
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .upcoming .title {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .topic {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  /* Videos publicados: miniaturas reales de YouTube */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 24px;
+    margin-top: 24px;
   }
   .video {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    gap: 8px;
     color: var(--ink);
     text-decoration: none;
-    transition:
-      transform 240ms var(--ease-out),
-      box-shadow 240ms var(--ease-out);
   }
-  a.video:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-    color: var(--ink);
-  }
-  img,
-  .thumb {
+  .video img {
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    display: block;
+    border-radius: var(--radius-sm);
+    margin-bottom: 6px;
   }
-  .thumb {
-    display: grid;
-    place-items: center;
-    background:
-      radial-gradient(120% 90% at 20% 10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
-      var(--accent-soft);
-  }
-  .play {
-    display: grid;
-    place-items: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--surface);
-    color: var(--accent);
-    box-shadow: var(--shadow);
-    padding-left: 3px;
-  }
-  .body {
-    padding: 20px 22px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  .video:hover .title {
+    text-decoration: underline;
   }
   .meta {
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--accent);
   }
-  .title {
+  .video .title {
     font-size: 1.125rem;
     font-weight: 600;
     line-height: 1.4;
-    letter-spacing: -0.01em;
+  }
+
+  /* Lo que acompaña a cada video */
+  .extras {
+    margin-top: 56px;
+    padding: clamp(24px, 4vw, 40px);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .extras h3 {
+    font-size: 1.375rem;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+  .extras p {
+    margin-top: 8px;
+    color: var(--ink-2);
+  }
+  .extras ul {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 32px;
+  }
+  .extras li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .check {
+    flex: none;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+  @media (max-width: 760px) {
+    .extras ul {
+      grid-template-columns: 1fr;
+    }
+    .upcoming li {
+      grid-template-columns: 2rem minmax(0, 1fr);
+    }
+    .topic {
+      grid-column: 2;
+    }
   }
 </style>

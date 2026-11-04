@@ -1,5 +1,5 @@
 ---
-import { site, heroExample as ex } from '../data/site';
+import { site, heroExample as ex, primaryCta as cta } from '../data/site';
 import Icon from './Icon.astro';
 
 /*
@@ -10,6 +10,10 @@ import Icon from './Icon.astro';
   Cada paso de la lista se ilumina cuando la línea llega a su punto.
   Tiempos en --t1, --t2, --t3 (segundos desde que empieza).
 */
+// El punto final del titular va aparte: en esta tipografía queda separado de la palabra.
+const headlineText = site.headline.replace(/\.$/, '');
+const headlineDot = site.headline.endsWith('.');
+
 const marks = [
   { x: 150, y: 104, tone: 'warn' },
   { x: 190, y: 98, tone: 'accent' },
@@ -19,18 +23,26 @@ const marks = [
 
 <section class="wrap hero">
   <div class="copy">
-    <p class="kicker pill"><span class="live" aria-hidden="true"></span>{site.kicker}</p>
-    <h1>{site.headline}</h1>
+    <p class="greeting">
+      <!-- Cuando tengas una foto, cámbiala aquí por <img src="/edgar.jpg" alt="" class="face" />. -->
+      <span class="face" aria-hidden="true">EN</span>
+      {site.greeting}
+    </p>
+    <h1>{headlineText}{headlineDot && <span class="dot">.</span>}</h1>
     <p class="intro">{site.intro}</p>
     <div class="ctas">
-      <a href="#newsletter" class="btn btn-primary">Suscribirme gratis</a>
-      <a href="#aprende" class="btn btn-ghost">Ver qué aprendes</a>
+      <a href={cta.href} class="btn btn-primary" {...cta.external ? { target: '_blank', rel: 'noopener' } : {}}>
+        {cta.label}
+      </a>
+      <a href="#aprende" class="btn btn-ghost">De qué hablo</a>
     </div>
   </div>
 
   <figure class="demo card play" id="demo" aria-labelledby="demo-title">
     <div class="demo-head">
-      <p class="demo-title" id="demo-title">{ex.title}</p>
+      <p class="demo-title" id="demo-title">
+        {ex.title} <span class="tag">{ex.tag}</span>
+      </p>
       <button type="button" class="replay" id="demo-replay" aria-label="Ver la animación de nuevo">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M3 12a9 9 0 1 0 3-6.7L3 8 M3 3v5h5"></path>
@@ -108,20 +120,28 @@ const marks = [
     gap: 24px;
     min-width: 0;
   }
-  .pill {
+  .greeting {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 6px 14px 6px 10px;
-    border-radius: 999px;
-    background: var(--accent-soft);
+    gap: 12px;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--ink-2);
   }
-  .live {
-    width: 8px;
-    height: 8px;
+  .face {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
+    object-fit: cover;
     background: var(--accent);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+    color: var(--on-accent);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  .dot {
+    margin-left: -0.08em;
   }
   h1 {
     font-size: clamp(2.5rem, 6vw, 4rem);
@@ -162,6 +182,16 @@ const marks = [
     font-weight: 700;
     font-size: 1.0625rem;
     letter-spacing: -0.01em;
+  }
+  .tag {
+    margin-left: 6px;
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    vertical-align: 2px;
   }
   .replay {
     flex: none;

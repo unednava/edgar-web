@@ -1,15 +1,16 @@
 // Todo el contenido editable de la web vive aquí.
 // Cambia textos y enlaces sin tocar los componentes.
+//
 // Público: personas que no son técnicas. Lenguaje sencillo, sin jerga.
-
-export type IconName = 'megaphone' | 'chart' | 'clock' | 'bolt' | 'sparkle' | 'table' | 'layout';
+// Para que no suene a texto generado: frases concretas y en primera persona,
+// sin enumeraciones de tres por costumbre, sin "no solo X, también Y",
+// sin titulares con dos puntos y sin prometer en presente lo que aún no existe.
 
 export interface Topic {
   id: string;
-  icon: IconName;
   title: string;
-  what: string; // el "qué": lo que vas a entender
-  how: string; // el "cómo": lo que te llevas para hacerlo
+  what: string; // lo que vas a entender
+  how: string; // lo que te llevas para hacerlo
   tools: string;
 }
 
@@ -18,27 +19,15 @@ export interface JourneyStep {
   text: string;
 }
 
-export interface Metric {
-  value: string;
-  label: string;
-  highlight?: boolean;
-}
-
-export interface Included {
-  icon: IconName;
-  title: string;
-  description: string;
-}
-
 export const site = {
   name: 'Edgar Navarro',
   title: 'Edgar Navarro · Marketing con IA, explicado fácil',
   description:
-    'Aprende a usar la inteligencia artificial para que tus anuncios rindan más y te quiten menos tiempo. Videos cortos, con números reales y sin tecnicismos.',
-  kicker: 'Marketing con IA, explicado fácil',
+    'Llevo más de 7 años haciendo campañas en Meta y Google. Te enseño a usar la IA en las tuyas, con ejemplos reales y sin tecnicismos.',
   headline: 'Marketing con IA que sí funciona.',
+  greeting: 'Hola, soy Edgar Navarro',
   intro:
-    'Te enseño a usar la inteligencia artificial para que tus anuncios rindan más y te quiten menos tiempo. En videos cortos, con números reales y sin tecnicismos.',
+    'Llevo más de 7 años haciendo campañas en Meta y Google. Ahora te enseño a usar la IA en las tuyas, con ejemplos reales y sin tecnicismos.',
 
   social: {
     // Deja vacío lo que aún no exista: el enlace se oculta solo.
@@ -49,101 +38,46 @@ export const site = {
   },
 
   // Pega aquí la URL "action" del formulario de tu servicio de newsletter
-  // (Buttondown, Kit, Beehiiv...). Mientras esté vacía, el botón no envía nada.
+  // (Buttondown, Kit, Beehiiv...). Mientras esté vacía, los botones de la web
+  // llevan a LinkedIn en lugar de a un formulario que todavía no funciona.
   newsletterAction: '',
 } as const;
 
+// Botón principal de la web: cambia solo cuando la newsletter esté activa.
+export const primaryCta = site.newsletterAction
+  ? { label: 'Suscribirme gratis', short: 'Suscribirme', href: '/#newsletter', external: false }
+  : { label: 'Sígueme en LinkedIn', short: 'Sígueme', href: site.social.linkedin, external: true };
+
 // Animación del inicio: una gráfica de clientes por semana que se dibuja sola.
-// Sin dinero ni precios: solo la historia de lo que hace la IA. Cada paso aparece
-// cuando la línea llega a su punto (1, 2 y 3 en la gráfica).
+// Sin dinero ni precios. Es un ejemplo, y la tarjeta lo dice.
 export const heroExample = {
   title: 'Así cuida la IA una campaña',
+  tag: 'Ejemplo',
   chartLabel: 'Clientes que llegan cada semana',
   steps: [
-    { title: 'Algo deja de funcionar', text: 'Llegan menos clientes: la gente ya se cansó de ver los mismos anuncios.' },
+    { title: 'Algo deja de funcionar', text: 'Llegan menos clientes porque la gente ya se cansó de ver los mismos anuncios.' },
     { title: 'La IA lo nota y pausa lo que falla', text: 'El anuncio cansado deja de salir y el presupuesto va a los que sí funcionan.' },
-    { title: 'Te llega un resumen', text: 'Qué cambió y por qué, en tu correo. La decisión final es tuya.' },
+    { title: 'Te llega un resumen', text: 'Te explica qué cambió y por qué. La decisión final es tuya.' },
   ],
   footnote: 'La regla vigila. Tú decides.',
 };
 
-// Bloque de saludo, justo después del inicio. Trato cercano y modesto.
-export const hello = {
-  title: 'Hola, soy Edgar.',
+// "Sobre mí": va justo después del inicio.
+export const about = {
+  lead: 'Hago campañas de publicidad de día y automatizaciones de noche.',
   text: [
-    'Llevo más de 7 años haciendo campañas de publicidad para marcas de Latinoamérica, España y Estados Unidos.',
-    'Aquí te comparto lo que voy aprendiendo con la IA, explicado como se lo contaría a un amigo. No te voy a contar solo qué hacer: también te enseño cómo hacerlo.',
+    'Casi toda mi carrera ha girado alrededor de cuánto cuesta conseguir un cliente, y sigue siendo lo primero que miro en cualquier campaña.',
+    'Aquí comparto lo que voy aprendiendo con la IA, explicado como se lo contaría a un amigo.',
   ],
   mottoLabel: 'Mi regla para todo lo que publico',
   motto: 'Lo que funciona, lo que no y cuánto cuesta.',
 };
 
-export const metrics: Metric[] = [
-  { value: '7+', label: 'años creando campañas de publicidad' },
-  { value: '3', label: 'mercados: Latinoamérica, España y EE. UU.' },
-  { value: '−20%', label: 'en el costo por cliente de mis campañas', highlight: true },
-  { value: '7 min', label: 'dura cada video, para verlo en un café' },
-];
-
-export const topics: Topic[] = [
-  {
-    id: 'anuncios',
-    icon: 'megaphone',
-    title: 'Anuncios que rinden más',
-    what: 'Cómo crear y mejorar tus anuncios con ayuda de la IA, sin perder el control de lo que gastas.',
-    how: 'Las instrucciones que uso para pedirle ideas a la IA y probarlas.',
-    tools: 'Meta Ads · Google Ads',
-  },
-  {
-    id: 'resultados',
-    icon: 'chart',
-    title: 'Entender tus resultados',
-    what: 'Qué números mirar, qué significan y cuándo conviene preocuparse.',
-    how: 'Un tablero sencillo para ver tus campañas de un vistazo.',
-    tools: 'Google Analytics · Looker Studio',
-  },
-  {
-    id: 'tiempo',
-    icon: 'clock',
-    title: 'Recuperar tu tiempo',
-    what: 'Qué tareas puede hacer la IA por ti y cuáles es mejor que sigas haciendo tú.',
-    how: 'Automatizaciones listas para importar, con cada paso explicado.',
-    tools: 'Automatizaciones con IA',
-  },
-];
-
-export const templates = {
-  title: 'Lo que uso, listo para que lo copies.',
-  text: 'Cada video viene con todo lo que usé. Lo descargas, sigues los pasos y lo tienes funcionando en tu cuenta.',
-  included: [
-    {
-      icon: 'bolt',
-      title: 'La automatización completa',
-      description: 'Lista para importar, con cada paso explicado.',
-    },
-    {
-      icon: 'sparkle',
-      title: 'Las instrucciones para la IA',
-      description: 'El texto exacto que le doy, para que copies y pegues.',
-    },
-    {
-      icon: 'table',
-      title: 'Tus límites de gasto',
-      description: 'Una hoja de cálculo sencilla para decidir cuándo actuar.',
-    },
-    {
-      icon: 'layout',
-      title: 'Un tablero de resultados',
-      description: 'Para ver de un vistazo cómo van tus campañas.',
-    },
-  ] satisfies Included[],
-};
-
-// Mi recorrido, en "Sobre mí". Solo hechos reales.
+// Mi recorrido. Solo hechos que Edgar confirmó.
 export const journey: JourneyStep[] = [
   {
     title: 'Empecé en una agencia de campañas de conversión',
-    text: 'Ahí aprendí a medir todo por resultados: clientes, ventas y registros. Eso marcó mi forma de trabajar.',
+    text: 'Ahí aprendí a medir todo por resultados: clientes, ventas y registros.',
   },
   {
     title: 'Más de 7 años con marcas de tres mercados',
@@ -154,14 +88,54 @@ export const journey: JourneyStep[] = [
     text: 'Trabajo como especialista en publicidad digital y uso la IA para que el trabajo repetitivo se haga solo.',
   },
   {
-    title: 'Y ahora, lo comparto contigo',
-    text: 'En videos cortos y plantillas gratis. Lo que funciona, lo que no y cuánto cuesta. Sin humo.',
+    title: 'Y ahora, lo comparto',
+    text: 'Grabo videos cortos y comparto gratis los archivos que uso en cada uno.',
   },
 ];
 
+export const topics: Topic[] = [
+  {
+    id: 'anuncios',
+    title: 'Anuncios que rinden más',
+    what: 'Cómo crear y mejorar tus anuncios con ayuda de la IA sin perder el control de lo que gastas.',
+    how: 'Las instrucciones que uso para pedirle ideas a la IA y probarlas.',
+    tools: 'Meta Ads y Google Ads',
+  },
+  {
+    id: 'resultados',
+    title: 'Entender tus resultados',
+    what: 'Qué números mirar y cuándo conviene preocuparse por ellos.',
+    how: 'Un tablero sencillo para ver tus campañas de un vistazo.',
+    tools: 'Google Analytics y Looker Studio',
+  },
+  {
+    id: 'tiempo',
+    title: 'Recuperar tu tiempo',
+    what: 'Qué tareas puede hacer la IA por ti y cuáles conviene que sigas haciendo tú.',
+    how: 'Automatizaciones listas para importar, con cada paso explicado.',
+    tools: 'Automatizaciones con IA',
+  },
+];
+
+// Lo que acompañará a cada video. En futuro: todavía no hay videos publicados.
+export const extras = {
+  title: 'Junto a cada video',
+  text: 'Voy a compartir los archivos que usé, para que puedas probarlo en tu cuenta el mismo día:',
+  items: [
+    'La automatización, lista para importar y con cada paso explicado.',
+    'Las instrucciones exactas que le doy a la IA.',
+    'Una hoja de cálculo para decidir cuándo conviene actuar.',
+    'Un tablero para ver tus campañas de un vistazo.',
+  ],
+};
+
 export const newsletter = {
-  title: 'Cada semana, un experimento real en tu correo.',
-  text: 'Te cuento qué probé, cuánto costó y qué aprendí. Y te dejo la plantilla para que lo hagas tú.',
+  // Mientras `newsletterAction` esté vacía se muestran los textos "soon".
+  title: 'Una vez por semana, en tu correo',
+  soonTitle: 'La newsletter arranca pronto',
+  text: 'Cada semana te escribo sobre algo que probé en mis campañas y lo que me costó, haya funcionado o no.',
+  soonText:
+    'Cada semana voy a escribir sobre algo que probé en mis campañas y lo que me costó, haya funcionado o no. Mientras tanto, en LinkedIn cuento en qué estoy trabajando.',
   invite: '¿Te sumas?',
 };
 

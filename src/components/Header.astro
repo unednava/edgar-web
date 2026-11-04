@@ -1,5 +1,5 @@
 ---
-import { site } from '../data/site';
+import { site, primaryCta as cta } from '../data/site';
 import Icon from './Icon.astro';
 ---
 
@@ -12,15 +12,22 @@ import Icon from './Icon.astro';
       <span class="brand-name">{site.name}</span>
     </a>
     <div class="links">
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#aprende">Qué aprendes</a>
-      <a href="#plantillas">Plantillas</a>
+      <a href="/#sobre-mi">Sobre mí</a>
+      <a href="/#aprende">De qué hablo</a>
+      <a href="/#videos">Videos</a>
     </div>
     <button type="button" class="theme" id="theme-toggle" aria-label="Activar modo oscuro">
       <span class="i-moon"><Icon name="moon" size={20} /></span>
       <span class="i-sun"><Icon name="sun" size={20} /></span>
     </button>
-    <a href="#newsletter" class="btn btn-primary cta">Suscribirme</a>
+    <a
+      href={cta.href}
+      class="btn btn-primary cta"
+      aria-label={cta.label}
+      {...cta.external ? { target: '_blank', rel: 'noopener' } : {}}
+    >
+      {cta.short}
+    </a>
   </nav>
 </header>
 

@@ -1,23 +1,37 @@
 ---
 import { site, newsletter as nl } from '../data/site';
-import Icon from './Icon.astro';
 
+// Mientras no haya formulario de newsletter, la sección lo dice con honestidad
+// y ofrece LinkedIn. Al pegar la URL en `newsletterAction`, aparece el formulario.
 const action = site.newsletterAction;
 ---
 
 <section id="newsletter" class="wrap section newsletter">
-  <div class="box card">
-    <span class="icon" aria-hidden="true"><Icon name="mail" size={26} /></span>
-    <h2 class="section-title">{nl.title}</h2>
-    <p class="lead">{nl.text}</p>
-    <p class="invite">{nl.invite}</p>
+  <div class="box">
+    <h2 class="section-title">{action ? nl.title : nl.soonTitle}</h2>
+    <p class="lead">{action ? nl.text : nl.soonText}</p>
 
-    <form class="form" method="post" action={action || undefined} target="_blank">
-      <label for="email" class="sr-only">Tu correo electrónico</label>
-      <input id="email" name="email" type="email" required placeholder="tu@correo.com" autocomplete="email" />
-      <button type="submit" class="btn btn-primary" disabled={!action}>Suscribirme</button>
-    </form>
-    <p class="note">{action ? 'Sin spam. Te das de baja cuando quieras.' : 'La newsletter abre pronto.'}</p>
+    {
+      action ? (
+        <>
+          <p class="invite">{nl.invite}</p>
+          <form class="form" method="post" action={action} target="_blank">
+            <label for="email" class="sr-only">
+              Tu correo electrónico
+            </label>
+            <input id="email" name="email" type="email" required placeholder="tu@correo.com" autocomplete="email" />
+            <button type="submit" class="btn btn-primary">
+              Suscribirme
+            </button>
+          </form>
+          <p class="note">Sin spam. Te das de baja cuando quieras.</p>
+        </>
+      ) : (
+        <a class="btn btn-primary" href={site.social.linkedin} target="_blank" rel="noopener">
+          Sígueme en LinkedIn
+        </a>
+      )
+    }
   </div>
 </section>
 
@@ -26,30 +40,23 @@ const action = site.newsletterAction;
     padding-top: 0;
   }
   .box {
-    padding: clamp(40px, 6vw, 64px) clamp(24px, 5vw, 48px);
+    padding: clamp(36px, 6vw, 64px) clamp(24px, 5vw, 56px);
     display: flex;
     flex-direction: column;
     gap: 16px;
-    align-items: center;
-    text-align: center;
-    box-shadow: var(--shadow-lg);
-  }
-  .icon {
-    display: grid;
-    place-items: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 18px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    margin-bottom: 4px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
   }
   .section-title {
-    max-width: 18ch;
-    text-wrap: balance;
+    max-width: 22ch;
   }
   .lead {
-    max-width: 46ch;
+    max-width: 52ch;
+  }
+  .box > .btn {
+    margin-top: 8px;
   }
   .invite {
     margin-top: 8px;
@@ -61,16 +68,14 @@ const action = site.newsletterAction;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: center;
     width: 100%;
     max-width: 520px;
-    margin-top: 4px;
   }
   input {
     flex: 1 1 260px;
     min-width: 0;
     min-height: 52px;
-    background: var(--surface);
+    background: var(--bg);
     border: 1px solid var(--field-border);
     color: var(--ink);
     border-radius: 999px;
@@ -80,14 +85,6 @@ const action = site.newsletterAction;
   input::placeholder {
     color: var(--muted);
     opacity: 1;
-  }
-  button:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-  button:disabled:active {
-    transform: none;
   }
   .note {
     font-size: 0.9375rem;

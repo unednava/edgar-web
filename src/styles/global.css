@@ -93,21 +93,7 @@ p {
 }
 
 .section {
-  padding-block: clamp(64px, 10vw, 112px);
-}
-
-.section-head {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 640px;
-  margin-bottom: 40px;
-}
-
-.kicker {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--accent);
+  padding-block: clamp(48px, 7vw, 80px);
 }
 
 .section-title {
@@ -147,11 +133,10 @@ p {
 .btn-primary {
   background: var(--accent);
   color: var(--on-accent);
-  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--accent) 60%, transparent);
 }
 .btn-primary:hover {
   color: var(--on-accent);
-  box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--accent) 70%, transparent);
+  background: color-mix(in srgb, var(--accent) 86%, #000);
 }
 .btn-ghost {
   background: var(--surface);
