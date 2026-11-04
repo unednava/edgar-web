@@ -1,0 +1,81 @@
+---
+import { featuredTemplate as t } from '../data/site';
+---
+
+<section id="plantillas" class="wrap section split">
+  <div class="copy">
+    <p class="eyebrow">plantillas · gratis con la newsletter</p>
+    <h2 class="section-title">{t.title}</h2>
+    <p class="text">{t.text}</p>
+    <a href="#newsletter" class="btn btn-primary">Quiero las plantillas</a>
+  </div>
+
+  <div class="files" role="region" aria-label="Archivos incluidos en la plantilla" tabindex="0">
+    <p class="files-head mono">{t.folder} · incluido</p>
+    <table>
+      <tbody>
+        {
+          t.files.map((f) => (
+            <tr>
+              <td class="mono fname">{f.name}</td>
+              <td class="fdesc">{f.description}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style>
+  .split {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    align-items: center;
+  }
+  .copy {
+    flex: 1 1 420px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-2);
+  }
+  .files {
+    flex: 1 1 420px;
+    min-width: 0;
+    overflow-x: auto;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .files-head {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  td {
+    padding: 14px 18px;
+  }
+  tr + tr td {
+    border-top: 1px solid var(--line);
+  }
+  .fname {
+    color: var(--link);
+  }
+  .fdesc {
+    color: var(--text-2);
+  }
+</style>

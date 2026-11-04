@@ -1,0 +1,77 @@
+---
+import { site } from '../data/site';
+
+const action = site.newsletterAction;
+---
+
+<section id="newsletter" class="wrap section">
+  <div class="box">
+    <p class="eyebrow tag"><span class="dot"></span> optimiza tu bandeja</p>
+    <h2 class="section-title">Un experimento nuevo cada semana, en tu correo.</h2>
+    <p class="text">Lo que probé, cuánto costó y qué funcionó. Más las plantillas de cada video.</p>
+
+    <form class="form" method="post" action={action || undefined} target="_blank">
+      <label for="email" class="sr-only">Tu correo</label>
+      <input id="email" name="email" type="email" required placeholder="tu@correo.com" autocomplete="email" />
+      <button type="submit" class="btn btn-primary" disabled={!action}>Suscribirme</button>
+    </form>
+    {!action && <p class="note mono">La newsletter abre pronto.</p>}
+  </div>
+</section>
+
+<style>
+  .box {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    text-align: center;
+  }
+  .tag {
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .text {
+    font-size: 17px;
+    color: var(--text-2);
+    max-width: 560px;
+  }
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    max-width: 520px;
+  }
+  input {
+    flex: 1 1 260px;
+    min-width: 0;
+    min-height: 48px;
+    background: var(--bg);
+    border: 1px solid var(--field-border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+    font-family: inherit;
+  }
+  input::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+  button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .note {
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>

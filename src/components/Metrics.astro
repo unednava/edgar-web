@@ -1,0 +1,47 @@
+---
+import { metrics } from '../data/site';
+---
+
+<section class="strip" aria-label="Experiencia en números">
+  <dl class="wrap grid">
+    {
+      metrics.map((m) => (
+        <div class="item">
+          <dt class="mono">{m.label}</dt>
+          <dd class:list={{ hl: m.highlight }}>{m.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
+
+<style>
+  .strip {
+    background: var(--bg-deep);
+    border-block: 1px solid var(--line-soft);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    padding-block: 32px;
+    margin: 0 auto;
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  dt {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  dd {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 700;
+  }
+  .hl {
+    color: var(--accent);
+  }
+</style>

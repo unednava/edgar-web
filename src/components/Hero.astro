@@ -1,0 +1,155 @@
+---
+import { site } from '../data/site';
+
+// Pasos de la demo animada. Cambia el ejemplo cuando tengas uno real tuyo.
+const steps = [
+  { tool: 'n8n', text: 'regla: CPA > objetivo' },
+  { tool: 'LLM', text: 'diagnóstico: fatiga creativa en 2 anuncios' },
+  { tool: 'Meta Ads', text: 'pausar anuncio_03' },
+];
+---
+
+<section class="wrap hero">
+  <div class="copy">
+    <p class="eyebrow tag"><span class="dot"></span> {site.tagline}</p>
+    <h1>{site.headline}</h1>
+    <p class="intro">{site.intro}</p>
+    <div class="ctas">
+      <a href="#newsletter" class="btn btn-primary">Suscribirme gratis</a>
+      <a href="#contenido" class="btn btn-ghost">Ver el contenido</a>
+    </div>
+  </div>
+
+  <figure class="panel mono" aria-label="Ejemplo: un flujo que detecta un CPA alto y pausa el anuncio">
+    <div class="panel-head">
+      <span>flujo: alerta-cpa.json</span>
+      <span>ejemplo</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <span>Campaña · Leads LATAM</span>
+        <span class="warn">CPA $4.80 → $7.20 ▲</span>
+      </div>
+      <hr />
+      {
+        steps.map((s, i) => (
+          <p class="step" style={`--i:${i + 1}`}>
+            <span aria-hidden="true">⏺ </span><span class="tool">{s.tool}</span> · {s.text}
+          </p>
+        ))
+      }
+      <p class="step done" style={`--i:${steps.length + 1}`}>✓ resumen enviado a tu correo</p>
+    </div>
+    <figcaption class="panel-foot">Tú duermes. La campaña se cuida sola.</figcaption>
+  </figure>
+</section>
+
+<style>
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: center;
+    padding-block: 88px 72px;
+  }
+  .copy {
+    flex: 1 1 460px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .tag {
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h1 {
+    font-size: clamp(40px, 6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .intro {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--text-2);
+    max-width: 560px;
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .panel {
+    flex: 1 1 420px;
+    min-width: 0;
+    margin: 0;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  .panel-head,
+  .panel-foot {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 18px;
+    color: var(--muted);
+  }
+  .panel-head {
+    border-bottom: 1px solid var(--line);
+  }
+  .panel-foot {
+    border-top: 1px solid var(--line);
+  }
+  .panel-body {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .warn {
+    color: var(--warn);
+  }
+  hr {
+    border: 0;
+    height: 1px;
+    background: var(--line);
+    margin: 0;
+  }
+  .step {
+    color: var(--text-2);
+    opacity: 0;
+    animation: appear 0.4s ease forwards;
+    animation-delay: calc(var(--i) * 0.7s);
+  }
+  .tool {
+    color: var(--link);
+  }
+  .done {
+    color: var(--accent);
+  }
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .step {
+      opacity: 1;
+    }
+  }
+</style>

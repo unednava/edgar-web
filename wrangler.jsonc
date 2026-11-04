@@ -1,0 +1,9 @@
+// Configuración de Cloudflare Workers (sitio estático, sin código de servidor).
+// Cloudflare sirve la carpeta dist/ que genera `npm run build`.
+{
+  "name": "edgar-navarro",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}

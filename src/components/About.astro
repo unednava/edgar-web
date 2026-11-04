@@ -1,0 +1,61 @@
+---
+import { brands } from '../data/site';
+---
+
+<section id="sobre-mi" class="wrap section about">
+  <div class="text">
+    <p class="eyebrow">sobre mí</p>
+    <h2 class="section-title">Soy Edgar. Hago paid media de día y automatizaciones de noche.</h2>
+    <p>
+      Llevo más de 7 años gestionando campañas en Google y Meta para marcas en LATAM, España y Estados Unidos. Hoy
+      soy Paid Media Specialist en 4Geeks Academy y uso n8n y modelos de IA para que el trabajo repetitivo se haga
+      solo.
+    </p>
+    <p>Aquí comparto lo que me funciona, lo que no, y cuánto cuesta. Sin humo.</p>
+  </div>
+  <div class="brands">
+    <p class="eyebrow">audiencias con las que he trabajado</p>
+    <ul>
+      {brands.map((b) => <li>{b}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+  }
+  .text {
+    flex: 2 1 480px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .text p:not(.eyebrow) {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--text-2);
+  }
+  .brands {
+    flex: 1 1 280px;
+    min-width: 0;
+  }
+  ul {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  li {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 15px;
+    color: #c4cddb;
+  }
+</style>

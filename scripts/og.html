@@ -1,0 +1,45 @@
+<!doctype html>
+<!--
+  Plantilla de la imagen Open Graph (public/og.png, 1200x630).
+  Para regenerarla: abre este archivo en Chrome, ventana de 1200x630,
+  y haz una captura (DevTools → "Capture screenshot"). O pídeselo a Claude.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    background: #0b111c; color: #e6ebf4;
+    font-family: 'IBM Plex Sans', sans-serif;
+    display: flex; flex-direction: column;
+  }
+  .bar {
+    font-family: 'IBM Plex Mono', monospace; font-size: 22px; color: #9aa6ba;
+    background: #080d16; border-bottom: 1px solid #1e2838;
+    padding: 22px 72px; display: flex; gap: 40px;
+  }
+  .bar b { color: #e6ebf4; font-weight: 500; }
+  .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #3ddc97; margin-right: 10px; vertical-align: 1px; }
+  .main { flex: 1; padding: 0 72px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+  .name { font-size: 34px; font-weight: 600; display: flex; align-items: center; }
+  .name .dot { width: 18px; height: 18px; margin-right: 16px; }
+  h1 { font-size: 88px; line-height: 1.04; letter-spacing: -0.02em; font-weight: 700; max-width: 1000px; }
+  .foot { font-family: 'IBM Plex Mono', monospace; font-size: 24px; color: #3ddc97; }
+  .foot span { color: #9aa6ba; }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <span>cuenta: <b>edgar-navarro</b></span>
+    <span><span class="dot"></span>estado: <b>activa</b></span>
+  </div>
+  <div class="main">
+    <p class="name"><span class="dot"></span>Edgar Navarro</p>
+    <h1>Marketing con IA que sí funciona.</h1>
+    <p class="foot">paid media · datos · automatización <span>— videos de 7 minutos</span></p>
+  </div>
+</body>
+</html>

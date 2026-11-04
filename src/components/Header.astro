@@ -1,0 +1,81 @@
+---
+import { site } from '../data/site';
+---
+
+<a href="#principal" class="skip-link">Saltar al contenido</a>
+
+<div class="account mono">
+  <div class="wrap account-row">
+    <span>cuenta: <b>edgar-navarro</b></span>
+    <span><span class="dot"></span> estado: <b>activa</b></span>
+    <span>presupuesto: <b>contenido gratis</b></span>
+  </div>
+</div>
+
+<header class="header">
+  <nav class="wrap nav" aria-label="Principal">
+    <a href="/" class="brand"><span class="dot brand-dot"></span>{site.name}</a>
+    <div class="links">
+      <a href="#contenido">Contenido</a>
+      <a href="#plantillas">Plantillas</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#newsletter" class="btn btn-primary">Newsletter</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .account {
+    background: var(--bg-deep);
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .account-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    padding-block: 10px;
+  }
+  .account b {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .header {
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 14px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .brand-dot {
+    width: 12px;
+    height: 12px;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    align-items: center;
+  }
+  .links a:not(.btn) {
+    color: #c4cddb;
+    text-decoration: none;
+  }
+  .links a:not(.btn):hover {
+    color: var(--text);
+  }
+</style>
