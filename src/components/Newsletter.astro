@@ -1,5 +1,5 @@
 ---
-import { site } from '../data/site';
+import { site, newsletter as nl } from '../data/site';
 import Icon from './Icon.astro';
 
 const action = site.newsletterAction;
@@ -8,8 +8,9 @@ const action = site.newsletterAction;
 <section id="newsletter" class="wrap section newsletter">
   <div class="box card">
     <span class="icon" aria-hidden="true"><Icon name="mail" size={26} /></span>
-    <h2 class="section-title">Un experimento nuevo cada semana, en tu correo.</h2>
-    <p class="lead">Lo que probé, cuánto costó y qué funcionó. Más las plantillas de cada video, gratis.</p>
+    <h2 class="section-title">{nl.title}</h2>
+    <p class="lead">{nl.text}</p>
+    <p class="invite">{nl.invite}</p>
 
     <form class="form" method="post" action={action || undefined} target="_blank">
       <label for="email" class="sr-only">Tu correo electrónico</label>
@@ -50,6 +51,12 @@ const action = site.newsletterAction;
   .lead {
     max-width: 46ch;
   }
+  .invite {
+    margin-top: 8px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
   .form {
     display: flex;
     flex-wrap: wrap;
@@ -57,7 +64,7 @@ const action = site.newsletterAction;
     justify-content: center;
     width: 100%;
     max-width: 520px;
-    margin-top: 12px;
+    margin-top: 4px;
   }
   input {
     flex: 1 1 260px;

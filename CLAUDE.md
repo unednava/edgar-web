@@ -48,6 +48,12 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 - Barra superior translúcida (desenfoque), sólida con `prefers-reduced-transparency`.
 - Monograma "EN" como logo y como avatar hasta que haya foto.
 - Todos los contrastes de texto ≥ 4.5:1 en ambos modos (valores en `global.css`).
+- Voz y estructura inspiradas en cómo comunica Vilma Núñez (adaptadas, no copiadas): saludo personal
+  al inicio, tuteo cercano, lema propio visible ("Lo que funciona, lo que no y cuánto cuesta"),
+  cada tema con su "qué" y su "cómo", recorrido real en pasos y newsletter como invitación ("¿Te sumas?").
+  Tono **modesto**: Edgar comparte lo que aprende; no se presenta como mentor ni gurú.
+  Sin mayúsculas de hype, sin ventas y sin cifras de audiencia que aún no existen.
+  Recorrido: solo hechos que Edgar confirmó (falta el nombre exacto de la agencia de conversión).
 
 ## Stack
 
@@ -67,13 +73,16 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Colores, tipografía, estilos base                | `src/styles/global.css`         |
 | Orden de las secciones                           | `src/pages/index.astro`         |
 | Tarjeta animada del inicio (números y pasos)     | `src/data/site.ts` → `heroExample` |
+| Saludo "Hola, soy Edgar" y lema                  | `src/data/site.ts` → `hello` |
+| Recorrido en "Sobre mí"                          | `src/data/site.ts` → `journey` |
+| Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |
 | Iconos                                           | `src/components/Icon.astro`     |
 | SEO, Open Graph, fuentes                         | `src/layouts/Base.astro`        |
 | URL pública (`site`), integraciones              | `astro.config.mjs`              |
 | Imagen Open Graph (1200×630)                     | `public/og.png`, plantilla en `scripts/og.html` |
 | Despliegue en Cloudflare                         | `wrangler.jsonc`                |
 
-Componentes en `src/components/`: Header, Hero, Metrics, Topics, Videos, Templates, About, Newsletter, Footer, Icon.
+Componentes en `src/components/`: Header, Hero, Hello, Metrics, Topics, Videos, Templates, About, Newsletter, Footer, Icon.
 
 ## Comandos
 

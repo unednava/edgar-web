@@ -10,8 +10,12 @@ const latest = videos.slice(0, 3);
 <section class="wrap section videos" aria-labelledby="videos-title">
   <div class="head">
     <div class="section-head">
-      <p class="kicker">{hasVideos ? 'Lo más reciente' : 'Muy pronto'}</p>
-      <h2 class="section-title" id="videos-title">{hasVideos ? 'Últimos videos' : 'Los primeros videos'}</h2>
+      <p class="kicker">Empieza gratis</p>
+      <h2 class="section-title" id="videos-title">Mira, copia y aplica. A tu ritmo.</h2>
+      <p class="lead">
+        {hasVideos ? 'Mis últimos videos' : 'Los primeros videos llegan muy pronto'}: 7 minutos para entender el qué. Y
+        las plantillas, justo debajo, para el cómo.
+      </p>
     </div>
     {
       site.social.youtube && (

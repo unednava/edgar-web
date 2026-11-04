@@ -17,7 +17,16 @@ import Icon from './Icon.astro';
             <Icon name={t.icon} size={26} />
           </span>
           <h3>{t.title}</h3>
-          <p class="desc">{t.description}</p>
+          <dl class="qa">
+            <div>
+              <dt>Qué vas a entender</dt>
+              <dd>{t.what}</dd>
+            </div>
+            <div>
+              <dt>Qué te llevas</dt>
+              <dd>{t.how}</dd>
+            </div>
+          </dl>
           <p class="tools">{t.tools}</p>
         </li>
       ))
@@ -56,7 +65,19 @@ import Icon from './Icon.astro';
     letter-spacing: -0.015em;
     font-weight: 700;
   }
-  .desc {
+  .qa {
+    margin: 4px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  dt {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  dd {
+    margin: 2px 0 0;
     color: var(--ink-2);
     font-size: 1.0625rem;
   }

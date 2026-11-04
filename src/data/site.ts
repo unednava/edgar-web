@@ -8,8 +8,14 @@ export interface Topic {
   id: string;
   icon: IconName;
   title: string;
-  description: string;
+  what: string; // el "qué": lo que vas a entender
+  how: string; // el "cómo": lo que te llevas para hacerlo
   tools: string;
+}
+
+export interface JourneyStep {
+  title: string;
+  text: string;
 }
 
 export interface Metric {
@@ -60,6 +66,17 @@ export const heroExample = {
   footnote: 'La regla vigila. Tú decides.',
 };
 
+// Bloque de saludo, justo después del inicio. Trato cercano y modesto.
+export const hello = {
+  title: 'Hola, soy Edgar.',
+  text: [
+    'Llevo más de 7 años haciendo campañas de publicidad para marcas de Latinoamérica, España y Estados Unidos.',
+    'Aquí te comparto lo que voy aprendiendo con la IA, explicado como se lo contaría a un amigo. No te voy a contar solo qué hacer: también te enseño cómo hacerlo.',
+  ],
+  mottoLabel: 'Mi regla para todo lo que publico',
+  motto: 'Lo que funciona, lo que no y cuánto cuesta.',
+};
+
 export const metrics: Metric[] = [
   { value: '7+', label: 'años creando campañas de publicidad' },
   { value: '3', label: 'mercados: Latinoamérica, España y EE. UU.' },
@@ -72,21 +89,24 @@ export const topics: Topic[] = [
     id: 'anuncios',
     icon: 'megaphone',
     title: 'Anuncios que rinden más',
-    description: 'Crea, prueba y mejora tus anuncios con ayuda de la IA, sin perder el control de lo que gastas.',
+    what: 'Cómo crear y mejorar tus anuncios con ayuda de la IA, sin perder el control de lo que gastas.',
+    how: 'Las instrucciones que uso para pedirle ideas a la IA y probarlas.',
     tools: 'Meta Ads · Google Ads',
   },
   {
     id: 'resultados',
     icon: 'chart',
     title: 'Entender tus resultados',
-    description: 'Qué números mirar, qué significan y cómo la IA te ayuda a encontrar lo que de verdad importa.',
+    what: 'Qué números mirar, qué significan y cuándo conviene preocuparse.',
+    how: 'Un tablero sencillo para ver tus campañas de un vistazo.',
     tools: 'Google Analytics · Looker Studio',
   },
   {
     id: 'tiempo',
     icon: 'clock',
     title: 'Recuperar tu tiempo',
-    description: 'Reportes y avisos que se preparan solos, para que tú te dediques a pensar en tu negocio.',
+    what: 'Qué tareas puede hacer la IA por ti y cuáles es mejor que sigas haciendo tú.',
+    how: 'Automatizaciones listas para importar, con cada paso explicado.',
     tools: 'Automatizaciones con IA',
   },
 ];
@@ -116,6 +136,32 @@ export const templates = {
       description: 'Para ver de un vistazo cómo van tus campañas.',
     },
   ] satisfies Included[],
+};
+
+// Mi recorrido, en "Sobre mí". Solo hechos reales.
+export const journey: JourneyStep[] = [
+  {
+    title: 'Empecé en una agencia de campañas de conversión',
+    text: 'Ahí aprendí a medir todo por resultados: clientes, ventas y registros. Eso marcó mi forma de trabajar.',
+  },
+  {
+    title: 'Más de 7 años con marcas de tres mercados',
+    text: 'Campañas en Google y Meta para Latinoamérica, España y Estados Unidos, bajando el costo por cliente más de un 20 %.',
+  },
+  {
+    title: 'Hoy, en 4Geeks Academy',
+    text: 'Trabajo como especialista en publicidad digital y uso la IA para que el trabajo repetitivo se haga solo.',
+  },
+  {
+    title: 'Y ahora, lo comparto contigo',
+    text: 'En videos cortos y plantillas gratis. Lo que funciona, lo que no y cuánto cuesta. Sin humo.',
+  },
+];
+
+export const newsletter = {
+  title: 'Cada semana, un experimento real en tu correo.',
+  text: 'Te cuento qué probé, cuánto costó y qué aprendí. Y te dejo la plantilla para que lo hagas tú.',
+  invite: '¿Te sumas?',
 };
 
 export const brands = [

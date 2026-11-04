@@ -1,22 +1,27 @@
 ---
-import { brands } from '../data/site';
+import { brands, journey } from '../data/site';
 ---
 
 <section id="sobre-mi" class="wrap section about">
-  <div class="intro">
-    <!-- Cuando tengas una foto, cámbiala aquí por <img src="/edgar.jpg" alt="Edgar Navarro" />. -->
-    <div class="avatar" aria-hidden="true">EN</div>
-    <div class="text">
-      <p class="kicker">Sobre mí</p>
-      <h2 class="section-title">Soy Edgar. Hago campañas de publicidad de día y automatizaciones de noche.</h2>
-      <p>
-        Llevo más de 7 años creando campañas en Google y Meta para marcas de Latinoamérica, España y Estados
-        Unidos. Hoy trabajo como especialista en publicidad digital en 4Geeks Academy y uso herramientas de IA para
-        que el trabajo repetitivo se haga solo.
-      </p>
-      <p>Aquí comparto lo que me funciona, lo que no y cuánto cuesta. Sin humo.</p>
-    </div>
+  <div class="section-head">
+    <p class="kicker">Sobre mí</p>
+    <h2 class="section-title">Cómo llegué hasta aquí.</h2>
+    <p class="lead">Hago campañas de publicidad de día y automatizaciones de noche.</p>
   </div>
+
+  <ol class="journey">
+    {
+      journey.map((step, i) => (
+        <li class="step">
+          <span class="num" aria-hidden="true">
+            {i + 1}
+          </span>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </li>
+      ))
+    }
+  </ol>
 
   <div class="brands">
     <p class="brands-title">Marcas con las que he trabajado</p>
@@ -30,39 +35,60 @@ import { brands } from '../data/site';
   .about {
     display: flex;
     flex-direction: column;
-    gap: 56px;
   }
-  .intro {
+  /* Recorrido: una línea que une los pasos */
+  .journey {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: clamp(24px, 5vw, 56px);
-    align-items: start;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    position: relative;
   }
-  .avatar {
-    display: grid;
-    place-items: center;
-    width: clamp(96px, 14vw, 160px);
-    aspect-ratio: 1;
-    border-radius: 32%;
-    background:
-      radial-gradient(120% 120% at 25% 15%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%),
-      var(--accent-soft);
-    color: var(--accent);
-    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    box-shadow: var(--shadow);
+  .journey::before {
+    content: '';
+    position: absolute;
+    top: 21px;
+    left: 22px;
+    right: 22px;
+    height: 2px;
+    background: var(--line);
   }
-  .text {
+  .step {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    max-width: 720px;
+    gap: 10px;
   }
-  .text p:not(.kicker) {
+  .num {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .step:last-child .num {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  h3 {
+    font-size: 1.125rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+  .step p {
     color: var(--ink-2);
-    font-size: 1.1875rem;
-    line-height: 1.7;
+    font-size: 1rem;
+  }
+  .brands {
+    margin-top: 64px;
   }
   .brands-title {
     font-size: 0.9375rem;
@@ -79,7 +105,7 @@ import { brands } from '../data/site';
     justify-content: center;
     gap: 10px;
   }
-  li {
+  ul li {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 999px;
@@ -88,9 +114,26 @@ import { brands } from '../data/site';
     font-weight: 500;
     color: var(--ink-2);
   }
-  @media (max-width: 640px) {
-    .intro {
+  @media (max-width: 880px) {
+    .journey {
       grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .journey::before {
+      top: 22px;
+      bottom: 22px;
+      left: 21px;
+      right: auto;
+      width: 2px;
+      height: auto;
+    }
+    .step {
+      padding-left: 64px;
+    }
+    .num {
+      position: absolute;
+      left: 0;
+      top: 0;
     }
   }
 </style>
