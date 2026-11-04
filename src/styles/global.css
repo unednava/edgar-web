@@ -1,9 +1,10 @@
 /*
-  Sistema visual: claro y cercano, con modo oscuro automático.
+  Sistema visual: claro y cercano. Modo claro por defecto; el oscuro se activa
+  con el botón del encabezado (atributo data-theme="dark" en <html>).
   Contrastes medidos (texto ≥ 4.5:1 en ambos modos; bordes de campos ≥ 3:1).
 */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   --bg: #f6f7f9;
   --surface: #ffffff;
@@ -28,8 +29,9 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+
+:root[data-theme='dark'] {
+    color-scheme: dark;
     --bg: #0b111c;
     --surface: #131c2b;
     --ink: #eef2f7;
@@ -45,7 +47,6 @@
     --header-bg: rgba(11, 17, 28, 0.72);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
     --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3), 0 24px 48px rgba(0, 0, 0, 0.35);
-  }
 }
 
 *,
@@ -67,6 +68,10 @@ body {
   font-size: 1.125rem; /* 18px: lectura cómoda para cualquier público */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  /* Cambio de tema suave, sin saltos bruscos de brillo */
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
 }
 
 a {

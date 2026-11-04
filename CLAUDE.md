@@ -36,7 +36,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 
 - Tono visual: **amigable y elegante**. Fondo claro `#f6f7f9`, tarjetas blancas con sombra suave,
   esquinas redondeadas (20 px), botones en forma de píldora.
-- Modo oscuro automático según el sistema (`prefers-color-scheme`): fondo `#0b111c`.
+- **Modo claro por defecto.** El oscuro (fondo `#0b111c`) se activa con el botón de luna/sol del
+  encabezado; se guarda la elección en el navegador (`localStorage`) y se aplica antes de pintar.
 - Color de marca: verde "activo" (`#0b7a52` en claro, `#3ddc97` en oscuro), usado con moderación:
   botón principal, iconos y estados. Naranja (`--warn`) solo para "el costo subió".
 - Tipografía única: **Plus Jakarta Sans** (Google Fonts), 18 px de base; títulos con tracking negativo.
@@ -125,7 +126,7 @@ npm run preview   # sirve dist/ en local
 - `apple-design-hig`: de Dick Wu (github.com/dickwu/apple-design-skill, commit ff4ebdd). Revisión de
   diseño con las Human Interface Guidelines de Apple. El texto de las HIG es de Apple; se omitió
   su script `scripts/pull-hig.mjs` (solo sirve para volver a descargarlas).
-- Son una referencia, no un mandato: **no sustituyen el concepto visual de Ads Manager** ni las
+- Son una referencia, no un mandato: **no sustituyen el concepto visual descrito arriba** ni las
   reglas de tono de este archivo. Cualquier propuesta que salga de ellas se consulta antes con Edgar.
 
 ## Accesibilidad (ya revisado; mantenerlo)

@@ -19,11 +19,14 @@ import { metrics } from '../data/site';
 <style>
   .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     margin: 0;
     padding: 8px;
   }
   .item {
+    min-width: 0;
+    overflow-wrap: break-word;
+    hyphens: auto;
     padding: 24px 24px 22px;
     display: flex;
     flex-direction: column;
@@ -51,13 +54,16 @@ import { metrics } from '../data/site';
   }
   @media (max-width: 880px) {
     .grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .item:nth-child(3) {
       border-left: 0;
     }
     .item:nth-child(n + 3) {
       border-top: 1px solid var(--line);
+    }
+    .item {
+      padding: 20px 16px;
     }
   }
 </style>

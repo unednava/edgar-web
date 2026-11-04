@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import Icon from './Icon.astro';
 ---
 
 <a href="#principal" class="skip-link">Saltar al contenido</a>
@@ -8,13 +9,17 @@ import { site } from '../data/site';
   <nav class="wrap nav" aria-label="Principal">
     <a href="/" class="brand">
       <span class="mark" aria-hidden="true">EN</span>
-      {site.name}
+      <span class="brand-name">{site.name}</span>
     </a>
     <div class="links">
       <a href="#aprende">Qué aprendes</a>
       <a href="#plantillas">Plantillas</a>
       <a href="#sobre-mi">Sobre mí</a>
     </div>
+    <button type="button" class="theme" id="theme-toggle" aria-label="Activar modo oscuro">
+      <span class="i-moon"><Icon name="moon" size={20} /></span>
+      <span class="i-sun"><Icon name="sun" size={20} /></span>
+    </button>
     <a href="#newsletter" class="btn btn-primary cta">Suscribirme</a>
   </nav>
 </header>
@@ -45,9 +50,11 @@ import { site } from '../data/site';
     font-weight: 700;
     font-size: 1.0625rem;
     letter-spacing: -0.01em;
+    white-space: nowrap;
     margin-right: auto;
   }
   .mark {
+    flex: none;
     display: grid;
     place-items: center;
     width: 36px;
@@ -77,9 +84,67 @@ import { site } from '../data/site';
     padding: 0 20px;
     font-size: 0.9375rem;
   }
+  .theme {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink-2);
+    cursor: pointer;
+    transition:
+      transform 160ms var(--ease-out),
+      color 200ms ease;
+  }
+  .theme:hover {
+    color: var(--ink);
+  }
+  .theme:active {
+    transform: scale(0.92);
+    transition-duration: 80ms;
+  }
+  .i-moon,
+  .i-sun {
+    display: grid;
+  }
+  .i-sun,
+  :global([data-theme='dark']) .i-moon {
+    display: none;
+  }
+  :global([data-theme='dark']) .i-sun {
+    display: grid;
+  }
   @media (max-width: 760px) {
     .links {
       display: none;
+    }
+  }
+  @media (max-width: 480px) {
+    .nav {
+      gap: 10px;
+      padding-inline: 16px;
+    }
+    .brand {
+      font-size: 1rem;
+      gap: 8px;
+    }
+    .cta {
+      padding: 0 16px;
+      font-size: 0.875rem;
+    }
+  }
+  /* En pantallas muy estrechas queda solo el monograma; el nombre sigue para lectores de pantalla */
+  @media (max-width: 359px) {
+    .brand-name {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
   }
   @media (prefers-reduced-transparency: reduce) {
@@ -90,3 +155,27 @@ import { site } from '../data/site';
     }
   }
 </style>
+
+<script>
+  const root = document.documentElement;
+  const button = document.getElementById('theme-toggle');
+  const meta = document.getElementById('theme-color');
+
+  function sync() {
+    const dark = root.dataset.theme === 'dark';
+    button?.setAttribute('aria-label', dark ? 'Activar modo claro' : 'Activar modo oscuro');
+    meta?.setAttribute('content', dark ? '#0b111c' : '#f6f7f9');
+  }
+
+  button?.addEventListener('click', () => {
+    const dark = root.dataset.theme !== 'dark';
+    if (dark) root.dataset.theme = 'dark';
+    else delete root.dataset.theme;
+    try {
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    } catch (e) {}
+    sync();
+  });
+
+  sync();
+</script>
