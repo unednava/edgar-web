@@ -3,18 +3,23 @@ import { brands } from '../data/site';
 ---
 
 <section id="sobre-mi" class="wrap section about">
-  <div class="text">
-    <p class="eyebrow">sobre mí</p>
-    <h2 class="section-title">Soy Edgar. Hago paid media de día y automatizaciones de noche.</h2>
-    <p>
-      Llevo más de 7 años gestionando campañas en Google y Meta para marcas en LATAM, España y Estados Unidos. Hoy
-      soy Paid Media Specialist en 4Geeks Academy y uso n8n y modelos de IA para que el trabajo repetitivo se haga
-      solo.
-    </p>
-    <p>Aquí comparto lo que me funciona, lo que no, y cuánto cuesta. Sin humo.</p>
+  <div class="intro">
+    <!-- Cuando tengas una foto, cámbiala aquí por <img src="/edgar.jpg" alt="Edgar Navarro" />. -->
+    <div class="avatar" aria-hidden="true">EN</div>
+    <div class="text">
+      <p class="kicker">Sobre mí</p>
+      <h2 class="section-title">Soy Edgar. Hago campañas de publicidad de día y automatizaciones de noche.</h2>
+      <p>
+        Llevo más de 7 años creando campañas en Google y Meta para marcas de Latinoamérica, España y Estados
+        Unidos. Hoy trabajo como especialista en publicidad digital en 4Geeks Academy y uso herramientas de IA para
+        que el trabajo repetitivo se haga solo.
+      </p>
+      <p>Aquí comparto lo que me funciona, lo que no y cuánto cuesta. Sin humo.</p>
+    </div>
   </div>
+
   <div class="brands">
-    <p class="eyebrow">marcas con las que he trabajado</p>
+    <p class="brands-title">Marcas con las que he trabajado</p>
     <ul>
       {brands.map((b) => <li>{b}</li>)}
     </ul>
@@ -24,24 +29,46 @@ import { brands } from '../data/site';
 <style>
   .about {
     display: flex;
-    flex-wrap: wrap;
-    gap: 48px;
+    flex-direction: column;
+    gap: 56px;
+  }
+  .intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(24px, 5vw, 56px);
+    align-items: start;
+  }
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: clamp(96px, 14vw, 160px);
+    aspect-ratio: 1;
+    border-radius: 32%;
+    background:
+      radial-gradient(120% 120% at 25% 15%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%),
+      var(--accent-soft);
+    color: var(--accent);
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    box-shadow: var(--shadow);
   }
   .text {
-    flex: 2 1 480px;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 18px;
+    max-width: 720px;
   }
-  .text p:not(.eyebrow) {
-    font-size: 18px;
-    line-height: 1.65;
-    color: var(--text-2);
+  .text p:not(.kicker) {
+    color: var(--ink-2);
+    font-size: 1.1875rem;
+    line-height: 1.7;
   }
-  .brands {
-    flex: 1 1 280px;
-    min-width: 0;
+  .brands-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-align: center;
   }
   ul {
     list-style: none;
@@ -49,13 +76,21 @@ import { brands } from '../data/site';
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    justify-content: center;
+    gap: 10px;
   }
   li {
+    background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 6px 14px;
-    font-size: 15px;
-    color: #c4cddb;
+    padding: 8px 18px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  @media (max-width: 640px) {
+    .intro {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

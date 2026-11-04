@@ -18,7 +18,7 @@ npm run build      # revisa tipos y genera /dist
 | Videos (añadir uno nuevo)            | `src/data/videos.ts`       |
 | Colores y tipografía                 | `src/styles/global.css`    |
 | Orden de las secciones               | `src/pages/index.astro`    |
-| Demo animada del hero                | `src/components/Hero.astro`|
+| Tarjeta animada del inicio           | `src/data/site.ts`         |
 | Contexto para Claude (tono, concepto)| `CLAUDE.md`                |
 
 Para añadir un video, copia el ejemplo comentado en `videos.ts` y pon el ID de YouTube.

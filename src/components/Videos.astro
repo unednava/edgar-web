@@ -1,22 +1,32 @@
 ---
 import { site } from '../data/site';
 import { videos, upcoming } from '../data/videos';
+import Icon from './Icon.astro';
 
 const hasVideos = videos.length > 0;
 const latest = videos.slice(0, 3);
 ---
 
-<section class="wrap section videos">
+<section class="wrap section videos" aria-labelledby="videos-title">
   <div class="head">
-    <h2 class="section-title">{hasVideos ? 'Últimos videos' : 'Próximos videos'}</h2>
-    {site.social.youtube && <a href={site.social.youtube}>Ver el canal en YouTube →</a>}
+    <div class="section-head">
+      <p class="kicker">{hasVideos ? 'Lo más reciente' : 'Muy pronto'}</p>
+      <h2 class="section-title" id="videos-title">{hasVideos ? 'Últimos videos' : 'Los primeros videos'}</h2>
+    </div>
+    {
+      site.social.youtube && (
+        <a class="channel" href={site.social.youtube}>
+          Ver el canal en YouTube <Icon name="arrow" size={18} />
+        </a>
+      )
+    }
   </div>
 
   <div class="grid">
     {
       hasVideos
         ? latest.map((v) => (
-            <a class="card" href={`https://www.youtube.com/watch?v=${v.youtubeId}`}>
+            <a class="video card" href={`https://www.youtube.com/watch?v=${v.youtubeId}`}>
               <img
                 src={`https://i.ytimg.com/vi/${v.youtubeId}/hqdefault.jpg`}
                 alt=""
@@ -24,22 +34,26 @@ const latest = videos.slice(0, 3);
                 height="270"
                 loading="lazy"
               />
-              <div class="body">
-                <span class="meta mono">
-                  ● {v.track} · {v.minutes} min
+              <span class="body">
+                <span class="meta">
+                  {v.topic} · {v.minutes} min
                 </span>
                 <span class="title">{v.title}</span>
-              </div>
+              </span>
             </a>
           ))
         : upcoming.map((v) => (
-            <div class="card">
-              <div class="thumb mono">próximamente</div>
-              <div class="body">
-                <span class="meta mono">● {v.track} · 7 min</span>
-                <span class="title">{v.title}</span>
+            <article class="video card">
+              <div class="thumb" aria-hidden="true">
+                <span class="play">
+                  <Icon name="play" size={22} />
+                </span>
               </div>
-            </div>
+              <div class="body">
+                <p class="meta">{v.topic} · Próximamente</p>
+                <h3 class="title">{v.title}</h3>
+              </div>
+            </article>
           ))
     }
   </div>
@@ -47,37 +61,42 @@ const latest = videos.slice(0, 3);
 
 <style>
   .videos {
-    padding-top: 24px;
+    padding-top: 0;
   }
   .head {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-end;
-    gap: 12px;
-    margin-bottom: 28px;
+    gap: 0 24px;
   }
-  .head a {
+  .channel {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
     text-decoration: none;
+    margin-bottom: 40px;
   }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
   }
-  .card {
+  .video {
     display: flex;
     flex-direction: column;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 14px;
     overflow: hidden;
-    color: var(--text);
+    color: var(--ink);
     text-decoration: none;
+    transition:
+      transform 240ms var(--ease-out),
+      box-shadow 240ms var(--ease-out);
   }
-  a.card:hover {
-    border-color: #33405a;
-    color: var(--text);
+  a.video:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    color: var(--ink);
   }
   img,
   .thumb {
@@ -87,25 +106,38 @@ const latest = videos.slice(0, 3);
     display: block;
   }
   .thumb {
-    background: #18233a;
     display: grid;
     place-items: center;
-    color: var(--muted);
-    font-size: 13px;
+    background:
+      radial-gradient(120% 90% at 20% 10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+      var(--accent-soft);
+  }
+  .play {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--accent);
+    box-shadow: var(--shadow);
+    padding-left: 3px;
   }
   .body {
-    padding: 18px;
+    padding: 20px 22px 24px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
   .meta {
-    font-size: 13px;
+    font-size: 0.875rem;
+    font-weight: 600;
     color: var(--accent);
   }
   .title {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 600;
-    line-height: 1.35;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
   }
 </style>

@@ -1,81 +1,93 @@
 ---
-import { featuredTemplate as t } from '../data/site';
+import { templates as t } from '../data/site';
+import Icon from './Icon.astro';
 ---
 
-<section id="plantillas" class="wrap section split">
-  <div class="copy">
-    <p class="eyebrow">plantillas · gratis con la newsletter</p>
-    <h2 class="section-title">{t.title}</h2>
-    <p class="text">{t.text}</p>
-    <a href="#newsletter" class="btn btn-primary">Quiero las plantillas</a>
-  </div>
+<section id="plantillas" class="section band">
+  <div class="wrap split">
+    <div class="copy">
+      <p class="kicker">Plantillas gratis con la newsletter</p>
+      <h2 class="section-title">{t.title}</h2>
+      <p class="lead">{t.text}</p>
+      <a href="#newsletter" class="btn btn-primary">Quiero las plantillas</a>
+    </div>
 
-  <div class="files" role="region" aria-label="Archivos incluidos en la plantilla" tabindex="0">
-    <p class="files-head mono">{t.folder} · incluido</p>
-    <table>
-      <tbody>
-        {
-          t.files.map((f) => (
-            <tr>
-              <td class="mono fname">{f.name}</td>
-              <td class="fdesc">{f.description}</td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
+    <ul class="list card" aria-label="Qué incluye cada plantilla">
+      {
+        t.included.map((f) => (
+          <li>
+            <span class="icon">
+              <Icon name={f.icon} size={22} />
+            </span>
+            <span>
+              <strong>{f.title}</strong>
+              <span class="desc">{f.description}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
 
 <style>
+  .band {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
   .split {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 72px);
     align-items: center;
   }
   .copy {
-    flex: 1 1 420px;
-    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 18px;
     align-items: flex-start;
+    gap: 18px;
   }
-  .text {
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--text-2);
+  .copy .btn {
+    margin-top: 8px;
   }
-  .files {
-    flex: 1 1 420px;
-    min-width: 0;
-    overflow-x: auto;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 14px;
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    background: var(--bg);
+    box-shadow: none;
   }
-  .files-head {
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--line);
-    font-size: 13px;
-    color: var(--muted);
+  li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 24px;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 15px;
-  }
-  td {
-    padding: 14px 18px;
-  }
-  tr + tr td {
+  li + li {
     border-top: 1px solid var(--line);
   }
-  .fname {
-    color: var(--link);
+  .icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent);
   }
-  .fdesc {
-    color: var(--text-2);
+  strong {
+    display: block;
+    font-weight: 600;
+    font-size: 1.0625rem;
+  }
+  .desc {
+    color: var(--ink-2);
+    font-size: 1rem;
+  }
+  @media (max-width: 880px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

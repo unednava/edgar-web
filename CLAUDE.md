@@ -30,15 +30,23 @@ Inspiración: fazt.dev (lo mismo, pero para desarrollo con IA).
 
 ## Concepto visual
 
-Metáfora del **Ads Manager** (como fazt.dev usa git y la terminal):
+Rediseño (nov. 2026), hecho con las skills `apple-design` y `apple-design-hig`.
+**El público no es técnico**: nada de referencias a programación (sin fuentes monoespaciadas,
+sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "paid media").
 
-- Barra superior de "cuenta activa" (`cuenta: edgar-navarro · estado: activa · presupuesto: contenido gratis`).
-- El contenido se presenta como "campañas activas" (tabla con estado `activa`).
-- Métricas con nombres tipo `nombre_de_metrica` en monoespaciada.
-- Demo animada en el hero: un flujo de n8n detecta un CPA alto → un LLM lo diagnostica →
-  se pausa el anuncio → se envía un resumen por correo. Respeta `prefers-reduced-motion`.
-- Modo oscuro: fondo `#0b111c`, acento verde "activo" `#3ddc97`.
-- Tipografías: IBM Plex Sans (texto) e IBM Plex Mono (datos/métricas), desde Google Fonts.
+- Tono visual: **amigable y elegante**. Fondo claro `#f6f7f9`, tarjetas blancas con sombra suave,
+  esquinas redondeadas (20 px), botones en forma de píldora.
+- Modo oscuro automático según el sistema (`prefers-color-scheme`): fondo `#0b111c`.
+- Color de marca: verde "activo" (`#0b7a52` en claro, `#3ddc97` en oscuro), usado con moderación:
+  botón principal, iconos y estados. Naranja (`--warn`) solo para "el costo subió".
+- Tipografía única: **Plus Jakarta Sans** (Google Fonts), 18 px de base; títulos con tracking negativo.
+- Elemento distintivo: la tarjeta del inicio que cuenta, en lenguaje sencillo, cómo la IA cuida
+  una campaña cuando sube el costo por cliente (los pasos aparecen uno a uno).
+- Movimiento sutil: aparición de esos pasos, botones que reaccionan al pulsar, tarjetas de video
+  que se elevan al pasar el ratón. Con `prefers-reduced-motion` todo aparece sin animación.
+- Barra superior translúcida (desenfoque), sólida con `prefers-reduced-transparency`.
+- Monograma "EN" como logo y como avatar hasta que haya foto.
+- Todos los contrastes de texto ≥ 4.5:1 en ambos modos (valores en `global.css`).
 
 ## Stack
 
@@ -57,13 +65,14 @@ Metáfora del **Ads Manager** (como fazt.dev usa git y la terminal):
 | Próximos videos (si `videos` está vacío)         | `src/data/videos.ts` → `upcoming` |
 | Colores, tipografía, estilos base                | `src/styles/global.css`         |
 | Orden de las secciones                           | `src/pages/index.astro`         |
-| Pasos de la demo animada                         | `src/components/Hero.astro`     |
+| Tarjeta animada del inicio (números y pasos)     | `src/data/site.ts` → `heroExample` |
+| Iconos                                           | `src/components/Icon.astro`     |
 | SEO, Open Graph, fuentes                         | `src/layouts/Base.astro`        |
 | URL pública (`site`), integraciones              | `astro.config.mjs`              |
 | Imagen Open Graph (1200×630)                     | `public/og.png`, plantilla en `scripts/og.html` |
 | Despliegue en Cloudflare                         | `wrangler.jsonc`                |
 
-Componentes en `src/components/`: Header, Hero, Metrics, Tracks, Videos, Templates, About, Newsletter, Footer.
+Componentes en `src/components/`: Header, Hero, Metrics, Topics, Videos, Templates, About, Newsletter, Footer, Icon.
 
 ## Comandos
 
@@ -121,8 +130,8 @@ npm run preview   # sirve dist/ en local
 
 ## Accesibilidad (ya revisado; mantenerlo)
 
-- Contraste de texto AA/AAA; borde del campo de correo `--field-border` a 3:1.
+- Contraste de texto AA/AAA en claro y oscuro; borde del campo de correo `--field-border` ≥ 3:1.
 - Foco visible (`:focus-visible` verde) y enlace "Saltar al contenido".
-- Tablas con scroll horizontal son regiones enfocables con teclado.
+- Los iconos son decorativos (`aria-hidden`); el texto de al lado da el significado.
 - Imágenes de video con `alt=""` porque el título ya está dentro del enlace.
 - En móvil (375 px) no debe haber scroll horizontal en la página.

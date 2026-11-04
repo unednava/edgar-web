@@ -1,0 +1,70 @@
+---
+import { topics } from '../data/site';
+import Icon from './Icon.astro';
+---
+
+<section id="aprende" class="wrap section">
+  <div class="section-head">
+    <p class="kicker">Qué vas a aprender</p>
+    <h2 class="section-title">Tres temas, un mismo objetivo: que tu publicidad dé resultados.</h2>
+  </div>
+
+  <ul class="grid">
+    {
+      topics.map((t) => (
+        <li class="topic card" id={t.id}>
+          <span class="icon">
+            <Icon name={t.icon} size={26} />
+          </span>
+          <h3>{t.title}</h3>
+          <p class="desc">{t.description}</p>
+          <p class="tools">{t.tools}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .topic {
+    padding: 32px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  h3 {
+    font-size: 1.3125rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+  .desc {
+    color: var(--ink-2);
+    font-size: 1.0625rem;
+  }
+  .tools {
+    margin-top: auto;
+    padding-top: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+</style>

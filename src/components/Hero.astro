@@ -1,155 +1,206 @@
 ---
-import { site } from '../data/site';
-
-// Pasos de la demo animada. Cambia el ejemplo cuando tengas uno real tuyo.
-const steps = [
-  { tool: 'n8n', text: 'regla: CPA > objetivo' },
-  { tool: 'LLM', text: 'diagnóstico: fatiga creativa en 2 anuncios' },
-  { tool: 'Meta Ads', text: 'pausar anuncio_03' },
-];
+import { site, heroExample as ex } from '../data/site';
+import Icon from './Icon.astro';
 ---
 
 <section class="wrap hero">
   <div class="copy">
-    <p class="eyebrow tag"><span class="dot"></span> {site.tagline}</p>
+    <p class="kicker pill"><span class="live" aria-hidden="true"></span>{site.kicker}</p>
     <h1>{site.headline}</h1>
     <p class="intro">{site.intro}</p>
     <div class="ctas">
       <a href="#newsletter" class="btn btn-primary">Suscribirme gratis</a>
-      <a href="#contenido" class="btn btn-ghost">Ver el contenido</a>
+      <a href="#aprende" class="btn btn-ghost">Ver qué aprendes</a>
     </div>
   </div>
 
-  <figure class="panel mono" aria-label="Ejemplo: un flujo que detecta un CPA alto y pausa el anuncio">
-    <div class="panel-head">
-      <span>flujo: alerta-cpa.json</span>
-      <span>ejemplo</span>
+  <figure class="demo card" aria-label="Ejemplo: cómo la IA cuida una campaña cuando sube el costo">
+    <div class="alert">
+      <p class="campaign">{ex.campaign}</p>
+      <p class="cost-label">Costo por cliente</p>
+      <p class="cost">
+        <span class="before">{ex.costBefore}</span>
+        <Icon name="arrow" size={18} />
+        <span class="after">{ex.costAfter}</span>
+        <span class="badge">Subió</span>
+      </p>
     </div>
-    <div class="panel-body">
-      <div class="row">
-        <span>Campaña · Leads LATAM</span>
-        <span class="warn">CPA $4.80 → $7.20 ▲</span>
-      </div>
-      <hr />
+
+    <ol class="steps">
       {
-        steps.map((s, i) => (
-          <p class="step" style={`--i:${i + 1}`}>
-            <span aria-hidden="true">⏺ </span><span class="tool">{s.tool}</span> · {s.text}
-          </p>
+        ex.steps.map((s, i) => (
+          <li class="step" style={`--i:${i}`}>
+            <span class="tick" aria-hidden="true">
+              <Icon name="check" size={16} />
+            </span>
+            <span>
+              <strong>{s.title}</strong>
+              <span class="step-text">{s.text}</span>
+            </span>
+          </li>
         ))
       }
-      <p class="step done" style={`--i:${steps.length + 1}`}>✓ resumen enviado a tu correo</p>
-    </div>
-    <figcaption class="panel-foot">La regla vigila. Tú decides.</figcaption>
+    </ol>
+
+    <figcaption class="note">{ex.footnote}</figcaption>
   </figure>
 </section>
 
 <style>
   .hero {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 56px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(40px, 6vw, 72px);
     align-items: center;
-    padding-block: 88px 72px;
+    padding-block: clamp(48px, 8vw, 96px) clamp(56px, 8vw, 96px);
   }
   .copy {
-    flex: 1 1 460px;
-    min-width: 0;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 24px;
+    min-width: 0;
   }
-  .tag {
-    color: var(--accent);
-    display: flex;
+  .pill {
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 6px 14px 6px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+  }
+  .live {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
   }
   h1 {
-    font-size: clamp(40px, 6vw, 60px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    text-wrap: balance;
   }
   .intro {
-    font-size: 20px;
-    line-height: 1.55;
-    color: var(--text-2);
-    max-width: 560px;
+    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+    color: var(--ink-2);
+    max-width: 34ch;
   }
   .ctas {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+    margin-top: 4px;
   }
-  .panel {
-    flex: 1 1 420px;
-    min-width: 0;
+
+  /* Tarjeta de ejemplo */
+  .demo {
     margin: 0;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    overflow: hidden;
-    font-size: 14px;
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
+    min-width: 0;
   }
-  .panel-head,
-  .panel-foot {
-    display: flex;
-    justify-content: space-between;
-    padding: 14px 18px;
+  .alert {
+    background: var(--warn-soft);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .campaign {
+    font-size: 0.875rem;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  .cost-label {
+    margin-top: 14px;
+    font-size: 0.875rem;
     color: var(--muted);
   }
-  .panel-head {
-    border-bottom: 1px solid var(--line);
-  }
-  .panel-foot {
-    border-top: 1px solid var(--line);
-  }
-  .panel-body {
-    padding: 18px;
+  .cost {
     display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .row {
-    display: flex;
+    align-items: center;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px;
+    gap: 10px;
+    color: var(--ink-2);
   }
-  .warn {
+  .before {
+    font-size: 1.25rem;
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+  .after {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     color: var(--warn);
   }
-  hr {
-    border: 0;
-    height: 1px;
-    background: var(--line);
+  .badge {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--warn);
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .steps {
+    list-style: none;
     margin: 0;
+    padding: 18px 16px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
   .step {
-    color: var(--text-2);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 1rem;
+    line-height: 1.45;
     opacity: 0;
-    animation: appear 0.4s ease forwards;
-    animation-delay: calc(var(--i) * 0.7s);
+    transform: translateY(6px);
+    animation: appear 560ms var(--ease-out) forwards;
+    animation-delay: calc(500ms + var(--i) * 700ms);
   }
-  .tool {
-    color: var(--link);
+  .step strong {
+    display: block;
+    font-weight: 600;
   }
-  .done {
+  .step-text {
+    color: var(--ink-2);
+  }
+  .tick {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-top: 1px;
+  }
+  .note {
+    margin: 10px 8px 4px;
+    padding: 14px 14px 10px;
+    border-top: 1px solid var(--line);
+    font-size: 0.9375rem;
+    font-weight: 600;
     color: var(--accent);
   }
   @keyframes appear {
-    from {
-      opacity: 0;
-      transform: translateY(4px);
-    }
     to {
       opacity: 1;
       transform: none;
     }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .step {
-      opacity: 1;
+
+  @media (max-width: 880px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+    .intro {
+      max-width: none;
     }
   }
 </style>

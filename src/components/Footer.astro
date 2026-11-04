@@ -13,18 +13,16 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="wrap row">
-    <span>© {year} {site.name} · Marketing con IA, con datos</span>
+    <span>© {year} {site.name} · Marketing con IA, explicado fácil</span>
     <nav class="links" aria-label="Redes">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
-    <span class="mono status">estado: <span class="dot"></span> todo en producción</span>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: var(--bg-deep);
-    border-top: 1px solid var(--line-soft);
+    border-top: 1px solid var(--line);
   }
   .row {
     display: flex;
@@ -32,22 +30,20 @@ const year = new Date().getFullYear();
     gap: 16px 32px;
     justify-content: space-between;
     align-items: center;
-    padding-block: 32px;
-    font-size: 14px;
+    padding-block: 32px 40px;
+    font-size: 0.9375rem;
     color: var(--muted);
   }
   .links {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 24px;
   }
   .links a {
+    font-weight: 600;
     text-decoration: none;
   }
-  .status {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .links a:hover {
+    text-decoration: underline;
   }
 </style>

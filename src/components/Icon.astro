@@ -1,0 +1,41 @@
+---
+// Iconos de línea, en SVG dentro de la página (sin librerías externas).
+// Son decorativos: el texto de al lado ya explica lo que significan.
+import type { IconName } from '../data/site';
+
+interface Props {
+  name: IconName | 'check' | 'arrow' | 'mail' | 'play';
+  size?: number;
+}
+
+const { name, size = 24 } = Astro.props;
+
+const paths: Record<Props['name'], string> = {
+  megaphone: 'M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z M15.5 8.5a5 5 0 0 1 0 7 M18.5 5.5a9 9 0 0 1 0 13',
+  chart: 'M4 20V10 M10 20V4 M16 20v-7 M22 20H2',
+  clock: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z M12 6v6l4 2',
+  bolt: 'M13 2 4 14h7l-1 8 9-12h-7l1-8Z',
+  sparkle: 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z',
+  table: 'M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5Z M3 9h18 M3 15h18 M9 3v18',
+  layout: 'M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5Z M3 9h18 M9 21V9',
+  check: 'M20 6 9 17l-5-5',
+  arrow: 'M5 12h14 M13 6l6 6-6 6',
+  mail: 'M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6Z M3 7l9 6 9-6',
+  play: 'M7 4v16l13-8L7 4Z',
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d={paths[name]}></path>
+</svg>

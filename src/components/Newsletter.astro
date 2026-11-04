@@ -1,46 +1,54 @@
 ---
 import { site } from '../data/site';
+import Icon from './Icon.astro';
 
 const action = site.newsletterAction;
 ---
 
-<section id="newsletter" class="wrap section">
-  <div class="box">
-    <p class="eyebrow tag"><span class="dot"></span> optimiza tu bandeja</p>
+<section id="newsletter" class="wrap section newsletter">
+  <div class="box card">
+    <span class="icon" aria-hidden="true"><Icon name="mail" size={26} /></span>
     <h2 class="section-title">Un experimento nuevo cada semana, en tu correo.</h2>
-    <p class="text">Lo que probé, cuánto costó y qué funcionó. Más las plantillas de cada video.</p>
+    <p class="lead">Lo que probé, cuánto costó y qué funcionó. Más las plantillas de cada video, gratis.</p>
 
     <form class="form" method="post" action={action || undefined} target="_blank">
-      <label for="email" class="sr-only">Tu correo</label>
+      <label for="email" class="sr-only">Tu correo electrónico</label>
       <input id="email" name="email" type="email" required placeholder="tu@correo.com" autocomplete="email" />
       <button type="submit" class="btn btn-primary" disabled={!action}>Suscribirme</button>
     </form>
-    {!action && <p class="note mono">La newsletter abre pronto.</p>}
+    <p class="note">{action ? 'Sin spam. Te das de baja cuando quieras.' : 'La newsletter abre pronto.'}</p>
   </div>
 </section>
 
 <style>
+  .newsletter {
+    padding-top: 0;
+  }
   .box {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 48px 32px;
+    padding: clamp(40px, 6vw, 64px) clamp(24px, 5vw, 48px);
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     align-items: center;
     text-align: center;
+    box-shadow: var(--shadow-lg);
   }
-  .tag {
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    background: var(--accent-soft);
     color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    margin-bottom: 4px;
   }
-  .text {
-    font-size: 17px;
-    color: var(--text-2);
-    max-width: 560px;
+  .section-title {
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  .lead {
+    max-width: 46ch;
   }
   .form {
     display: flex;
@@ -49,18 +57,18 @@ const action = site.newsletterAction;
     justify-content: center;
     width: 100%;
     max-width: 520px;
+    margin-top: 12px;
   }
   input {
     flex: 1 1 260px;
     min-width: 0;
-    min-height: 48px;
-    background: var(--bg);
+    min-height: 52px;
+    background: var(--surface);
     border: 1px solid var(--field-border);
-    color: var(--text);
-    border-radius: 8px;
-    padding: 0 16px;
-    font-size: 16px;
-    font-family: inherit;
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 0 22px;
+    font: 400 1rem var(--font);
   }
   input::placeholder {
     color: var(--muted);
@@ -69,9 +77,13 @@ const action = site.newsletterAction;
   button:disabled {
     opacity: 0.55;
     cursor: not-allowed;
+    box-shadow: none;
+  }
+  button:disabled:active {
+    transform: none;
   }
   .note {
-    font-size: 13px;
+    font-size: 0.9375rem;
     color: var(--muted);
   }
 </style>
