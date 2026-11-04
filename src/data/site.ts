@@ -180,7 +180,7 @@ export const brands: Brand[] = [
   { name: 'Rainforest Adventures', logo: '/logos/rainforest-adventures.webp', square: true },
   { name: 'Honeywell', logo: '/logos/honeywell.webp' },
   { name: 'Avior Airlines', logo: '/logos/avior.webp', background: '#c81414' },
-  { name: 'Banesco', logo: '/logos/banesco.webp' },
+  { name: '4Geeks Academy', logo: '/logos/4geeks.webp' },
   { name: "Domino's Pizza", logo: '/logos/dominos.svg', square: true },
   { name: 'Coca-Cola FEMSA', logo: '/logos/coca-cola-femsa.webp' },
 ];
