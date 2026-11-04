@@ -45,7 +45,7 @@ Metáfora del **Ads Manager** (como fazt.dev usa git y la terminal):
 - Astro 7 + TypeScript strict, sitio 100 % estático (`output: 'static'`).
 - Sin frameworks de UI, sin Tailwind. CSS propio con variables en `src/styles/global.css`.
 - Única integración: `@astrojs/sitemap`.
-- Node 22.23.4 (fijado en `.node-version`; Astro 7 exige ≥ 22.23.4).
+- Node 24.18.0 (fijado en `.node-version`). Es el que trae preinstalado Workers Builds; Astro 7 exige ≥ 22.23.4.
 
 ## Dónde se edita cada cosa
 
