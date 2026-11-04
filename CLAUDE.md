@@ -109,6 +109,16 @@ npm run preview   # sirve dist/ en local
    confirmar que el servicio espera ese nombre (Kit usa `email_address`).
 4. Mientras esté vacía, el botón aparece desactivado con "La newsletter abre pronto".
 
+## Skills de diseño instaladas (`.claude/skills/`)
+
+- `apple-design`: de Emil Kowalski (github.com/emilkowalski/skills, commit f1090be, licencia MIT).
+  Movimiento fluido, transiciones, tipografía y reduced-motion en la web.
+- `apple-design-hig`: de Dick Wu (github.com/dickwu/apple-design-skill, commit ff4ebdd). Revisión de
+  diseño con las Human Interface Guidelines de Apple. El texto de las HIG es de Apple; se omitió
+  su script `scripts/pull-hig.mjs` (solo sirve para volver a descargarlas).
+- Son una referencia, no un mandato: **no sustituyen el concepto visual de Ads Manager** ni las
+  reglas de tono de este archivo. Cualquier propuesta que salga de ellas se consulta antes con Edgar.
+
 ## Accesibilidad (ya revisado; mantenerlo)
 
 - Contraste de texto AA/AAA; borde del campo de correo `--field-border` a 3:1.
