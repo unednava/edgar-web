@@ -147,7 +147,7 @@ export const journey: JourneyStep[] = [
   },
   {
     title: 'Más de 7 años con marcas de tres mercados',
-    text: 'Campañas en Google y Meta para Latinoamérica, España y Estados Unidos, bajando el costo por cliente más de un 20 %.',
+    text: 'Campañas en Google y Meta para Latinoamérica, España y Estados Unidos, bajando el costo por cliente más de un 20 %.',
   },
   {
     title: 'Hoy, en 4Geeks Academy',
@@ -165,12 +165,22 @@ export const newsletter = {
   invite: '¿Te sumas?',
 };
 
-export const brands = [
-  'Rainforest Adventure',
-  'Honeywell',
-  'Avior Airlines',
-  'Banesco',
-  "Domino's Pizza",
-  'Coca-Cola FEMSA',
-  'Cruz Roja',
+// Marcas con las que Edgar ha trabajado. Logos sacados de la web oficial de cada marca
+// (noviembre de 2026) y guardados en public/logos/. Edgar confirmó que puede mostrarlos.
+// Cruz Roja se quitó: su emblema está protegido y requiere autorización expresa.
+// `background` solo cuando la marca publica su logo en blanco (va sobre su color de marca).
+export interface Brand {
+  name: string;
+  logo: string;
+  background?: string;
+  square?: boolean; // logos cuadrados: se muestran algo más altos para igualar su peso visual
+}
+
+export const brands: Brand[] = [
+  { name: 'Rainforest Adventures', logo: '/logos/rainforest-adventures.webp', square: true },
+  { name: 'Honeywell', logo: '/logos/honeywell.webp' },
+  { name: 'Avior Airlines', logo: '/logos/avior.webp', background: '#c81414' },
+  { name: 'Banesco', logo: '/logos/banesco.webp' },
+  { name: "Domino's Pizza", logo: '/logos/dominos.svg', square: true },
+  { name: 'Coca-Cola FEMSA', logo: '/logos/coca-cola-femsa.webp' },
 ];

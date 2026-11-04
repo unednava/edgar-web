@@ -25,8 +25,14 @@ import { brands, journey } from '../data/site';
 
   <div class="brands">
     <p class="brands-title">Marcas con las que he trabajado</p>
-    <ul>
-      {brands.map((b) => <li>{b}</li>)}
+    <ul class="logos">
+      {
+        brands.map((b) => (
+          <li class:list={['logo', { tinted: b.background, square: b.square }]} style={b.background ? `--brand-bg:${b.background}` : undefined}>
+            <img src={b.logo} alt={b.name} loading="lazy" decoding="async" />
+          </li>
+        ))
+      }
     </ul>
   </div>
 </section>
@@ -98,23 +104,59 @@ import { brands, journey } from '../data/site';
     color: var(--muted);
     text-align: center;
   }
-  ul {
+  /* Logos sobre tarjetas blancas en ambos modos: así se ven con sus colores originales */
+  .logos {
     list-style: none;
-    margin: 16px 0 0;
+    margin: 20px 0 0;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
   }
-  ul li {
-    background: var(--surface);
+  .logo {
+    display: grid;
+    place-items: center;
+    height: 96px;
+    padding: 16px 20px;
+    background: #ffffff;
     border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 8px 18px;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--ink-2);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    transition:
+      transform 240ms var(--ease-out),
+      box-shadow 240ms var(--ease-out);
+  }
+  .logo:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .logo.tinted {
+    background: var(--brand-bg);
+    border-color: transparent;
+  }
+  .logo img {
+    display: block;
+    max-width: 100%;
+    max-height: 44px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .logo.square img {
+    max-height: 64px;
+  }
+  @media (max-width: 960px) {
+    .logos {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 480px) {
+    .logos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .logo {
+      height: 84px;
+    }
   }
   @media (max-width: 880px) {
     .journey {

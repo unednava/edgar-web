@@ -49,6 +49,10 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   que se elevan al pasar el ratón. Con `prefers-reduced-motion` todo aparece sin animación.
 - Barra superior translúcida (desenfoque), sólida con `prefers-reduced-transparency`.
 - Monograma "EN" como logo y como avatar hasta que haya foto.
+- Logos de marcas en "Sobre mí", con sus colores originales sobre tarjetas blancas (en ambos modos).
+  Sacados de la web oficial de cada marca; Edgar confirmó que puede mostrarlos. Avior solo publica su
+  logo en blanco, por eso va sobre su rojo de marca (`#c81414`). **Cruz Roja no aparece**: su emblema
+  está protegido (Convenios de Ginebra) y requiere autorización expresa.
 - Todos los contrastes de texto ≥ 4.5:1 en ambos modos (valores en `global.css`).
 - Voz y estructura inspiradas en cómo comunica Vilma Núñez (adaptadas, no copiadas): saludo personal
   al inicio, tuteo cercano, lema propio visible ("Lo que funciona, lo que no y cuánto cuesta"),
@@ -77,6 +81,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Textos de la animación del inicio                | `src/data/site.ts` → `heroExample` (la gráfica y sus tiempos en `Hero.astro`) |
 | Saludo "Hola, soy Edgar" y lema                  | `src/data/site.ts` → `hello` |
 | Recorrido en "Sobre mí"                          | `src/data/site.ts` → `journey` |
+| Logos de marcas (archivos en `public/logos/`)    | `src/data/site.ts` → `brands` |
 | Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |
 | Iconos                                           | `src/components/Icon.astro`     |
 | SEO, Open Graph, fuentes                         | `src/layouts/Base.astro`        |
