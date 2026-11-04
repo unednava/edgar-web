@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://edgar-web.edgar14np.workers.dev/sitemap-index.xml
+Sitemap: https://web.edgar14np.workers.dev/sitemap-index.xml

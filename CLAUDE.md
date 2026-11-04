@@ -81,8 +81,8 @@ npm run preview   # sirve dist/ en local
 - Hosting: **Cloudflare Workers con static assets** (gratis), conectado al repo de GitHub
   mediante Workers Builds. Cada `git push` a `main` compila y publica sola la web.
 - En el panel de Cloudflare: build command `npm run build`, deploy command `npx wrangler deploy`.
-- Worker: `edgar-web` (cuenta edgar14np@gmail.com). URL pública: https://edgar-web.edgar14np.workers.dev
-- El `name` de `wrangler.jsonc` tiene que coincidir con el nombre del Worker en Cloudflare (`edgar-web`).
+- Worker: `web` (cuenta edgar14np@gmail.com). URL pública: https://web.edgar14np.workers.dev
+- El `name` de `wrangler.jsonc` tiene que coincidir con el nombre del Worker en Cloudflare (`web`).
 - `wrangler.jsonc` indica que se sirva `./dist`. Wrangler no está en las dependencias:
   Cloudflare lo descarga al desplegar.
 - Si cambia la URL pública (dominio propio), actualiza `site` en `astro.config.mjs`
@@ -91,7 +91,7 @@ npm run preview   # sirve dist/ en local
 ## Dominio propio (preparado, no activado)
 
 1. Comprar el dominio en Cloudflare Registrar (queda ya en la misma cuenta).
-2. Workers & Pages → el worker `edgar-web` → Settings → Domains & Routes → Add → Custom domain →
+2. Workers & Pages → el worker `web` → Settings → Domains & Routes → Add → Custom domain →
    escribir el dominio (p. ej. `edgarnavarro.com`). Cloudflare crea el DNS y el certificado.
 3. Opcional: añadir también `www.` y redirigirlo al dominio principal (Rules → Redirect Rules).
 4. Cambiar `site` en `astro.config.mjs` y la línea `Sitemap:` en `public/robots.txt`, commit y push.
