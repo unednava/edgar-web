@@ -30,7 +30,8 @@ export const site = {
     'Paid media, datos y automatización en videos de 7 minutos. Lo construyo en pantalla, con números reales, y te dejo el flujo listo para importar.',
 
   social: {
-    youtube: 'https://www.youtube.com/',
+    // Deja vacío lo que aún no exista: el enlace se oculta solo.
+    youtube: '',
     linkedin: 'https://www.linkedin.com/in/edgnavarros',
     instagram: '',
     tiktok: '',

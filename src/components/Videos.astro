@@ -9,7 +9,7 @@ const latest = videos.slice(0, 3);
 <section class="wrap section videos">
   <div class="head">
     <h2 class="section-title">{hasVideos ? 'Últimos videos' : 'Próximos videos'}</h2>
-    <a href={site.social.youtube}>Ver el canal en YouTube →</a>
+    {site.social.youtube && <a href={site.social.youtube}>Ver el canal en YouTube →</a>}
   </div>
 
   <div class="grid">
