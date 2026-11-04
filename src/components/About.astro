@@ -35,6 +35,8 @@ import { brands, journey } from '../data/site';
   .about {
     display: flex;
     flex-direction: column;
+    /* Va justo después del saludo: menos aire arriba para que se lean juntos */
+    padding-top: clamp(40px, 6vw, 64px);
   }
   /* Recorrido: una línea que une los pasos */
   .journey {
