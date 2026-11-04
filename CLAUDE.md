@@ -39,10 +39,12 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 - **Modo claro por defecto.** El oscuro (fondo `#0b111c`) se activa con el botón de luna/sol del
   encabezado; se guarda la elección en el navegador (`localStorage`) y se aplica antes de pintar.
 - Color de marca: verde "activo" (`#0b7a52` en claro, `#3ddc97` en oscuro), usado con moderación:
-  botón principal, iconos y estados. Naranja (`--warn`) solo para "el costo subió".
+  botón principal, iconos y estados. Naranja (`--warn`) solo para "algo deja de funcionar" en la animación del inicio.
 - Tipografía única: **Plus Jakarta Sans** (Google Fonts), 18 px de base; títulos con tracking negativo.
-- Elemento distintivo: la tarjeta del inicio que cuenta, en lenguaje sencillo, cómo la IA cuida
-  una campaña cuando sube el costo por cliente (los pasos aparecen uno a uno).
+- Elemento distintivo: la tarjeta animada del inicio, "Así cuida la IA una campaña". Una gráfica
+  de clientes por semana (SVG propio, sin librerías) se dibuja sola: baja (1), la IA pausa lo que
+  falla (2) y se recupera (3); cada paso de la lista se ilumina a su tiempo y hay botón para repetir.
+  **Sin dinero, precios ni signos de moneda**: Edgar no quiere que parezca que cobra algo.
 - Movimiento sutil: aparición de esos pasos, botones que reaccionan al pulsar, tarjetas de video
   que se elevan al pasar el ratón. Con `prefers-reduced-motion` todo aparece sin animación.
 - Barra superior translúcida (desenfoque), sólida con `prefers-reduced-transparency`.
@@ -72,7 +74,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Próximos videos (si `videos` está vacío)         | `src/data/videos.ts` → `upcoming` |
 | Colores, tipografía, estilos base                | `src/styles/global.css`         |
 | Orden de las secciones                           | `src/pages/index.astro`         |
-| Tarjeta animada del inicio (números y pasos)     | `src/data/site.ts` → `heroExample` |
+| Textos de la animación del inicio                | `src/data/site.ts` → `heroExample` (la gráfica y sus tiempos en `Hero.astro`) |
 | Saludo "Hola, soy Edgar" y lema                  | `src/data/site.ts` → `hello` |
 | Recorrido en "Sobre mí"                          | `src/data/site.ts` → `journey` |
 | Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |

@@ -53,15 +53,16 @@ export const site = {
   newsletterAction: '',
 } as const;
 
-// Ejemplo de la tarjeta animada del inicio. Cambia los números cuando tengas un caso real tuyo.
+// Animación del inicio: una gráfica de clientes por semana que se dibuja sola.
+// Sin dinero ni precios: solo la historia de lo que hace la IA. Cada paso aparece
+// cuando la línea llega a su punto (1, 2 y 3 en la gráfica).
 export const heroExample = {
-  campaign: 'Campaña de clientes · Latinoamérica',
-  costBefore: '$4,80',
-  costAfter: '$7,20',
+  title: 'Así cuida la IA una campaña',
+  chartLabel: 'Clientes que llegan cada semana',
   steps: [
-    { title: 'La IA revisa qué pasó', text: 'La gente ya se cansó de ver los mismos dos anuncios.' },
-    { title: 'Se pausa lo que no funciona', text: 'El anuncio que más gasta sin resultados deja de salir.' },
-    { title: 'Te llega un resumen', text: 'Qué cambió, por qué y cuánto te ahorraste. A tu correo.' },
+    { title: 'Algo deja de funcionar', text: 'Llegan menos clientes: la gente ya se cansó de ver los mismos anuncios.' },
+    { title: 'La IA lo nota y pausa lo que falla', text: 'El anuncio cansado deja de salir y el presupuesto va a los que sí funcionan.' },
+    { title: 'Te llega un resumen', text: 'Qué cambió y por qué, en tu correo. La decisión final es tuya.' },
   ],
   footnote: 'La regla vigila. Tú decides.',
 };
