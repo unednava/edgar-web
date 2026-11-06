@@ -7,5 +7,8 @@
     "directory": "./dist",
     // Las direcciones que no existen muestran dist/404.html (con estado 404).
     "not_found_handling": "404-page"
-  }
+  },
+  // Vistas previas: cada rama distinta de main se publica en una dirección de prueba aparte
+  // (`npx wrangler preview`). El bloque puede ir vacío; no afecta a la web publicada.
+  "previews": {}
 }
