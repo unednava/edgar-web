@@ -185,8 +185,11 @@ Substack** (no un formulario dentro de la web) y un **enlace "Blog"** en el men�
 
 Descartado a propósito: el formulario incrustado de Substack (iframe con su estilo, no respeta el
 diseño ni el modo oscuro) y el envío del correo a su API no documentada (puede romperse sin aviso).
-Mostrar los últimos artículos en la web es posible con el RSS de Substack, pero solo se
-actualizaría al volver a publicar la web; Edgar prefirió el enlace.
+
+**Sección "Lo último del blog"** (`src/components/Blog.astro`, datos en `src/data/blog.ts`), entre
+la tienda y la newsletter: muestra los 3 últimos artículos. Se llena sola leyendo el RSS de
+Substack (`<dirección>/feed`) al compilar, o con `manualPosts` si se quieren elegir a mano.
+Solo se actualiza al volver a publicar la web (un push a main). Sin artículos, no aparece.
 
 ## Tienda de recursos (`/recursos`, preparada, sin productos aún)
 

@@ -1,0 +1,130 @@
+---
+// Últimos artículos del blog (Substack). No aparece mientras no haya artículos.
+import { blog, getPosts, formatDate } from '../data/blog';
+import { substack } from '../data/site';
+import Icon from './Icon.astro';
+
+const posts = await getPosts();
+---
+
+{
+  posts.length > 0 && (
+    <section id="blog" class="wrap section blog" aria-labelledby="blog-title">
+      <div class="head">
+        <h2 class="section-title" id="blog-title">
+          {blog.title}
+        </h2>
+        {substack && (
+          <a class="all" href={substack.home} target="_blank" rel="noopener">
+            Ver todos en Substack <Icon name="arrow" size={18} />
+          </a>
+        )}
+      </div>
+      <p class="lead">{blog.intro}</p>
+
+      <ol class="posts">
+        {posts.map((p) => (
+          <li class:list={['post', { 'has-cover': p.cover }]}>
+            <div class="text">
+              {p.date && <time datetime={p.date}>{formatDate(p.date)}</time>}
+              <h3>
+                <a href={p.url} target="_blank" rel="noopener">
+                  {p.title}
+                </a>
+              </h3>
+              {p.excerpt && <p class="excerpt">{p.excerpt}</p>}
+            </div>
+            {p.cover && <img src={p.cover} alt="" width="320" height="180" loading="lazy" decoding="async" />}
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}
+
+<style>
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px 24px;
+    margin-bottom: 12px;
+  }
+  .all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .lead {
+    max-width: 640px;
+  }
+  .posts {
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .post {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px 32px;
+    align-items: center;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .post.has-cover {
+    grid-template-columns: minmax(0, 1fr) 220px;
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 720px;
+  }
+  time {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  h3 {
+    font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  /* Toda la fila es clicable */
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .post:hover h3 a {
+    text-decoration: underline;
+    text-decoration-color: var(--hl);
+    text-decoration-thickness: 3px;
+  }
+  .excerpt {
+    color: var(--ink-2);
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+  @media (max-width: 640px) {
+    .post.has-cover {
+      grid-template-columns: 1fr;
+    }
+    img {
+      order: -1;
+    }
+  }
+</style>
