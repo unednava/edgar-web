@@ -46,9 +46,12 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   Piezas en uso (`public/collage/`): bombilla con estrellas (inicio, asomando sobre la tarjeta),
   mano con pluma (sobre el lema de "Sobre mí"), megáfono / lupa / cerebro (temas de "De qué
   hablo", definidos en `topics[].cutout`), pila de libros ("Junto a cada video"), bocadillo con
-  boca (newsletter) y hombre con bombilla (404). Las 17 piezas recortadas están en
-  `assets-src/collage/` (no se publica): microscopio, balanza, ADN, puño, globo, estrella azul,
-  rayos, etc. Salen de una lámina de collage que **Edgar compró / tiene licencia** para usar.
+  boca (newsletter) y hombre con bombilla (404).
+  **Biblioteca de recortes:** `assets-src/collage/` (no se publica), 82 piezas de 6 láminas en
+  `lamina-1/` … `lamina-6/`, con `catalogo-lamina-N.webp` para verlas de un vistazo y un
+  `README.md` con todos los nombres (megáfonos, lupas, manos, móviles, laptops, cámaras, trofeo,
+  reloj, cohete, Mona Lisa, mujer con lupa, etc.). Edgar **tiene licencia** de las láminas; se
+  excluyeron 3 piezas con marca de agua de bancos de imágenes (detalle en ese README).
   `main` tiene `overflow-x: clip` para que ningún recorte cause scroll horizontal.
 - **Que no parezca hecha con IA ni con plantilla** (revisión de nov. 2026). No volver a meter:
   etiquetas tipo píldora con punto encima del título; texto verde pequeño encima de cada sección;
@@ -124,7 +127,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Página de error                                  | `src/pages/404.astro`           |
 | Productos de la tienda y número de WhatsApp      | `src/data/shop.ts`              |
 | Logos de marcas (archivos en `public/logos/`)    | `src/data/site.ts` → `brands` |
-| Recortes de collage                              | `public/collage/` (todas las piezas en `assets-src/collage/`) |
+| Recortes de collage                              | `public/collage/` (biblioteca completa en `assets-src/collage/`, ver su README) |
 | Palabra con tira amarilla en el titular          | `src/data/site.ts` → `site.headlineHighlight` |
 | Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |
 | Iconos                                           | `src/components/Icon.astro`     |
