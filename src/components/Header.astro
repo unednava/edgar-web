@@ -9,7 +9,7 @@ import Icon from './Icon.astro';
 <header class="header">
   <nav class="wrap nav" aria-label="Principal">
     <a href="/" class="brand">
-      <img class="mark" src="/edgar/cara.webp" alt="" width="36" height="36" />
+      <span class="mark" aria-hidden="true">EN</span>
       <span class="brand-name">{site.name}</span>
     </a>
     <div class="links">
@@ -71,10 +71,16 @@ import Icon from './Icon.astro';
   }
   .mark {
     flex: none;
-    display: block;
+    display: grid;
+    place-items: center;
     width: 36px;
     height: 36px;
-    border-radius: 50%;
+    border-radius: 11px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
   }
   .links {
     display: flex;

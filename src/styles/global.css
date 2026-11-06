@@ -155,12 +155,6 @@ p {
   box-shadow: var(--shadow);
 }
 
-/* Ilustraciones de Edgar: en modo oscuro, un contorno claro sutil para que el pelo y la
-   camisa negros no se pierdan sobre el fondo */
-:root[data-theme='dark'] .illus {
-  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
-}
-
 .sr-only {
   position: absolute;
   width: 1px;

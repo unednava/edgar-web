@@ -1,9 +1,8 @@
 <!doctype html>
 <!--
   Plantilla de la imagen para redes (public/og.png, 1200x630).
-  Usa las ilustraciones de public/edgar/. Para regenerarla: abre este archivo en Chrome
-  con una ventana de 1200x630 y haz una captura (DevTools → "Capture screenshot").
-  O pídeselo a Claude.
+  Para regenerarla: abre este archivo en Chrome con una ventana de 1200x630
+  y haz una captura (DevTools → "Capture screenshot"). O pídeselo a Claude.
 -->
 <html lang="es">
 <head>
@@ -11,27 +10,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   * { box-sizing: border-box; margin: 0; }
-  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  html, body { width: 1200px; height: 630px; }
   body {
-    position: relative;
     background: #f6f7f9; color: #142033;
     font-family: 'Plus Jakarta Sans', sans-serif;
     padding: 72px 80px; display: flex; flex-direction: column; justify-content: space-between;
+    background-image: radial-gradient(80% 90% at 100% 0%, #e3f3eb 0%, transparent 60%);
   }
   .brand { display: flex; align-items: center; gap: 18px; font-size: 32px; font-weight: 700; }
-  .brand img { width: 64px; height: 64px; border-radius: 50%; }
-  h1 { font-size: 76px; line-height: 1.04; letter-spacing: -0.035em; font-weight: 800; max-width: 680px; }
-  h1 .dot { margin-left: -0.08em; }
-  .sub { font-size: 30px; font-weight: 500; color: #46536a; max-width: 540px; }
-  .circle { position: absolute; right: 10px; bottom: -170px; width: 500px; height: 500px; border-radius: 50%; background: #e3f3eb; }
-  .figure { position: absolute; right: 40px; bottom: 0; height: 520px; }
+  .mark { width: 60px; height: 60px; border-radius: 18px; background: #0b7a52; color: #fff; display: grid; place-items: center; font-size: 22px; font-weight: 700; }
+  h1 { font-size: 96px; line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; }
+  .pill { align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; background: #e3f3eb; color: #0b7a52; font-size: 28px; font-weight: 600; padding: 12px 26px 12px 20px; border-radius: 999px; }
+  .pill i { width: 12px; height: 12px; border-radius: 50%; background: #0b7a52; display: inline-block; }
 </style>
 </head>
 <body>
-  <div class="circle"></div>
-  <img class="figure" src="../public/edgar/brazos-cruzados.webp" alt="" />
-  <div class="brand"><img src="../public/edgar/cara.webp" alt="" />Edgar Navarro</div>
-  <h1>Marketing con IA que sí funciona<span class="dot">.</span></h1>
-  <p class="sub">Videos cortos, con números reales y sin tecnicismos</p>
+  <div class="brand"><span class="mark">EN</span>Edgar Navarro</div>
+  <h1>Marketing con IA<br />que sí funciona.</h1>
+  <p class="pill"><i></i>Videos cortos, con números reales y sin tecnicismos</p>
 </body>
 </html>

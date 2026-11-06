@@ -7,19 +7,9 @@ import Footer from '../components/Footer.astro';
 <Base title="Página no encontrada · Edgar Navarro" description="Esta página no existe.">
   <Header />
   <main id="principal" class="wrap missing">
-    <div class="text">
-      <h1>Esta página no existe</h1>
-      <p>Puede que el enlace esté mal escrito o que la haya movido.</p>
-      <a href="/" class="btn btn-primary">Volver al inicio</a>
-    </div>
-    <img
-      class="illus"
-      src="/edgar/brazos-cruzados.webp"
-      alt=""
-      width="391"
-      height="640"
-      decoding="async"
-    />
+    <h1>Esta página no existe</h1>
+    <p>Puede que el enlace esté mal escrito o que la haya movido.</p>
+    <a href="/" class="btn btn-primary">Volver al inicio</a>
   </main>
   <Footer />
 </Base>
@@ -27,17 +17,12 @@ import Footer from '../components/Footer.astro';
 <style>
   .missing {
     min-height: 60vh;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 32px;
-    padding-block: 72px;
-  }
-  .text {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: flex-start;
     gap: 16px;
+    padding-block: 96px;
   }
   h1 {
     font-size: clamp(2rem, 5vw, 3rem);
@@ -50,19 +35,5 @@ import Footer from '../components/Footer.astro';
   }
   .btn {
     margin-top: 8px;
-  }
-  img {
-    display: block;
-    height: 320px;
-    width: auto;
-  }
-  @media (max-width: 640px) {
-    .missing {
-      grid-template-columns: 1fr;
-    }
-    img {
-      height: 220px;
-      justify-self: center;
-    }
   }
 </style>
