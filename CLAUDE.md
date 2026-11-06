@@ -45,8 +45,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   que "revelan", eslóganes vacíos ("Sin humo", "A tu ritmo"). Los títulos de sección van sin punto.
   **Nunca prometer en presente lo que aún no existe** (videos, plantillas, newsletter): en futuro.
   Lo que más humaniza la web y falta: una foto real de Edgar y un caso real con sus números.
-- Mientras `newsletterAction` esté vacía, los botones principales llevan a LinkedIn (`primaryCta`
-  en `site.ts`) y la sección de newsletter dice que arranca pronto; al pegar la URL cambia sola.
+- Mientras `site.substack` esté vacío, los botones principales llevan a LinkedIn (`primaryCta`
+  en `site.ts`) y la sección de newsletter dice que arranca pronto; al pegar la dirección cambia sola.
 - **Modo claro por defecto.** El oscuro (fondo `#0b111c`) se activa con el botón de luna/sol del
   encabezado; se guarda la elección en el navegador (`localStorage`) y se aplica antes de pintar.
 - Color de marca: verde "activo" (`#0b7a52` en claro, `#3ddc97` en oscuro), usado con moderación:
@@ -86,7 +86,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Qué                                              | Archivo                         |
 |--------------------------------------------------|---------------------------------|
 | Todos los textos, marcas y redes                 | `src/data/site.ts`              |
-| URL del formulario de la newsletter              | `src/data/site.ts` → `newsletterAction` |
+| Dirección de Substack (blog y newsletter)        | `src/data/site.ts` → `site.substack` |
 | Videos (añadir al principio de la lista)         | `src/data/videos.ts`            |
 | Próximos videos (si `videos` está vacío)         | `src/data/videos.ts` → `upcoming` |
 | Colores, tipografía, estilos base                | `src/styles/global.css`         |
@@ -141,17 +141,25 @@ npm run preview   # sirve dist/ en local
 4. Cambiar `site` en `astro.config.mjs` y la línea `Sitemap:` en `public/robots.txt`, commit y push.
 5. Opcional: desactivar la URL `*.workers.dev` en Settings → Domains & Routes para evitar contenido duplicado.
 
-## Newsletter (preparado, no activado)
+## Blog y newsletter: Substack (preparado, falta la dirección)
 
-1. Crear cuenta gratis en Buttondown, Kit o Beehiiv.
-2. Copiar la URL `action` del formulario HTML embebido (el `<form action="...">`).
-   - Buttondown: `https://buttondown.com/api/emails/embed-subscribe/<usuario>`
-   - Kit: `https://app.kit.com/forms/<id>/subscriptions`
-   - Beehiiv: usa el formulario embebido de "Subscribe forms"; si solo da un iframe, habrá que adaptar
-     `Newsletter.astro` (pregúntale antes a Edgar).
-3. Pegarla en `newsletterAction` dentro de `src/data/site.ts`. El campo se llama `email`;
-   confirmar que el servicio espera ese nombre (Kit usa `email_address`).
-4. Mientras esté vacía, el botón aparece desactivado con "La newsletter abre pronto".
+Edgar eligió **Substack** para el blog y la newsletter (nov. 2026), con un **botón que lleva a
+Substack** (no un formulario dentro de la web) y un **enlace "Blog"** en el menú y el pie.
+
+1. Edgar crea su publicación en substack.com.
+2. Se pega la dirección en `site.substack` (`src/data/site.ts`), p. ej. `'edgarnavarro.substack.com'`
+   (con o sin `https://`; también vale un dominio propio). Commit y push.
+3. Al tener dirección, cambia todo solo:
+   - Botones principales (inicio y encabezado): "Suscribirme" → `<dirección>/subscribe`.
+   - Sección newsletter: título, texto, "¿Te sumas?" y botón "Suscribirme en Substack".
+   - Enlace "Blog" en el menú (oculto en móvil) y en el pie → `<dirección>`.
+   - Datos para buscadores (`sameAs`) incluyen el Substack.
+4. Mientras esté vacía: botones a LinkedIn, "La newsletter arranca pronto" y sin enlace "Blog".
+
+Descartado a propósito: el formulario incrustado de Substack (iframe con su estilo, no respeta el
+diseño ni el modo oscuro) y el envío del correo a su API no documentada (puede romperse sin aviso).
+Mostrar los últimos artículos en la web es posible con el RSS de Substack, pero solo se
+actualizaría al volver a publicar la web; Edgar prefirió el enlace.
 
 ## Skills de diseño instaladas (`.claude/skills/`)
 

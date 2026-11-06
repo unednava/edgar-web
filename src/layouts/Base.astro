@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { site } from '../data/site';
+import { site, substack } from '../data/site';
 
 interface Props {
   title?: string;
@@ -20,7 +20,7 @@ const personJsonLd = JSON.stringify({
   url: Astro.site?.href,
   jobTitle: 'Especialista en publicidad digital',
   worksFor: { '@type': 'Organization', name: '4Geeks Academy' },
-  sameAs: Object.values(site.social).filter(Boolean),
+  sameAs: [...Object.values(site.social), substack?.home ?? ''].filter(Boolean),
 });
 ---
 

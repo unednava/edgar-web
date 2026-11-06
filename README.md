@@ -14,23 +14,24 @@ npm run build      # revisa tipos y genera /dist
 
 | Qué quieres cambiar                  | Archivo                    |
 |--------------------------------------|----------------------------|
-| Textos, métricas, marcas, redes      | `src/data/site.ts`         |
+| Todos los textos, marcas y redes     | `src/data/site.ts`         |
+| Dirección de Substack                | `src/data/site.ts` → `site.substack` |
 | Videos (añadir uno nuevo)            | `src/data/videos.ts`       |
 | Colores y tipografía                 | `src/styles/global.css`    |
 | Orden de las secciones               | `src/pages/index.astro`    |
-| Tarjeta animada del inicio           | `src/data/site.ts`         |
 | Contexto para Claude (tono, concepto)| `CLAUDE.md`                |
 
 Para añadir un video, copia el ejemplo comentado en `videos.ts` y pon el ID de YouTube.
-Cuando haya al menos uno, la sección cambia sola de "Próximos videos" a "Últimos videos".
+Cuando haya al menos uno, la sección cambia sola de "Los primeros videos" a "Últimos videos".
 
-## Newsletter
+## Blog y newsletter (Substack)
 
-1. Crea una cuenta gratis en Buttondown, Kit o Beehiiv.
-2. Copia la URL `action` de su formulario HTML embebido.
-3. Pégala en `newsletterAction` dentro de `src/data/site.ts`.
+1. Crea tu publicación gratis en substack.com.
+2. Pega su dirección en `site.substack` dentro de `src/data/site.ts`
+   (por ejemplo `'edgarnavarro.substack.com'`).
 
-Mientras esté vacía, el botón aparece desactivado con el texto "La newsletter abre pronto".
+Al hacerlo, los botones pasan a "Suscribirme" y aparece el enlace "Blog".
+Mientras esté vacía, los botones llevan a LinkedIn y la newsletter dice que arranca pronto.
 
 ## Publicar en Cloudflare (gratis)
 

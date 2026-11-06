@@ -37,15 +37,27 @@ export const site = {
     tiktok: '',
   },
 
-  // Pega aquí la URL "action" del formulario de tu servicio de newsletter
-  // (Buttondown, Kit, Beehiiv...). Mientras esté vacía, los botones de la web
-  // llevan a LinkedIn en lugar de a un formulario que todavía no funciona.
-  newsletterAction: '',
+  // Blog y newsletter: Substack. Pega aquí la dirección de tu publicación cuando la tengas,
+  // por ejemplo 'edgarnavarro.substack.com' (con o sin https://; también vale un dominio propio).
+  // Mientras esté vacía: los botones llevan a LinkedIn, la newsletter dice que arranca pronto
+  // y no aparece el enlace "Blog". Al pegarla, todo cambia solo.
+  substack: '',
 } as const;
 
-// Botón principal de la web: cambia solo cuando la newsletter esté activa.
-export const primaryCta = site.newsletterAction
-  ? { label: 'Suscribirme gratis', short: 'Suscribirme', href: '/#newsletter', external: false }
+// Dirección de Substack normalizada (https://, sin barra final), o null si aún no hay.
+function normalizeUrl(raw: string): string | null {
+  const value = raw.trim().replace(/\/+$/, '');
+  if (!value) return null;
+  return /^https?:\/\//.test(value) ? value : `https://${value}`;
+}
+
+const substackUrl = normalizeUrl(site.substack);
+
+export const substack = substackUrl ? { home: substackUrl, subscribe: `${substackUrl}/subscribe` } : null;
+
+// Botón principal de la web: lleva a suscribirse en Substack, o a LinkedIn mientras no exista.
+export const primaryCta = substack
+  ? { label: 'Suscribirme gratis', short: 'Suscribirme', href: substack.subscribe, external: true }
   : { label: 'Sígueme en LinkedIn', short: 'Sígueme', href: site.social.linkedin, external: true };
 
 // Animación del inicio: una gráfica de clientes por semana que se dibuja sola.
@@ -130,7 +142,7 @@ export const extras = {
 };
 
 export const newsletter = {
-  // Mientras `newsletterAction` esté vacía se muestran los textos "soon".
+  // Mientras `site.substack` esté vacío se muestran los textos "soon".
   title: 'Una vez por semana, en tu correo',
   soonTitle: 'La newsletter arranca pronto',
   text: 'Cada semana te escribo sobre algo que probé en mis campañas y lo que me costó, haya funcionado o no.',

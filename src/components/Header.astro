@@ -1,5 +1,5 @@
 ---
-import { site, primaryCta as cta } from '../data/site';
+import { site, primaryCta as cta, substack } from '../data/site';
 import Icon from './Icon.astro';
 ---
 
@@ -15,6 +15,13 @@ import Icon from './Icon.astro';
       <a href="/#sobre-mi">Sobre mí</a>
       <a href="/#aprende">De qué hablo</a>
       <a href="/#videos">Videos</a>
+      {
+        substack && (
+          <a href={substack.home} target="_blank" rel="noopener">
+            Blog
+          </a>
+        )
+      }
     </div>
     <button type="button" class="theme" id="theme-toggle" aria-label="Activar modo oscuro">
       <span class="i-moon"><Icon name="moon" size={20} /></span>

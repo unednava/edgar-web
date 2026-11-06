@@ -1,30 +1,23 @@
 ---
-import { site, newsletter as nl } from '../data/site';
+import { site, newsletter as nl, substack } from '../data/site';
 
-// Mientras no haya formulario de newsletter, la sección lo dice con honestidad
-// y ofrece LinkedIn. Al pegar la URL en `newsletterAction`, aparece el formulario.
-const action = site.newsletterAction;
+// Newsletter en Substack. Mientras no haya dirección (`site.substack`), la sección dice
+// con honestidad que arranca pronto y ofrece LinkedIn; al pegarla, aparece el botón.
 ---
 
 <section id="newsletter" class="wrap section newsletter">
   <div class="box">
-    <h2 class="section-title">{action ? nl.title : nl.soonTitle}</h2>
-    <p class="lead">{action ? nl.text : nl.soonText}</p>
+    <h2 class="section-title">{substack ? nl.title : nl.soonTitle}</h2>
+    <p class="lead">{substack ? nl.text : nl.soonText}</p>
 
     {
-      action ? (
+      substack ? (
         <>
           <p class="invite">{nl.invite}</p>
-          <form class="form" method="post" action={action} target="_blank">
-            <label for="email" class="sr-only">
-              Tu correo electrónico
-            </label>
-            <input id="email" name="email" type="email" required placeholder="tu@correo.com" autocomplete="email" />
-            <button type="submit" class="btn btn-primary">
-              Suscribirme
-            </button>
-          </form>
-          <p class="note">Sin spam. Te das de baja cuando quieras.</p>
+          <a class="btn btn-primary" href={substack.subscribe} target="_blank" rel="noopener">
+            Suscribirme en Substack
+          </a>
+          <p class="note">Es gratis y te das de baja cuando quieras.</p>
         </>
       ) : (
         <a class="btn btn-primary" href={site.social.linkedin} target="_blank" rel="noopener">
@@ -55,7 +48,7 @@ const action = site.newsletterAction;
   .lead {
     max-width: 52ch;
   }
-  .box > .btn {
+  .btn {
     margin-top: 8px;
   }
   .invite {
@@ -64,27 +57,8 @@ const action = site.newsletterAction;
     font-weight: 700;
     letter-spacing: -0.01em;
   }
-  .form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 100%;
-    max-width: 520px;
-  }
-  input {
-    flex: 1 1 260px;
-    min-width: 0;
-    min-height: 52px;
-    background: var(--bg);
-    border: 1px solid var(--field-border);
-    color: var(--ink);
-    border-radius: 999px;
-    padding: 0 22px;
-    font: 400 1rem var(--font);
-  }
-  input::placeholder {
-    color: var(--muted);
-    opacity: 1;
+  .invite + .btn {
+    margin-top: 0;
   }
   .note {
     font-size: 0.9375rem;

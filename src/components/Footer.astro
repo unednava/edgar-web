@@ -1,7 +1,8 @@
 ---
-import { site } from '../data/site';
+import { site, substack } from '../data/site';
 
 const links = [
+  { label: 'Blog', href: substack?.home ?? '' },
   { label: 'YouTube', href: site.social.youtube },
   { label: 'LinkedIn', href: site.social.linkedin },
   { label: 'Instagram', href: site.social.instagram },
@@ -14,7 +15,7 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="wrap row">
     <span>© {year} {site.name}</span>
-    <nav class="links" aria-label="Redes">
+    <nav class="links" aria-label="Blog y redes">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
   </div>
