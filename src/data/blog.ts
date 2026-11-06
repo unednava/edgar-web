@@ -23,7 +23,27 @@ export const blog = {
   maxPosts: 3,
 };
 
-export const manualPosts: Post[] = [];
+// VISTA PREVIA: artículos de ejemplo (no existen; esta rama nunca se publica en main)
+export const manualPosts: Post[] = [
+  {
+    title: 'Le pedí a la IA 20 anuncios: cuántos funcionaron y cuánto me costó probarlos',
+    url: '#blog',
+    date: '2026-11-20',
+    excerpt: 'Probé las ideas de la IA con un presupuesto pequeño durante dos semanas. Te cuento cuáles se quedaron, cuáles no y por qué.',
+  },
+  {
+    title: 'El reporte que me ahorra tres horas cada lunes',
+    url: '#blog',
+    date: '2026-11-13',
+    excerpt: 'Cómo junté Meta y Google en un solo tablero que se actualiza solo, y qué números miro primero.',
+  },
+  {
+    title: 'Mi costo por cliente subió un 40 % y así lo detecté a tiempo',
+    url: '#blog',
+    date: '2026-11-06',
+    excerpt: 'La señal que me avisó antes de que se notara en el presupuesto, y lo que cambié para recuperarlo.',
+  },
+];
 
 // ---- Lectura del RSS de Substack (no hace falta tocarlo) ----
 

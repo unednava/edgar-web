@@ -21,7 +21,7 @@ export interface Product {
 export const shop = {
   // Número de WhatsApp para pagos en bolívares, con código de país, p. ej. '+58 412 1234567'.
   // Mientras esté vacío, el botón "Pagar en bolívares" no aparece.
-  whatsapp: '',
+  whatsapp: '+58 412 0000000', // VISTA PREVIA: número ficticio
   title: 'Recursos',
   intro: 'Plantillas y guías que uso en mis propias campañas, listas para que las adaptes a la tuya.',
   howToBuy: [
@@ -37,6 +37,45 @@ export const shop = {
 };
 
 export const products: Product[] = [
+  // VISTA PREVIA: productos de ejemplo (no existen; esta rama nunca se publica en main)
+  {
+    id: 'alerta-costo',
+    title: 'Alerta de costo por cliente',
+    format: 'Automatización',
+    description: 'Te avisa cuando una campaña se encarece y te sugiere qué anuncio pausar.',
+    includes: ['La automatización lista para importar', 'Guía paso a paso en PDF', 'Video de instalación'],
+    priceUsd: 19,
+    gumroad: 'https://gumroad.com',
+    featured: true,
+  },
+  {
+    id: 'reporte-semanal',
+    title: 'Reporte semanal de Meta y Google',
+    format: 'Plantilla',
+    description: 'Un tablero que junta tus dos cuentas y se actualiza solo cada lunes.',
+    includes: ['Plantilla de Looker Studio', 'Instrucciones para conectar tus cuentas'],
+    priceUsd: 12.5,
+    gumroad: 'https://gumroad.com',
+    featured: true,
+  },
+  {
+    id: 'guia-instrucciones',
+    title: 'Instrucciones para pedirle anuncios a la IA',
+    format: 'Guía en PDF',
+    description: 'Los textos exactos que uso para generar ideas de anuncios y cómo los pruebo.',
+    priceUsd: 0,
+    gumroad: 'https://gumroad.com',
+    featured: true,
+  },
+  {
+    id: 'checklist-campana',
+    title: 'Checklist antes de lanzar una campaña',
+    format: 'Guía en PDF',
+    description: 'Lo que reviso siempre antes de gastar el primer dólar en una campaña nueva.',
+    includes: ['Checklist imprimible', 'Ejemplos de errores comunes'],
+    priceUsd: 7,
+    gumroad: 'https://gumroad.com',
+  },
   // Ejemplo (copia este bloque y cambia los datos):
   // {
   //   id: 'alerta-cpa',

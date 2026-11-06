@@ -8,7 +8,9 @@ interface Props {
   noindex?: boolean; // páginas que no deben aparecer en buscadores (p. ej. la tienda vacía)
 }
 
-const { title = site.title, description = site.description, noindex = false } = Astro.props;
+// VISTA PREVIA: todas las páginas con noindex (esta rama nunca se publica en main).
+const { title = site.title, description = site.description } = Astro.props;
+const noindex = true;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Imagen para redes (1200×630). Se regenera desde scripts/og.html.
 const ogImage = new URL('/og.png', Astro.site).href;
@@ -72,6 +74,12 @@ const personJsonLd = JSON.stringify({
     />
   </head>
   <body>
+    <p
+      style="margin:0;padding:10px 16px;background:#141414;color:#fcd812;font:600 14px/1.4 var(--font);text-align:center"
+    >
+      Vista previa con datos de ejemplo: los productos, los artículos y el número de WhatsApp no son
+      reales.
+    </p>
     <slot />
   </body>
 </html>
