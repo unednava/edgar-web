@@ -94,7 +94,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   cada tema con su "qué" y su "cómo", recorrido real en pasos y newsletter como invitación ("¿Te sumas?").
   Tono **modesto**: Edgar comparte lo que aprende; no se presenta como mentor ni gurú.
   Sin mayúsculas de hype, sin ventas y sin cifras de audiencia que aún no existen.
-  Recorrido: solo hechos que Edgar confirmó (falta el nombre exacto de la agencia de conversión).
+  Recorrido: solo hechos que Edgar confirmó. Empezó en **Conversion Moe**, una agencia de campañas
+  de conversión (nombre confirmado por Edgar).
 
 ## Stack
 

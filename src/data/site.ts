@@ -98,7 +98,7 @@ export const about = {
 // Mi recorrido. Solo hechos que Edgar confirmó.
 export const journey: JourneyStep[] = [
   {
-    title: 'Empecé en una agencia de campañas de conversión',
+    title: 'Empecé en Conversion Moe, una agencia de campañas de conversión',
     text: 'Ahí aprendí a medir todo por resultados: clientes, ventas y registros.',
   },
   {
