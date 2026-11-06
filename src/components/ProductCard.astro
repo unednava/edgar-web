@@ -1,0 +1,195 @@
+---
+import type { Product } from '../data/shop';
+import { formatUsd, whatsappLink } from '../data/shop';
+import Icon from './Icon.astro';
+
+interface Props {
+  product: Product;
+  headingLevel?: 'h2' | 'h3';
+  showIncludes?: boolean;
+}
+
+const { product: p, headingLevel = 'h3', showIncludes = true } = Astro.props;
+const Heading = headingLevel;
+const free = p.priceUsd === 0;
+const wa = whatsappLink(p);
+---
+
+<article class="product" id={p.id}>
+  <div class="cover">
+    {
+      p.cover ? (
+        <img src={p.cover} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+      ) : (
+        <div class="cover-text">
+          <p class="cover-format">{p.format}</p>
+          <Heading class="cover-title">{p.title}</Heading>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="body">
+    {
+      p.cover && (
+        <>
+          <p class="format">{p.format}</p>
+          <Heading class="title">{p.title}</Heading>
+        </>
+      )
+    }
+    <p class="desc">{p.description}</p>
+
+    {
+      showIncludes && p.includes && p.includes.length > 0 && (
+        <ul class="includes" aria-label="Incluye">
+          {p.includes.map((item) => (
+            <li>
+              <span class="check" aria-hidden="true">
+                <Icon name="check" size={16} />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="buy">
+      <p class="price">
+        <span class="amount">{formatUsd(p.priceUsd)}</span>
+        {!free && <span class="currency">USD</span>}
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href={p.gumroad} target="_blank" rel="noopener">
+          {free ? 'Descargar gratis' : 'Comprar en dólares'}
+        </a>
+        {
+          wa && (
+            <a class="btn btn-ghost" href={wa} target="_blank" rel="noopener">
+              Pagar en bolívares
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .product {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    scroll-margin-top: 96px;
+  }
+  .cover {
+    aspect-ratio: 16 / 9;
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Sin imagen: portada tipográfica con el nombre (y el nombre no se repite debajo) */
+  .cover-text {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(18px, 3vw, 26px);
+  }
+  .cover-format {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .cover-title {
+    font-size: clamp(1.375rem, 2.6vw, 1.75rem);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+    color: var(--ink);
+    max-width: 14ch;
+  }
+  .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 22px 22px 24px;
+  }
+  .format {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .title {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+  .desc {
+    color: var(--ink-2);
+    font-size: 1rem;
+  }
+  .includes {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+  }
+  .includes li {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .check {
+    flex: none;
+    color: var(--accent);
+    margin-top: 3px;
+  }
+  .buy {
+    margin-top: auto;
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .amount {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .currency {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .actions .btn {
+    flex: 1 1 auto;
+    min-height: 46px;
+    padding: 0 18px;
+    font-size: 0.9375rem;
+  }
+</style>

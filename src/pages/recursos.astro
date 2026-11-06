@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { shop, products, hasShop } from '../data/shop';
+import { site } from '../data/site';
+
+// Para dudas: WhatsApp si hay número; si no, LinkedIn.
+const waDigits = shop.whatsapp.replace(/\D/g, '');
+const contactHref = waDigits ? `https://wa.me/${waDigits}` : site.social.linkedin;
+
+// Datos para buscadores: la lista de productos con su precio en dólares.
+const itemListJsonLd = hasShop
+  ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: products.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Product',
+          name: p.title,
+          description: p.description,
+          url: new URL(`/recursos#${p.id}`, Astro.site).href,
+          brand: { '@type': 'Person', name: site.name },
+          offers: {
+            '@type': 'Offer',
+            price: p.priceUsd.toFixed(2),
+            priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
+            url: p.gumroad,
+          },
+        },
+      })),
+    })
+  : null;
+---
+
+<Base
+  title={`Recursos · ${site.name}`}
+  description={shop.intro}
+  noindex={!hasShop}
+>
+  <Header />
+  <main id="principal" class="wrap shop">
+    <header class="intro">
+      <h1>{shop.title}</h1>
+      <p class="lead">
+        {hasShop ? shop.intro : 'Estoy preparando los primeros recursos. Cuando estén listos, los vas a encontrar aquí.'}
+      </p>
+    </header>
+
+    {
+      hasShop ? (
+        <>
+          <div class="grid">
+            {products.map((p) => (
+              <ProductCard product={p} />
+            ))}
+          </div>
+
+          <section class="how" aria-labelledby="how-title">
+            <h2 id="how-title">Cómo comprar</h2>
+            <div class="how-grid">
+              {shop.howToBuy.map((h) => (
+                <div>
+                  <h3>{h.title}</h3>
+                  <p>{h.text}</p>
+                </div>
+              ))}
+            </div>
+            <p class="note">
+              ¿Tienes dudas antes de comprar?{' '}
+              <a href={contactHref} target="_blank" rel="noopener">
+                Escríbeme
+              </a>{' '}
+              y te respondo.
+            </p>
+          </section>
+        </>
+      ) : (
+        <a class="btn btn-primary back" href="/">
+          Volver al inicio
+        </a>
+      )
+    }
+  </main>
+  <Footer />
+  {itemListJsonLd && <script type="application/ld+json" set:html={itemListJsonLd} />}
+</Base>
+
+<style>
+  .shop {
+    padding-block: clamp(40px, 7vw, 80px);
+  }
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 680px;
+    margin-bottom: 36px;
+  }
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 20px;
+  }
+  .back {
+    align-self: flex-start;
+  }
+  .how {
+    margin-top: clamp(48px, 7vw, 72px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .how h2 {
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  .how-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 48px;
+  }
+  .how h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+  }
+  .how p {
+    margin-top: 4px;
+    color: var(--ink-2);
+  }
+  .how .note {
+    margin-top: 24px;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  @media (max-width: 680px) {
+    .how-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

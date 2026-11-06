@@ -1,0 +1,55 @@
+---
+// Adelanto de la tienda en la página principal: hasta 3 recursos destacados.
+// No se muestra mientras no haya productos.
+import { shop, hasShop, featuredProducts, products } from '../data/shop';
+import ProductCard from './ProductCard.astro';
+import Icon from './Icon.astro';
+---
+
+{
+  hasShop && (
+    <section id="recursos" class="wrap section teaser" aria-labelledby="recursos-title">
+      <div class="head">
+        <h2 class="section-title" id="recursos-title">
+          {shop.title}
+        </h2>
+        <a class="all" href="/recursos">
+          Ver {products.length > 1 ? `los ${products.length} recursos` : 'el recurso'} <Icon name="arrow" size={18} />
+        </a>
+      </div>
+      <p class="lead">{shop.intro}</p>
+      <div class="grid">
+        {featuredProducts.map((p) => (
+          <ProductCard product={p} showIncludes={false} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px 24px;
+    margin-bottom: 12px;
+  }
+  .all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .lead {
+    max-width: 640px;
+  }
+  .grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 20px;
+  }
+</style>

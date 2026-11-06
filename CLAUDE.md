@@ -20,7 +20,9 @@ Inspiración: fazt.dev (lo mismo, pero para desarrollo con IA).
   sin emojis de hype.
 - Se muestra lo que funciona, lo que no y cuánto cuesta.
 - Etapa inicial: la web prioriza credibilidad, contenido gratis y captar correos.
-  **Todavía no se vende nada**: sin precios, sin plan PRO, sin asesorías visibles.
+  **Cambio de nov. 2026 (decisión de Edgar):** se pueden vender **recursos** (plantillas, guías,
+  automatizaciones) en la tienda `/recursos`. Solo ahí hay precios; el resto de la web no vende.
+  Sigue sin haber plan PRO ni asesorías visibles.
 - Idioma: español neutro.
 - **No cambies el concepto visual, los textos ni el tono sin preguntar a Edgar.** Si algo es mejorable,
   propónlo primero.
@@ -66,7 +68,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   está protegido (Convenios de Ginebra) y requiere autorización expresa.
 - Todos los contrastes de texto ≥ 4.5:1 en ambos modos (valores en `global.css`).
 - Orden: inicio (saludo "Hola, soy Edgar Navarro" + titular + animación), Sobre mí (texto, lema,
-  recorrido y logos), De qué hablo, Los primeros videos (+ lo que traerá cada video), Newsletter.
+  recorrido y logos), De qué hablo, Los primeros videos (+ lo que traerá cada video),
+  Recursos (solo si hay productos), Newsletter. Página aparte: `/recursos` (tienda).
 - Voz y estructura inspiradas en cómo comunica Vilma Núñez (adaptadas, no copiadas): saludo personal
   al inicio, tuteo cercano, lema propio visible ("Lo que funciona, lo que no y cuánto cuesta"),
   cada tema con su "qué" y su "cómo", recorrido real en pasos y newsletter como invitación ("¿Te sumas?").
@@ -99,6 +102,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Temas ("De qué hablo")                           | `src/data/site.ts` → `topics` |
 | Lo que traerá cada video                         | `src/data/site.ts` → `extras` |
 | Página de error                                  | `src/pages/404.astro`           |
+| Productos de la tienda y número de WhatsApp      | `src/data/shop.ts`              |
 | Logos de marcas (archivos en `public/logos/`)    | `src/data/site.ts` → `brands` |
 | Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |
 | Iconos                                           | `src/components/Icon.astro`     |
@@ -107,7 +111,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Imagen Open Graph (1200×630)                     | `public/og.png`, plantilla en `scripts/og.html` |
 | Despliegue en Cloudflare                         | `wrangler.jsonc`                |
 
-Componentes en `src/components/`: Header, Hero, About, Topics, Videos, Newsletter, Footer, Icon.
+Componentes en `src/components/`: Header, Hero, About, Topics, Videos, ShopTeaser, ProductCard,
+Newsletter, Footer, Icon. Páginas: `index`, `recursos`, `404`.
 
 ## Comandos
 
@@ -160,6 +165,28 @@ Descartado a propósito: el formulario incrustado de Substack (iframe con su est
 diseño ni el modo oscuro) y el envío del correo a su API no documentada (puede romperse sin aviso).
 Mostrar los últimos artículos en la web es posible con el RSS de Substack, pero solo se
 actualizaría al volver a publicar la web; Edgar prefirió el enlace.
+
+## Tienda de recursos (`/recursos`, preparada, sin productos aún)
+
+La web solo **muestra** los recursos con diseño de tienda; la compra se hace fuera:
+- **En dólares:** botón "Comprar en dólares" al producto en **Gumroad** (tarjeta, entrega automática).
+- **En bolívares:** botón "Pagar en bolívares" que abre **WhatsApp** con un mensaje listo
+  ("Quiero comprar «X» ($19 USD) y pagar en bolívares"). Edgar responde con el monto a la tasa
+  del día. **El precio en la web va solo en dólares**: la tasa cambia casi a diario.
+- Precio 0 → "Gratis" y botón "Descargar gratis" (sin opción de bolívares).
+
+Dónde se edita: `src/data/shop.ts` → `products` (id, title, format, description, includes,
+priceUsd, gumroad, cover opcional en `public/recursos/` 1280×720, featured) y `shop.whatsapp`
+(número con código de país; vacío = sin botón de bolívares). Componentes: `ProductCard.astro`,
+`ShopTeaser.astro` (adelanto con hasta 3 destacados en la principal, tras los videos) y
+`src/pages/recursos.astro` (todos los productos + "Cómo comprar" + datos `Product` para buscadores).
+
+Mientras `products` esté vacío: sin enlace "Recursos" en el menú, sin adelanto en la principal,
+`/recursos` dice que los primeros están en preparación, lleva `noindex` y no entra en el sitemap
+(filtro en `astro.config.mjs`). Sin imagen de portada, la tarjeta usa una portada tipográfica con
+el nombre (que entonces no se repite debajo). Nunca publicar productos de ejemplo.
+
+Falta de Edgar: el número de WhatsApp para ventas y los primeros productos con su enlace de Gumroad.
 
 ## Skills de diseño instaladas (`.claude/skills/`)
 

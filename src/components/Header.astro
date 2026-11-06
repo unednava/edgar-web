@@ -1,5 +1,6 @@
 ---
 import { site, primaryCta as cta, substack } from '../data/site';
+import { hasShop } from '../data/shop';
 import Icon from './Icon.astro';
 ---
 
@@ -15,6 +16,7 @@ import Icon from './Icon.astro';
       <a href="/#sobre-mi">Sobre mí</a>
       <a href="/#aprende">De qué hablo</a>
       <a href="/#videos">Videos</a>
+      {hasShop && <a href="/recursos">Recursos</a>}
       {
         substack && (
           <a href={substack.home} target="_blank" rel="noopener">
