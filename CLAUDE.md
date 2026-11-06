@@ -46,7 +46,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   cadencias típicas: grupos de tres por costumbre, "no solo X, también Y", titulares con dos puntos
   que "revelan", eslóganes vacíos ("Sin humo", "A tu ritmo"). Los títulos de sección van sin punto.
   **Nunca prometer en presente lo que aún no existe** (videos, plantillas, newsletter): en futuro.
-  Lo que más humaniza la web y falta: una foto real de Edgar y un caso real con sus números.
+  Lo que más humaniza la web y aún falta: un caso real con sus números.
 - Mientras `site.substack` esté vacío, los botones principales llevan a LinkedIn (`primaryCta`
   en `site.ts`) y la sección de newsletter dice que arranca pronto; al pegar la dirección cambia sola.
 - **Modo claro por defecto.** El oscuro (fondo `#0b111c`) se activa con el botón de luna/sol del
@@ -61,7 +61,13 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 - Movimiento sutil: aparición de esos pasos y botones que reaccionan al pulsar.
   Con `prefers-reduced-motion` todo aparece sin animación.
 - Barra superior translúcida (desenfoque), sólida con `prefers-reduced-transparency`.
-- Monograma "EN" como logo y como avatar hasta que haya foto.
+- **Ilustraciones de Edgar** (estilo chibi, fondo transparente) en `public/edgar/`:
+  `cara.webp` (avatar circular: encabezado, saludo del inicio, favicon `favicon.png` y
+  `apple-touch-icon.png`), `saludo-tablet.webp` ("Sobre mí" y tienda vacía), `saludo.webp`
+  (newsletter) y `brazos-cruzados.webp` (404 e imagen para redes). Van sobre un círculo verde
+  suave o, en modo oscuro, con la clase `.illus` (contorno claro sutil) para que el pelo y la
+  camisa negros no se pierdan. **No usar las versiones con Bulbasaur**: es un personaje de
+  Pokémon (Nintendo / The Pokémon Company) y la web vende recursos; riesgo de reclamo.
 - Logos de marcas en "Sobre mí", con sus colores originales sobre tarjetas blancas (en ambos modos).
   Sacados de la web oficial de cada marca; Edgar confirmó que puede mostrarlos. Avior solo publica su
   logo en blanco, por eso va sobre su rojo de marca (`#c81414`). **Cruz Roja no aparece**: su emblema
@@ -103,6 +109,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Lo que traerá cada video                         | `src/data/site.ts` → `extras` |
 | Página de error                                  | `src/pages/404.astro`           |
 | Productos de la tienda y número de WhatsApp      | `src/data/shop.ts`              |
+| Ilustraciones de Edgar y favicon                 | `public/edgar/`, `public/favicon.png` |
 | Logos de marcas (archivos en `public/logos/`)    | `src/data/site.ts` → `brands` |
 | Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |
 | Iconos                                           | `src/components/Icon.astro`     |

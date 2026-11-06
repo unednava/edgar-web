@@ -24,8 +24,7 @@ const marks = [
 <section class="wrap hero">
   <div class="copy">
     <p class="greeting">
-      <!-- Cuando tengas una foto, cámbiala aquí por <img src="/edgar.jpg" alt="" class="face" />. -->
-      <span class="face" aria-hidden="true">EN</span>
+      <img class="face" src="/edgar/cara.webp" alt="" width="56" height="56" />
       {site.greeting}
     </p>
     <h1>{headlineText}{headlineDot && <span class="dot">.</span>}</h1>
@@ -129,16 +128,10 @@ const marks = [
     color: var(--ink-2);
   }
   .face {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
+    display: block;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-    object-fit: cover;
-    background: var(--accent);
-    color: var(--on-accent);
-    font-size: 0.875rem;
-    font-weight: 700;
   }
   .dot {
     margin-left: -0.08em;

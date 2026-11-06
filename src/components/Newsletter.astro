@@ -7,24 +7,27 @@ import { site, newsletter as nl, substack } from '../data/site';
 
 <section id="newsletter" class="wrap section newsletter">
   <div class="box">
-    <h2 class="section-title">{substack ? nl.title : nl.soonTitle}</h2>
-    <p class="lead">{substack ? nl.text : nl.soonText}</p>
+    <div class="content">
+      <h2 class="section-title">{substack ? nl.title : nl.soonTitle}</h2>
+      <p class="lead">{substack ? nl.text : nl.soonText}</p>
 
-    {
-      substack ? (
-        <>
-          <p class="invite">{nl.invite}</p>
-          <a class="btn btn-primary" href={substack.subscribe} target="_blank" rel="noopener">
-            Suscribirme en Substack
+      {
+        substack ? (
+          <>
+            <p class="invite">{nl.invite}</p>
+            <a class="btn btn-primary" href={substack.subscribe} target="_blank" rel="noopener">
+              Suscribirme en Substack
+            </a>
+            <p class="note">Es gratis y te das de baja cuando quieras.</p>
+          </>
+        ) : (
+          <a class="btn btn-primary" href={site.social.linkedin} target="_blank" rel="noopener">
+            Sígueme en LinkedIn
           </a>
-          <p class="note">Es gratis y te das de baja cuando quieras.</p>
-        </>
-      ) : (
-        <a class="btn btn-primary" href={site.social.linkedin} target="_blank" rel="noopener">
-          Sígueme en LinkedIn
-        </a>
-      )
-    }
+        )
+      }
+    </div>
+    <img class="wave illus" src="/edgar/saludo.webp" alt="" width="328" height="700" loading="lazy" decoding="async" />
   </div>
 </section>
 
@@ -33,14 +36,38 @@ import { site, newsletter as nl, substack } from '../data/site';
     padding-top: 0;
   }
   .box {
-    padding: clamp(36px, 6vw, 64px) clamp(24px, 5vw, 56px);
+    --pad-y: clamp(36px, 6vw, 64px);
+    padding: var(--pad-y) clamp(24px, 5vw, 56px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .content {
     display: flex;
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+  }
+  /* Edgar saludando, apoyado en el borde inferior de la caja */
+  .wave {
+    align-self: end;
+    display: block;
+    width: auto;
+    height: 260px;
+    margin-bottom: calc(-1 * var(--pad-y));
+  }
+  @media (max-width: 640px) {
+    .box {
+      grid-template-columns: 1fr;
+    }
+    .wave {
+      justify-self: center;
+      height: 200px;
+    }
   }
   .section-title {
     max-width: 22ch;

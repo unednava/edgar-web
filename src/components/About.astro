@@ -8,11 +8,22 @@ import { about, brands, journey } from '../data/site';
       <h2 class="section-title">Sobre mí</h2>
       <p class="lead">{about.lead}</p>
       {about.text.map((t) => <p>{t}</p>)}
+      <figure class="motto">
+        <figcaption>{about.mottoLabel}</figcaption>
+        <blockquote>{about.motto}</blockquote>
+      </figure>
     </div>
-    <figure class="motto">
-      <figcaption>{about.mottoLabel}</figcaption>
-      <blockquote>{about.motto}</blockquote>
-    </figure>
+    <div class="portrait">
+      <img
+        class="illus"
+        src="/edgar/saludo-tablet.webp"
+        alt="Ilustración de Edgar saludando, con una tableta llena de gráficas"
+        width="357"
+        height="760"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
   </div>
 
   <ol class="journey" aria-label="Mi recorrido">
@@ -56,9 +67,36 @@ import { about, brands, journey } from '../data/site';
   }
   .top {
     display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
     gap: clamp(32px, 6vw, 80px);
-    align-items: end;
+    align-items: center;
+  }
+  /* Ilustración sobre un círculo suave: se distingue también en modo oscuro */
+  .portrait {
+    position: relative;
+    display: grid;
+    place-items: end center;
+    max-width: 340px;
+    justify-self: center;
+  }
+  .portrait::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 6%;
+    width: 112%;
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: var(--accent-soft);
+  }
+  .portrait img {
+    position: relative;
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 420px;
+    height: auto;
   }
   .text {
     display: flex;
@@ -75,7 +113,7 @@ import { about, brands, journey } from '../data/site';
   }
   /* El lema: grande y sin caja, con una línea a la izquierda */
   .motto {
-    margin: 0;
+    margin: 12px 0 0;
     padding-left: 24px;
     border-left: 3px solid var(--accent);
   }
@@ -190,6 +228,9 @@ import { about, brands, journey } from '../data/site';
   @media (max-width: 880px) {
     .top {
       grid-template-columns: 1fr;
+    }
+    .portrait img {
+      max-height: 300px;
     }
     .journey {
       grid-template-columns: 1fr;

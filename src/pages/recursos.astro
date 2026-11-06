@@ -80,9 +80,19 @@ const itemListJsonLd = hasShop
           </section>
         </>
       ) : (
-        <a class="btn btn-primary back" href="/">
-          Volver al inicio
-        </a>
+        <div class="empty">
+          <a class="btn btn-primary" href="/">
+            Volver al inicio
+          </a>
+          <img
+            class="illus"
+            src="/edgar/saludo-tablet.webp"
+            alt=""
+            width="357"
+            height="760"
+            decoding="async"
+          />
+        </div>
       )
     }
   </main>
@@ -112,8 +122,17 @@ const itemListJsonLd = hasShop
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
     gap: 20px;
   }
-  .back {
-    align-self: flex-start;
+  .empty {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .empty img {
+    display: block;
+    height: 300px;
+    width: auto;
   }
   .how {
     margin-top: clamp(48px, 7vw, 72px);
