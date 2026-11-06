@@ -62,6 +62,11 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   Con `prefers-reduced-motion` todo aparece sin animación.
 - Barra superior translúcida (desenfoque), sólida con `prefers-reduced-transparency`.
 - Monograma "EN" como logo y como avatar hasta que haya foto.
+- **Ilustraciones chibi de Edgar: probadas y descartadas** (nov. 2026). Se colocaron en el
+  encabezado, el saludo, "Sobre mí", la newsletter, la 404 y la imagen para redes, y a Edgar no
+  le gustó; se quitaron todas. Los archivos siguen en el historial de git (commit `71cb0eb`,
+  carpeta `public/edgar/`). No volver a ponerlas salvo que Edgar lo pida. Las versiones con
+  Bulbasaur no deben usarse nunca (personaje de Pokémon, con derechos de autor).
 - Logos de marcas en "Sobre mí", con sus colores originales sobre tarjetas blancas (en ambos modos).
   Sacados de la web oficial de cada marca; Edgar confirmó que puede mostrarlos. Avior solo publica su
   logo en blanco, por eso va sobre su rojo de marca (`#c81414`). **Cruz Roja no aparece**: su emblema
