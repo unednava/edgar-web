@@ -1,26 +1,30 @@
 /*
-  Sistema visual: claro y cercano. Modo claro por defecto; el oscuro se activa
-  con el botón del encabezado (atributo data-theme="dark" en <html>).
+  Sistema visual: claro y cercano, con toques de collage (recortes de papel y tiras
+  amarillas). Colores sacados del collage: amarillo #fcd812, rojo de los rayos #9c301e.
+  Modo claro por defecto; el oscuro se activa con el botón del encabezado
+  (atributo data-theme="dark" en <html>).
   Contrastes medidos (texto ≥ 4.5:1 en ambos modos; bordes de campos ≥ 3:1).
 */
 :root {
   color-scheme: light;
 
-  --bg: #f6f7f9;
+  --bg: #f2f2ef; /* gris papel */
   --surface: #ffffff;
-  --ink: #142033; /* 15.3:1 sobre --bg */
-  --ink-2: #46536a; /* 7.2:1 */
-  --muted: #5d6a7e; /* 5.1:1 */
-  --line: #e3e7ee;
-  --accent: #0b7a52; /* verde "activo": 5.0:1 sobre --bg */
-  --on-accent: #ffffff; /* 5.4:1 sobre --accent */
-  --accent-soft: #e3f3eb;
-  --warn: #b4500d; /* 4.8:1 */
-  --warn-soft: #fbeee3;
-  --field-border: #7d899c; /* 3.3:1 sobre --surface */
-  --header-bg: rgba(246, 247, 249, 0.72);
-  --shadow: 0 1px 2px rgba(20, 32, 51, 0.04), 0 8px 24px rgba(20, 32, 51, 0.06);
-  --shadow-lg: 0 2px 4px rgba(20, 32, 51, 0.04), 0 24px 48px rgba(20, 32, 51, 0.1);
+  --ink: #141414; /* 16.4:1 sobre --bg */
+  --ink-2: #45474d; /* 8.3:1 */
+  --muted: #5e6068; /* 5.6:1 */
+  --line: #e2e2dd;
+  --accent: #141414; /* negro: botones y enlaces */
+  --on-accent: #ffffff; /* 18.4:1 sobre --accent */
+  --hl: #fcd812; /* amarillo del collage: tiras detrás de palabras (texto negro encima, 13.1:1) */
+  --accent-soft: #fff3b8; /* amarillo pálido */
+  --warn: #9c301e; /* rojo de los rayos: 6.6:1 */
+  --warn-soft: #f6e3dc;
+  --field-border: #8a8c92; /* 3.4:1 sobre --surface */
+  --header-bg: rgba(242, 242, 239, 0.75);
+  --shadow: 0 1px 2px rgba(20, 20, 20, 0.05), 0 8px 24px rgba(20, 20, 20, 0.07);
+  --shadow-lg: 0 2px 4px rgba(20, 20, 20, 0.05), 0 24px 48px rgba(20, 20, 20, 0.12);
+  --paper-shadow: drop-shadow(0 6px 10px rgba(20, 20, 20, 0.18));
 
   --font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --wrap: 1120px;
@@ -32,21 +36,24 @@
 
 :root[data-theme='dark'] {
     color-scheme: dark;
-    --bg: #0b111c;
-    --surface: #131c2b;
-    --ink: #eef2f7;
-    --ink-2: #b9c3d2;
-    --muted: #9aa6b8;
-    --line: #233047;
-    --accent: #3ddc97;
-    --on-accent: #06110c;
-    --accent-soft: #143026;
-    --warn: #ffb86b;
-    --warn-soft: #33241a;
-    --field-border: #5b6b88;
-    --header-bg: rgba(11, 17, 28, 0.72);
+    --bg: #121212;
+    --surface: #1c1c1c;
+    --ink: #f2f2ef;
+    --ink-2: #c4c4c0;
+    --muted: #9e9e99;
+    --line: #2e2e2b;
+    --accent: #fcd812; /* en oscuro, los botones van en amarillo con texto negro */
+    --on-accent: #141414;
+    --hl: #fcd812;
+    --accent-soft: #3a3410;
+    --warn: #ff8a70;
+    --warn-soft: #3a211b;
+    --field-border: #6b6b66;
+    --header-bg: rgba(18, 18, 18, 0.75);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
     --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3), 0 24px 48px rgba(0, 0, 0, 0.35);
+    /* en oscuro, contorno claro sutil para que las piezas negras no se pierdan */
+    --paper-shadow: drop-shadow(0 0 1px rgba(255, 255, 255, 0.45)) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5));
 }
 
 *,
@@ -136,7 +143,7 @@ p {
 }
 .btn-primary:hover {
   color: var(--on-accent);
-  background: color-mix(in srgb, var(--accent) 86%, #000);
+  background: color-mix(in srgb, var(--accent) 82%, var(--bg));
 }
 .btn-ghost {
   background: var(--surface);
@@ -153,6 +160,42 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+/* ---------- Collage ---------- */
+
+/* Los recortes pueden asomar por los bordes: nunca deben causar scroll horizontal */
+main {
+  overflow-x: clip;
+}
+
+/* Tira de papel amarillo detrás de una palabra (usar en pocas palabras, no en todos los títulos) */
+.hl {
+  position: relative;
+  z-index: 0;
+  white-space: nowrap;
+  color: #141414;
+}
+.hl::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0.08em -0.14em 0.02em -0.12em;
+  background: var(--hl);
+  transform: rotate(-1.6deg);
+  border-radius: 2px;
+}
+
+/* Recorte de papel: pieza del collage, un poco girada y con sombra de papel.
+   Uso: <img class="cutout" style="--rot: -6deg" ...>. Son decorativas: alt="". */
+.cutout {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  transform: rotate(var(--rot, 0deg));
+  filter: var(--paper-shadow);
+  pointer-events: none;
+  user-select: none;
 }
 
 .sr-only {

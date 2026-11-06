@@ -36,9 +36,20 @@ Rediseño (nov. 2026), hecho con las skills `apple-design` y `apple-design-hig`.
 **El público no es técnico**: nada de referencias a programación (sin fuentes monoespaciadas,
 sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "paid media").
 
-- Tono visual: **amigable y elegante**. Fondo claro `#f6f7f9`, esquinas redondeadas, botones en
-  forma de píldora. Casi todo va plano (filas, listas, bordes finos); la única tarjeta con sombra
-  es la animación del inicio, para que lo llamativo esté en un solo sitio.
+- Tono visual: **amigable y elegante, con toques de collage** (nov. 2026, pedido por Edgar).
+  Fondo gris papel `#f2f2ef`, esquinas redondeadas, botones en forma de píldora. Casi todo va
+  plano (filas, listas, bordes finos); la única tarjeta con sombra es la animación del inicio.
+- **Collage, solo "toques"** (Edgar eligió esto frente a un collage completo): 1 recorte por
+  sección, algo girado y con sombra de papel (clase `.cutout`, giro con `--rot`), y una tira de
+  papel amarillo detrás de **una** palabra (clase `.hl`) en el titular, la newsletter y la 404.
+  No llenar la web de piezas ni poner tiras en todos los títulos.
+  Piezas en uso (`public/collage/`): bombilla con estrellas (inicio, asomando sobre la tarjeta),
+  mano con pluma (sobre el lema de "Sobre mí"), megáfono / lupa / cerebro (temas de "De qué
+  hablo", definidos en `topics[].cutout`), pila de libros ("Junto a cada video"), bocadillo con
+  boca (newsletter) y hombre con bombilla (404). Las 17 piezas recortadas están en
+  `assets-src/collage/` (no se publica): microscopio, balanza, ADN, puño, globo, estrella azul,
+  rayos, etc. Salen de una lámina de collage que **Edgar compró / tiene licencia** para usar.
+  `main` tiene `overflow-x: clip` para que ningún recorte cause scroll horizontal.
 - **Que no parezca hecha con IA ni con plantilla** (revisión de nov. 2026). No volver a meter:
   etiquetas tipo píldora con punto encima del título; texto verde pequeño encima de cada sección;
   filas de tres tarjetas con icono en un cuadradito de color; tiras de "número grande sobre texto
@@ -46,13 +57,16 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   cadencias típicas: grupos de tres por costumbre, "no solo X, también Y", titulares con dos puntos
   que "revelan", eslóganes vacíos ("Sin humo", "A tu ritmo"). Los títulos de sección van sin punto.
   **Nunca prometer en presente lo que aún no existe** (videos, plantillas, newsletter): en futuro.
-  Lo que más humaniza la web y falta: una foto real de Edgar y un caso real con sus números.
+  Lo que más humaniza la web y falta: un caso real con sus números.
 - Mientras `site.substack` esté vacío, los botones principales llevan a LinkedIn (`primaryCta`
   en `site.ts`) y la sección de newsletter dice que arranca pronto; al pegar la dirección cambia sola.
-- **Modo claro por defecto.** El oscuro (fondo `#0b111c`) se activa con el botón de luna/sol del
+- **Modo claro por defecto.** El oscuro (fondo `#121212`) se activa con el botón de luna/sol del
   encabezado; se guarda la elección en el navegador (`localStorage`) y se aplica antes de pintar.
-- Color de marca: verde "activo" (`#0b7a52` en claro, `#3ddc97` en oscuro), usado con moderación:
-  botón principal, iconos y estados. Naranja (`--warn`) solo para "algo deja de funcionar" en la animación del inicio.
+  En oscuro, los recortes llevan un contorno claro sutil (`--paper-shadow`) para no perderse.
+- **Colores: amarillo y negro del collage** (el verde anterior se retiró en nov. 2026). Botones y
+  enlaces en negro `#141414` (en oscuro, botones amarillos con texto negro); amarillo `#fcd812`
+  (`--hl`) para tiras, monograma "EN" y relleno de la gráfica; rojo de los rayos `#9c301e`
+  (`--warn`) solo para "algo deja de funcionar" en la animación del inicio.
 - Tipografía única: **Plus Jakarta Sans** (Google Fonts), 18 px de base; títulos con tracking negativo.
 - Elemento distintivo: la tarjeta animada del inicio, "Así cuida la IA una campaña". Una gráfica
   de clientes por semana (SVG propio, sin librerías) se dibuja sola: baja (1), la IA pausa lo que
@@ -109,6 +123,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Página de error                                  | `src/pages/404.astro`           |
 | Productos de la tienda y número de WhatsApp      | `src/data/shop.ts`              |
 | Logos de marcas (archivos en `public/logos/`)    | `src/data/site.ts` → `brands` |
+| Recortes de collage                              | `public/collage/` (todas las piezas en `assets-src/collage/`) |
+| Palabra con tira amarilla en el titular          | `src/data/site.ts` → `site.headlineHighlight` |
 | Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |
 | Iconos                                           | `src/components/Icon.astro`     |
 | SEO, Open Graph, fuentes                         | `src/layouts/Base.astro`        |

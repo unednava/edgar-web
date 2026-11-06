@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Plantilla de la imagen para redes (public/og.png, 1200x630).
+  Plantilla de la imagen para redes (public/og.png, 1200x630). Estilo: toques de collage.
   Para regenerarla: abre este archivo en Chrome con una ventana de 1200x630
   y haz una captura (DevTools → "Capture screenshot"). O pídeselo a Claude.
 -->
@@ -10,23 +10,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   * { box-sizing: border-box; margin: 0; }
-  html, body { width: 1200px; height: 630px; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
   body {
-    background: #f6f7f9; color: #142033;
+    position: relative;
+    background: #f2f2ef; color: #141414;
     font-family: 'Plus Jakarta Sans', sans-serif;
     padding: 72px 80px; display: flex; flex-direction: column; justify-content: space-between;
-    background-image: radial-gradient(80% 90% at 100% 0%, #e3f3eb 0%, transparent 60%);
   }
   .brand { display: flex; align-items: center; gap: 18px; font-size: 32px; font-weight: 700; }
-  .mark { width: 60px; height: 60px; border-radius: 18px; background: #0b7a52; color: #fff; display: grid; place-items: center; font-size: 22px; font-weight: 700; }
-  h1 { font-size: 96px; line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; }
-  .pill { align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; background: #e3f3eb; color: #0b7a52; font-size: 28px; font-weight: 600; padding: 12px 26px 12px 20px; border-radius: 999px; }
-  .pill i { width: 12px; height: 12px; border-radius: 50%; background: #0b7a52; display: inline-block; }
+  .mark { width: 60px; height: 60px; border-radius: 18px; background: #fcd812; color: #141414; display: grid; place-items: center; font-size: 22px; font-weight: 700; }
+  h1 { font-size: 84px; line-height: 1.04; letter-spacing: -0.035em; font-weight: 800; max-width: 720px; }
+  .hl { position: relative; z-index: 0; white-space: nowrap; }
+  .hl::before { content: ''; position: absolute; z-index: -1; inset: 0.08em -0.14em 0.02em -0.12em; background: #fcd812; transform: rotate(-1.6deg); border-radius: 2px; }
+  .dot { margin-left: -0.08em; }
+  .sub { font-size: 30px; font-weight: 500; color: #45474d; max-width: 600px; }
+  .piece { position: absolute; filter: drop-shadow(0 8px 12px rgba(20, 20, 20, 0.2)); }
+  .bulb { right: 40px; top: 70px; width: 340px; transform: rotate(9deg); }
+  .mega { right: 300px; bottom: -40px; width: 200px; transform: rotate(-12deg); }
 </style>
 </head>
 <body>
+  <img class="piece bulb" src="../public/collage/bombilla-estrellas.webp" alt="" />
+  <img class="piece mega" src="../public/collage/megafono.webp" alt="" />
   <div class="brand"><span class="mark">EN</span>Edgar Navarro</div>
-  <h1>Marketing con IA<br />que sí funciona.</h1>
-  <p class="pill"><i></i>Videos cortos, con números reales y sin tecnicismos</p>
+  <h1>Marketing con IA que sí <span class="hl">funciona</span><span class="dot">.</span></h1>
+  <p class="sub">Videos cortos, con números reales y sin tecnicismos</p>
 </body>
 </html>

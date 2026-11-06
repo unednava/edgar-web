@@ -3,28 +3,45 @@ import { site, newsletter as nl, substack } from '../data/site';
 
 // Newsletter en Substack. Mientras no haya dirección (`site.substack`), la sección dice
 // con honestidad que arranca pronto y ofrece LinkedIn; al pegarla, aparece el botón.
+const title = substack ? nl.title : nl.soonTitle;
+// La última palabra del título lleva la tira amarilla del collage.
+const cut = title.lastIndexOf(' ');
+const titleStart = title.slice(0, cut + 1);
+const titleEnd = title.slice(cut + 1);
 ---
 
 <section id="newsletter" class="wrap section newsletter">
   <div class="box">
-    <h2 class="section-title">{substack ? nl.title : nl.soonTitle}</h2>
-    <p class="lead">{substack ? nl.text : nl.soonText}</p>
+    <div class="content">
+      <h2 class="section-title">{titleStart}<span class="hl">{titleEnd}</span></h2>
+      <p class="lead">{substack ? nl.text : nl.soonText}</p>
 
-    {
-      substack ? (
-        <>
-          <p class="invite">{nl.invite}</p>
-          <a class="btn btn-primary" href={substack.subscribe} target="_blank" rel="noopener">
-            Suscribirme en Substack
+      {
+        substack ? (
+          <>
+            <p class="invite">{nl.invite}</p>
+            <a class="btn btn-primary" href={substack.subscribe} target="_blank" rel="noopener">
+              Suscribirme en Substack
+            </a>
+            <p class="note">Es gratis y te das de baja cuando quieras.</p>
+          </>
+        ) : (
+          <a class="btn btn-primary" href={site.social.linkedin} target="_blank" rel="noopener">
+            Sígueme en LinkedIn
           </a>
-          <p class="note">Es gratis y te das de baja cuando quieras.</p>
-        </>
-      ) : (
-        <a class="btn btn-primary" href={site.social.linkedin} target="_blank" rel="noopener">
-          Sígueme en LinkedIn
-        </a>
-      )
-    }
+        )
+      }
+    </div>
+    <img
+      class="cutout talk"
+      src="/collage/bocadillo-boca.webp"
+      alt=""
+      width="480"
+      height="374"
+      style="--rot: -5deg"
+      loading="lazy"
+      decoding="async"
+    />
   </div>
 </section>
 
@@ -34,13 +51,34 @@ import { site, newsletter as nl, substack } from '../data/site';
   }
   .box {
     padding: clamp(36px, 6vw, 64px) clamp(24px, 5vw, 56px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px 40px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .content {
     display: flex;
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+  }
+  /* Bocadillo con boca (collage): "te escribo" */
+  .talk {
+    width: clamp(180px, 24vw, 280px);
+  }
+  @media (max-width: 680px) {
+    .box {
+      grid-template-columns: 1fr;
+    }
+    .talk {
+      grid-row: 1;
+      width: 170px;
+      justify-self: end;
+      margin-bottom: -8px;
+    }
   }
   .section-title {
     max-width: 22ch;

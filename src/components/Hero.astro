@@ -13,6 +13,11 @@ import Icon from './Icon.astro';
 // El punto final del titular va aparte: en esta tipografía queda separado de la palabra.
 const headlineText = site.headline.replace(/\.$/, '');
 const headlineDot = site.headline.endsWith('.');
+// Palabra con tira amarilla de collage (site.headlineHighlight).
+const hlAt = headlineText.lastIndexOf(site.headlineHighlight);
+const hlBefore = hlAt >= 0 ? headlineText.slice(0, hlAt) : headlineText;
+const hlWord = hlAt >= 0 ? site.headlineHighlight : '';
+const hlAfter = hlAt >= 0 ? headlineText.slice(hlAt + hlWord.length) : '';
 
 const marks = [
   { x: 150, y: 104, tone: 'warn' },
@@ -28,7 +33,9 @@ const marks = [
       <span class="face" aria-hidden="true">EN</span>
       {site.greeting}
     </p>
-    <h1>{headlineText}{headlineDot && <span class="dot">.</span>}</h1>
+    <h1>
+      {hlBefore}{hlWord && <span class="hl">{hlWord}</span>}{hlAfter}{headlineDot && <span class="dot">.</span>}
+    </h1>
     <p class="intro">{site.intro}</p>
     <div class="ctas">
       <a href={cta.href} class="btn btn-primary" {...cta.external ? { target: '_blank', rel: 'noopener' } : {}}>
@@ -38,6 +45,16 @@ const marks = [
     </div>
   </div>
 
+  <div class="demo-wrap">
+  <img
+    class="cutout bulb"
+    src="/collage/bombilla-estrellas.webp"
+    alt=""
+    width="480"
+    height="362"
+    style="--rot: 9deg"
+    decoding="async"
+  />
   <figure class="demo card play" id="demo" aria-labelledby="demo-title">
     <div class="demo-head">
       <p class="demo-title" id="demo-title">
@@ -55,8 +72,8 @@ const marks = [
       <svg viewBox="0 0 320 140" role="img" aria-label="Gráfica: los clientes bajan, la IA actúa y la campaña se recupera.">
         <defs>
           <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.22"></stop>
-            <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"></stop>
+            <stop offset="0%" stop-color="var(--hl)" stop-opacity="0.55"></stop>
+            <stop offset="100%" stop-color="var(--hl)" stop-opacity="0"></stop>
           </linearGradient>
         </defs>
         <g class="grid">
@@ -103,6 +120,7 @@ const marks = [
       {ex.footnote}
     </figcaption>
   </figure>
+  </div>
 </section>
 
 <style>
@@ -135,8 +153,8 @@ const marks = [
     height: 44px;
     border-radius: 50%;
     object-fit: cover;
-    background: var(--accent);
-    color: var(--on-accent);
+    background: var(--hl);
+    color: #141414;
     font-size: 0.875rem;
     font-weight: 700;
   }
@@ -163,6 +181,23 @@ const marks = [
   }
 
   /* ---------- Tarjeta animada ---------- */
+  /* Recorte de collage asomando por detrás de la tarjeta */
+  .demo-wrap {
+    position: relative;
+    min-width: 0;
+    margin-top: 72px; /* deja sitio a la bombilla sin que choque con el encabezado */
+  }
+  .bulb {
+    position: absolute;
+    z-index: 0;
+    top: -128px;
+    right: -36px;
+    width: 230px;
+  }
+  .demo-wrap .demo {
+    position: relative;
+    z-index: 1;
+  }
   .demo {
     --t1: 1.8s; /* punto 1: algo deja de funcionar */
     --t2: 3.1s; /* punto 2: la IA pausa */
@@ -399,6 +434,14 @@ const marks = [
   @media (max-width: 880px) {
     .hero {
       grid-template-columns: 1fr;
+    }
+    .demo-wrap {
+      margin-top: 40px;
+    }
+    .bulb {
+      width: 150px;
+      top: -64px;
+      right: -8px;
     }
     .intro {
       max-width: none;

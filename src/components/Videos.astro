@@ -54,6 +54,16 @@ const latest = videos.slice(0, 3);
   }
 
   <div id="plantillas" class="extras">
+    <img
+      class="cutout books"
+      src="/collage/libros.webp"
+      alt=""
+      width="444"
+      height="430"
+      style="--rot: 8deg"
+      loading="lazy"
+      decoding="async"
+    />
     <h3>{extras.title}</h3>
     <p>{extras.text}</p>
     <ul>
@@ -160,11 +170,30 @@ const latest = videos.slice(0, 3);
 
   /* Lo que acompaña a cada video */
   .extras {
+    position: relative;
     margin-top: 56px;
     padding: clamp(24px, 4vw, 40px);
+    padding-right: clamp(24px, 16vw, 200px);
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
+  }
+  /* Pila de libros (collage) asomando por la esquina */
+  .books {
+    position: absolute;
+    top: -46px;
+    right: -18px;
+    width: clamp(110px, 15vw, 170px);
+  }
+  @media (max-width: 760px) {
+    .extras {
+      padding-top: 72px;
+    }
+    .books {
+      top: -40px;
+      right: 8px;
+      width: 110px;
+    }
   }
   .extras h3 {
     font-size: 1.375rem;

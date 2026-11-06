@@ -6,12 +6,21 @@
 // sin enumeraciones de tres por costumbre, sin "no solo X, también Y",
 // sin titulares con dos puntos y sin prometer en presente lo que aún no existe.
 
+// Recorte del collage (archivos en public/collage/; todas las piezas en assets-src/collage/).
+export interface Cutout {
+  src: string;
+  width: number;
+  height: number;
+  rot: number; // giro en grados, para el aire de collage
+}
+
 export interface Topic {
   id: string;
   title: string;
   what: string; // lo que vas a entender
   how: string; // lo que te llevas para hacerlo
   tools: string;
+  cutout: Cutout;
 }
 
 export interface JourneyStep {
@@ -25,6 +34,7 @@ export const site = {
   description:
     'Llevo más de 7 años haciendo campañas en Meta y Google. Te enseño a usar la IA en las tuyas, con ejemplos reales y sin tecnicismos.',
   headline: 'Marketing con IA que sí funciona.',
+  headlineHighlight: 'funciona', // palabra del titular con tira amarilla de collage
   greeting: 'Hola, soy Edgar Navarro',
   intro:
     'Llevo más de 7 años haciendo campañas en Meta y Google. Ahora te enseño a usar la IA en las tuyas, con ejemplos reales y sin tecnicismos.',
@@ -112,6 +122,7 @@ export const topics: Topic[] = [
     what: 'Cómo crear y mejorar tus anuncios con ayuda de la IA sin perder el control de lo que gastas.',
     how: 'Las instrucciones que uso para pedirle ideas a la IA y probarlas.',
     tools: 'Meta Ads y Google Ads',
+    cutout: { src: '/collage/megafono.webp', width: 295, height: 480, rot: -10 },
   },
   {
     id: 'resultados',
@@ -119,6 +130,7 @@ export const topics: Topic[] = [
     what: 'Qué números mirar y cuándo conviene preocuparse por ellos.',
     how: 'Un tablero sencillo para ver tus campañas de un vistazo.',
     tools: 'Google Analytics y Looker Studio',
+    cutout: { src: '/collage/lupa.webp', width: 218, height: 480, rot: 12 },
   },
   {
     id: 'tiempo',
@@ -126,6 +138,7 @@ export const topics: Topic[] = [
     what: 'Qué tareas puede hacer la IA por ti y cuáles conviene que sigas haciendo tú.',
     how: 'Automatizaciones listas para importar, con cada paso explicado.',
     tools: 'Automatizaciones con IA',
+    cutout: { src: '/collage/cerebro.webp', width: 241, height: 201, rot: -6 },
   },
 ];
 

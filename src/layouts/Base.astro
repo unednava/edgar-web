@@ -35,13 +35,13 @@ const personJsonLd = JSON.stringify({
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#f6f7f9" id="theme-color" />
+    <meta name="theme-color" content="#f2f2ef" id="theme-color" />
     <script is:inline>
       // Modo claro por defecto. Si la persona eligió el oscuro, se aplica antes de pintar.
       try {
         if (localStorage.getItem('theme') === 'dark') {
           document.documentElement.dataset.theme = 'dark';
-          document.getElementById('theme-color').setAttribute('content', '#0b111c');
+          document.getElementById('theme-color').setAttribute('content', '#121212');
         }
       } catch (e) {}
     </script>

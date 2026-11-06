@@ -10,8 +10,20 @@ import { topics } from '../data/site';
       topics.map((t) => (
         <li class="row" id={t.id}>
           <div class="name">
-            <h3>{t.title}</h3>
-            <p class="tools">{t.tools}</p>
+            <img
+              class="cutout piece"
+              src={t.cutout.src}
+              alt=""
+              width={t.cutout.width}
+              height={t.cutout.height}
+              style={`--rot: ${t.cutout.rot}deg`}
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <h3>{t.title}</h3>
+              <p class="tools">{t.tools}</p>
+            </div>
           </div>
           <dl class="qa">
             <div>
@@ -45,6 +57,18 @@ import { topics } from '../data/site';
     gap: 16px clamp(24px, 5vw, 64px);
     padding: 32px 0;
     border-bottom: 1px solid var(--line);
+  }
+  .name {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  /* Recorte del collage junto al nombre del tema */
+  .piece {
+    flex: none;
+    width: 96px;
+    height: 104px;
+    object-fit: contain;
   }
   h3 {
     font-size: clamp(1.375rem, 2.4vw, 1.625rem);
