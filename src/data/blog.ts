@@ -76,6 +76,9 @@ export async function getPosts(): Promise<Post[]> {
   return posts.filter((p) => p.title && p.url).slice(0, blog.maxPosts);
 }
 
+// Se leen una sola vez al compilar y se comparten (sección del blog, menú y pie).
+export const latestPosts: Post[] = await getPosts();
+
 export function formatDate(iso: string): string {
   if (!iso) return '';
   const d = new Date(`${iso}T12:00:00Z`);

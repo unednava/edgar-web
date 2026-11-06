@@ -51,7 +51,7 @@ export const site = {
   // por ejemplo 'edgarnavarro.substack.com' (con o sin https://; también vale un dominio propio).
   // Mientras esté vacía: los botones llevan a LinkedIn, la newsletter dice que arranca pronto
   // y no aparece el enlace "Blog". Al pegarla, todo cambia solo.
-  substack: '',
+  substack: 'edgar14np.substack.com',
 } as const;
 
 // Dirección de Substack normalizada (https://, sin barra final), o null si aún no hay.
@@ -158,7 +158,8 @@ export const newsletter = {
   // Mientras `site.substack` esté vacío se muestran los textos "soon".
   title: 'Una vez por semana, en tu correo',
   soonTitle: 'La newsletter arranca pronto',
-  text: 'Cada semana te escribo sobre algo que probé en mis campañas y lo que me costó, haya funcionado o no.',
+  // En futuro mientras no haya envíos; cuando ya salgan, puede pasar a "Cada semana te escribo…".
+  text: 'Cada semana te voy a escribir sobre algo que probé en mis campañas y lo que me costó, haya funcionado o no.',
   soonText:
     'Cada semana voy a escribir sobre algo que probé en mis campañas y lo que me costó, haya funcionado o no. Mientras tanto, en LinkedIn cuento en qué estoy trabajando.',
   invite: '¿Te sumas?',

@@ -1,8 +1,10 @@
 ---
 import { site, substack } from '../data/site';
+import { latestPosts } from '../data/blog';
 
+// "Blog" solo aparece cuando hay al menos un artículo: nadie llega a un blog vacío.
 const links = [
-  { label: 'Blog', href: substack?.home ?? '' },
+  { label: 'Blog', href: substack && latestPosts.length > 0 ? substack.home : '' },
   { label: 'YouTube', href: site.social.youtube },
   { label: 'LinkedIn', href: site.social.linkedin },
   { label: 'Instagram', href: site.social.instagram },

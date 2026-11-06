@@ -1,10 +1,8 @@
 ---
 // Últimos artículos del blog (Substack). No aparece mientras no haya artículos.
-import { blog, getPosts, formatDate } from '../data/blog';
+import { blog, latestPosts as posts, formatDate } from '../data/blog';
 import { substack } from '../data/site';
 import Icon from './Icon.astro';
-
-const posts = await getPosts();
 ---
 
 {

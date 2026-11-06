@@ -168,7 +168,14 @@ npm run preview   # sirve dist/ en local
 4. Cambiar `site` en `astro.config.mjs` y la línea `Sitemap:` en `public/robots.txt`, commit y push.
 5. Opcional: desactivar la URL `*.workers.dev` en Settings → Domains & Routes para evitar contenido duplicado.
 
-## Blog y newsletter: Substack (preparado, falta la dirección)
+## Blog y newsletter: Substack (activo: https://edgar14np.substack.com)
+
+Estado (nov. 2026): `site.substack = 'edgar14np.substack.com'`. Los botones "Suscribirme" llevan a
+`/subscribe`. La publicación aún no tiene artículos y se llama "El Substack de Edgar" (nombre por
+defecto de Substack; se puede cambiar en sus ajustes). El enlace "Blog" (menú y pie) y la sección
+"Lo último del blog" **solo aparecen cuando el RSS tiene al menos un artículo** (`latestPosts`
+en `src/data/blog.ts`); como se leen al compilar, tras publicar el primer artículo hay que volver
+a publicar la web (un push a main) para que aparezcan.
 
 Edgar eligió **Substack** para el blog y la newsletter (nov. 2026), con un **botón que lleva a
 Substack** (no un formulario dentro de la web) y un **enlace "Blog"** en el menú y el pie.
