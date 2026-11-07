@@ -1,0 +1,82 @@
+---
+// Bloque de compra de la página de un producto: precio en dólares, botón a Gumroad y,
+// si hay número de WhatsApp, opción de pagar en bolívares.
+import type { Product } from '../data/shop';
+import { formatUsd, whatsappLink } from '../data/shop';
+
+interface Props {
+  product: Product;
+}
+
+const { product: p } = Astro.props;
+const free = p.priceUsd === 0;
+const wa = whatsappLink(p);
+---
+
+<div class="buy">
+  <p class="price">
+    <span class="amount">{formatUsd(p.priceUsd)}</span>
+    {!free && <span class="currency">USD</span>}
+  </p>
+  <div class="actions">
+    <a class="btn btn-primary" href={p.gumroad} target="_blank" rel="noopener">
+      {free ? 'Descargar gratis' : 'Comprar en dólares'}
+    </a>
+    {
+      wa && (
+        <a class="btn btn-ghost" href={wa} target="_blank" rel="noopener">
+          Pagar en bolívares
+        </a>
+      )
+    }
+  </div>
+  <p class="note">
+    {
+      free
+        ? 'Se descarga desde Gumroad: dejas tu correo y te llega al momento.'
+        : wa
+          ? 'En dólares, pagas con tarjeta en Gumroad. En bolívares, me escribes por WhatsApp y te paso el monto a la tasa del día.'
+          : 'Pagas con tarjeta en Gumroad y el archivo te llega al correo al momento.'
+    }
+  </p>
+</div>
+
+<style>
+  .buy {
+    padding: 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .amount {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .currency {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .actions .btn {
+    flex: 1 1 200px;
+  }
+  .note {
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+</style>

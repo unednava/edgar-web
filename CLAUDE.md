@@ -46,9 +46,12 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   Piezas en uso (`public/collage/`): bombilla con estrellas (inicio, asomando sobre la tarjeta),
   mano con pluma (sobre el lema de "Sobre mí"), megáfono / lupa / cerebro (temas de "De qué
   hablo", definidos en `topics[].cutout`), pila de libros ("Junto a cada video"), bocadillo con
-  boca (newsletter) y hombre con bombilla (404). Las 17 piezas recortadas están en
-  `assets-src/collage/` (no se publica): microscopio, balanza, ADN, puño, globo, estrella azul,
-  rayos, etc. Salen de una lámina de collage que **Edgar compró / tiene licencia** para usar.
+  boca (newsletter) y hombre con bombilla (404).
+  **Biblioteca de recortes:** `assets-src/collage/` (no se publica), 82 piezas de 6 láminas en
+  `lamina-1/` … `lamina-6/`, con `catalogo-lamina-N.webp` para verlas de un vistazo y un
+  `README.md` con todos los nombres (megáfonos, lupas, manos, móviles, laptops, cámaras, trofeo,
+  reloj, cohete, Mona Lisa, mujer con lupa, etc.). Edgar **tiene licencia** de las láminas; se
+  excluyeron 3 piezas con marca de agua de bancos de imágenes (detalle en ese README).
   `main` tiene `overflow-x: clip` para que ningún recorte cause scroll horizontal.
 - **Que no parezca hecha con IA ni con plantilla** (revisión de nov. 2026). No volver a meter:
   etiquetas tipo píldora con punto encima del título; texto verde pequeño encima de cada sección;
@@ -124,7 +127,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Página de error                                  | `src/pages/404.astro`           |
 | Productos de la tienda y número de WhatsApp      | `src/data/shop.ts`              |
 | Logos de marcas (archivos en `public/logos/`)    | `src/data/site.ts` → `brands` |
-| Recortes de collage                              | `public/collage/` (todas las piezas en `assets-src/collage/`) |
+| Recortes de collage                              | `public/collage/` (biblioteca completa en `assets-src/collage/`, ver su README) |
 | Palabra con tira amarilla en el titular          | `src/data/site.ts` → `site.headlineHighlight` |
 | Textos de la newsletter                          | `src/data/site.ts` → `newsletter` |
 | Iconos                                           | `src/components/Icon.astro`     |
@@ -134,7 +137,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Despliegue en Cloudflare                         | `wrangler.jsonc`                |
 
 Componentes en `src/components/`: Header, Hero, About, Topics, Videos, ShopTeaser, ProductCard,
-Newsletter, Footer, Icon. Páginas: `index`, `recursos`, `404`.
+Newsletter, Footer, Icon, BuyBox, Blog. Páginas: `index`, `recursos/index`, `recursos/[id]`
+(una por producto), `404`.
 
 ## Comandos
 
@@ -168,7 +172,14 @@ npm run preview   # sirve dist/ en local
 4. Cambiar `site` en `astro.config.mjs` y la línea `Sitemap:` en `public/robots.txt`, commit y push.
 5. Opcional: desactivar la URL `*.workers.dev` en Settings → Domains & Routes para evitar contenido duplicado.
 
-## Blog y newsletter: Substack (preparado, falta la dirección)
+## Blog y newsletter: Substack (activo: https://edgar14np.substack.com)
+
+Estado (nov. 2026): `site.substack = 'edgar14np.substack.com'`. Los botones "Suscribirme" llevan a
+`/subscribe`. La publicación aún no tiene artículos y se llama "El Substack de Edgar" (nombre por
+defecto de Substack; se puede cambiar en sus ajustes). El enlace "Blog" (menú y pie) y la sección
+"Lo último del blog" **solo aparecen cuando el RSS tiene al menos un artículo** (`latestPosts`
+en `src/data/blog.ts`); como se leen al compilar, tras publicar el primer artículo hay que volver
+a publicar la web (un push a main) para que aparezcan.
 
 Edgar eligió **Substack** para el blog y la newsletter (nov. 2026), con un **botón que lleva a
 Substack** (no un formulario dentro de la web) y un **enlace "Blog"** en el menú y el pie.
@@ -200,11 +211,23 @@ La web solo **muestra** los recursos con diseño de tienda; la compra se hace fu
   del día. **El precio en la web va solo en dólares**: la tasa cambia casi a diario.
 - Precio 0 → "Gratis" y botón "Descargar gratis" (sin opción de bolívares).
 
+**Cada producto tiene su propia página: `/recursos/<id>/`** (nov. 2026, pedido por Edgar),
+generada desde `src/pages/recursos/[id].astro`. Contiene: ruta "Recursos / nombre", ficha
+(formato, nombre, descripción), bloque de compra (`BuyBox.astro`: precio en USD, "Comprar en
+dólares" → Gumroad y "Pagar en bolívares" → WhatsApp), "Qué incluye", "Para quién es",
+"Sobre este recurso", "Cómo comprar" (no en los gratis) y "Otros recursos". Con portada: imagen a
+la izquierda; sin portada: ficha y compra lado a lado (el nombre no se repite). La portada es
+también la imagen al compartir el enlace. Datos para buscadores `Product` + `BreadcrumbList`.
+Las tarjetas (`ProductCard.astro`, en la tienda, el adelanto y "Otros recursos") son enteras un
+enlace a la página del producto y muestran precio y "Ver recurso"; los botones de compra solo
+están en la página del producto. El `id` es la dirección: no cambiarlo una vez publicado.
+
 Dónde se edita: `src/data/shop.ts` → `products` (id, title, format, description, includes,
-priceUsd, gumroad, cover opcional en `public/recursos/` 1280×720, featured) y `shop.whatsapp`
-(número con código de país; vacío = sin botón de bolívares). Componentes: `ProductCard.astro`,
-`ShopTeaser.astro` (adelanto con hasta 3 destacados en la principal, tras los videos) y
-`src/pages/recursos.astro` (todos los productos + "Cómo comprar" + datos `Product` para buscadores).
+forWho y details opcionales, priceUsd, gumroad, cover opcional en `public/recursos/` 1280×720,
+featured) y `shop.whatsapp` (número con código de país; vacío = sin botón de bolívares).
+Componentes: `ProductCard.astro`, `BuyBox.astro`, `ShopTeaser.astro` (adelanto con hasta 3
+destacados en la principal, tras los videos), `src/pages/recursos/index.astro` (todos los
+productos + "Cómo comprar") y `src/pages/recursos/[id].astro` (página de cada producto).
 
 Mientras `products` esté vacío: sin enlace "Recursos" en el menú, sin adelanto en la principal,
 `/recursos` dice que los primeros están en preparación, lleva `noindex` y no entra en el sitemap

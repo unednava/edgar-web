@@ -1,10 +1,10 @@
 ---
-import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import ProductCard from '../components/ProductCard.astro';
-import { shop, products, hasShop } from '../data/shop';
-import { site } from '../data/site';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { shop, products, hasShop, productUrl } from '../../data/shop';
+import { site } from '../../data/site';
 
 // Para dudas: WhatsApp si hay número; si no, LinkedIn.
 const waDigits = shop.whatsapp.replace(/\D/g, '');
@@ -22,7 +22,7 @@ const itemListJsonLd = hasShop
           '@type': 'Product',
           name: p.title,
           description: p.description,
-          url: new URL(`/recursos#${p.id}`, Astro.site).href,
+          url: new URL(productUrl(p), Astro.site).href,
           brand: { '@type': 'Person', name: site.name },
           offers: {
             '@type': 'Offer',

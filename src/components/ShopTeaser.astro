@@ -20,7 +20,7 @@ import Icon from './Icon.astro';
       <p class="lead">{shop.intro}</p>
       <div class="grid">
         {featuredProducts.map((p) => (
-          <ProductCard product={p} showIncludes={false} />
+          <ProductCard product={p} />
         ))}
       </div>
     </section>

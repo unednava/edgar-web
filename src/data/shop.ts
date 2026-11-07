@@ -6,12 +6,15 @@
 // Mientras `products` esté vacío, la tienda no aparece en el menú ni en la página principal,
 // y /recursos dice que los primeros recursos están en preparación.
 
+// Cada producto tiene su propia página: /recursos/<id>/
 export interface Product {
-  id: string; // corto, sin espacios ni tildes: se usa como ancla (/recursos#id)
+  id: string; // corto, en minúsculas, sin espacios ni tildes: es la dirección (/recursos/alerta-cpa/)
   title: string;
   format: string; // qué es: "Plantilla", "Guía en PDF", "Automatización"...
-  description: string; // una o dos frases
-  includes?: string[]; // qué recibe la persona (opcional)
+  description: string; // una o dos frases (se ve en la tarjeta y arriba en su página)
+  includes?: string[]; // qué recibe la persona
+  forWho?: string[]; // para quién es (opcional, se ve en su página)
+  details?: string[]; // "Sobre este recurso": párrafos con más detalle (opcional, se ve en su página)
   priceUsd: number; // 0 = gratis
   gumroad: string; // enlace del producto en Gumroad
   cover?: string; // imagen opcional en public/recursos/, p. ej. '/recursos/alerta-cpa.webp' (1280×720)
@@ -83,6 +86,8 @@ export const products: Product[] = [
   //   format: 'Automatización',
   //   description: 'Te avisa cuando una campaña se encarece y te dice qué anuncio pausar.',
   //   includes: ['La automatización lista para importar', 'Guía paso a paso en PDF'],
+  //   forWho: ['Si manejas tus propias campañas en Meta', 'Si no tienes tiempo de revisarlas a diario'],
+  //   details: ['Primer párrafo con más detalle…', 'Segundo párrafo…'],
   //   priceUsd: 19,
   //   gumroad: 'https://edgarnavarro.gumroad.com/l/alerta-cpa',
   //   featured: true,
@@ -107,6 +112,11 @@ export function whatsappLink(product: Product): string | null {
 }
 
 export const hasShop = products.length > 0;
+
+/** Dirección de la página de un producto. */
+export function productUrl(product: Product): string {
+  return `/recursos/${product.id}/`;
+}
 
 export const featuredProducts = (() => {
   const featured = products.filter((p) => p.featured);
