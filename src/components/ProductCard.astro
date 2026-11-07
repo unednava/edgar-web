@@ -1,29 +1,33 @@
 ---
+// Tarjeta de producto en la tienda y en el adelanto de la página principal.
+// Toda la tarjeta lleva a la página del producto (/recursos/<id>/), donde están los botones de compra.
 import type { Product } from '../data/shop';
-import { formatUsd, whatsappLink } from '../data/shop';
+import { formatUsd, productUrl } from '../data/shop';
 import Icon from './Icon.astro';
 
 interface Props {
   product: Product;
   headingLevel?: 'h2' | 'h3';
-  showIncludes?: boolean;
 }
 
-const { product: p, headingLevel = 'h3', showIncludes = true } = Astro.props;
+const { product: p, headingLevel = 'h3' } = Astro.props;
 const Heading = headingLevel;
 const free = p.priceUsd === 0;
-const wa = whatsappLink(p);
+const href = productUrl(p);
 ---
 
-<article class="product" id={p.id}>
+<article class="product">
   <div class="cover">
     {
       p.cover ? (
         <img src={p.cover} alt="" width="1280" height="720" loading="lazy" decoding="async" />
       ) : (
+        // Sin imagen: el nombre va en la portada y no se repite debajo.
         <div class="cover-text">
           <p class="cover-format">{p.format}</p>
-          <Heading class="cover-title">{p.title}</Heading>
+          <Heading class="cover-title">
+            <a href={href}>{p.title}</a>
+          </Heading>
         </div>
       )
     }
@@ -34,57 +38,42 @@ const wa = whatsappLink(p);
       p.cover && (
         <>
           <p class="format">{p.format}</p>
-          <Heading class="title">{p.title}</Heading>
+          <Heading class="title">
+            <a href={href}>{p.title}</a>
+          </Heading>
         </>
       )
     }
     <p class="desc">{p.description}</p>
 
-    {
-      showIncludes && p.includes && p.includes.length > 0 && (
-        <ul class="includes" aria-label="Incluye">
-          {p.includes.map((item) => (
-            <li>
-              <span class="check" aria-hidden="true">
-                <Icon name="check" size={16} />
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      )
-    }
-
-    <div class="buy">
+    <div class="foot">
       <p class="price">
         <span class="amount">{formatUsd(p.priceUsd)}</span>
         {!free && <span class="currency">USD</span>}
       </p>
-      <div class="actions">
-        <a class="btn btn-primary" href={p.gumroad} target="_blank" rel="noopener">
-          {free ? 'Descargar gratis' : 'Comprar en dólares'}
-        </a>
-        {
-          wa && (
-            <a class="btn btn-ghost" href={wa} target="_blank" rel="noopener">
-              Pagar en bolívares
-            </a>
-          )
-        }
-      </div>
+      <span class="more" aria-hidden="true">
+        Ver recurso <Icon name="arrow" size={16} />
+      </span>
     </div>
   </div>
 </article>
 
 <style>
   .product {
+    position: relative;
     display: flex;
     flex-direction: column;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
-    scroll-margin-top: 96px;
+    transition:
+      transform 200ms var(--ease-out),
+      border-color 200ms ease;
+  }
+  .product:hover {
+    transform: translateY(-2px);
+    border-color: var(--field-border);
   }
   .cover {
     aspect-ratio: 16 / 9;
@@ -97,7 +86,7 @@ const wa = whatsappLink(p);
     height: 100%;
     object-fit: cover;
   }
-  /* Sin imagen: portada tipográfica con el nombre (y el nombre no se repite debajo) */
+  /* Sin imagen: portada tipográfica con el nombre del recurso */
   .cover-text {
     height: 100%;
     display: flex;
@@ -108,7 +97,7 @@ const wa = whatsappLink(p);
   .cover-format {
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--muted);
   }
   .cover-title {
     font-size: clamp(1.375rem, 2.6vw, 1.75rem);
@@ -123,7 +112,7 @@ const wa = whatsappLink(p);
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 22px 22px 24px;
+    padding: 20px 22px 22px;
   }
   .format {
     font-size: 0.875rem;
@@ -135,35 +124,38 @@ const wa = whatsappLink(p);
     letter-spacing: -0.015em;
     font-weight: 700;
   }
+  .title a,
+  .cover-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  /* Toda la tarjeta es clicable */
+  .title a::after,
+  .cover-title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+  }
+  .title a:focus-visible,
+  .cover-title a:focus-visible {
+    outline: none;
+  }
+  .title a:focus-visible::after,
+  .cover-title a:focus-visible::after {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
   .desc {
     color: var(--ink-2);
     font-size: 1rem;
   }
-  .includes {
-    list-style: none;
-    margin: 6px 0 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.9375rem;
-    color: var(--ink-2);
-  }
-  .includes li {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-  }
-  .check {
-    flex: none;
-    color: var(--accent);
-    margin-top: 3px;
-  }
-  .buy {
+  .foot {
     margin-top: auto;
-    padding-top: 16px;
+    padding-top: 14px;
     display: flex;
-    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
     gap: 12px;
   }
   .price {
@@ -172,24 +164,26 @@ const wa = whatsappLink(p);
     gap: 6px;
   }
   .amount {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: -0.02em;
   }
   .currency {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: var(--muted);
   }
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .actions .btn {
-    flex: 1 1 auto;
-    min-height: 46px;
-    padding: 0 18px;
+  .more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 0.9375rem;
+    font-weight: 600;
+  }
+  .product:hover .more {
+    text-decoration: underline;
+    text-decoration-color: var(--hl);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
   }
 </style>

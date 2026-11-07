@@ -6,13 +6,22 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean; // páginas que no deben aparecer en buscadores (p. ej. la tienda vacía)
+  image?: string; // imagen para redes propia de la página (p. ej. la portada de un producto)
+  imageAlt?: string;
 }
 
-const { title = site.title, description = site.description, noindex = false } = Astro.props;
+const {
+  title = site.title,
+  description = site.description,
+  noindex = false,
+  image,
+  imageAlt,
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-// Imagen para redes (1200×630). Se regenera desde scripts/og.html.
-const ogImage = new URL('/og.png', Astro.site).href;
-const ogImageAlt = 'Edgar Navarro · Marketing con IA que sí funciona.';
+// Imagen para redes: la de la página o, si no hay, la general (1200×630, desde scripts/og.html).
+const ogImage = new URL(image ?? '/og.png', Astro.site).href;
+const ogImageAlt = imageAlt ?? 'Edgar Navarro · Marketing con IA que sí funciona.';
+const ogIsDefault = !image;
 // Datos para buscadores: esta web es de una persona (Edgar), no de una empresa.
 const personJsonLd = JSON.stringify({
   '@context': 'https://schema.org',
@@ -53,8 +62,8 @@ const personJsonLd = JSON.stringify({
     <meta property="og:locale" content="es_419" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    {ogIsDefault && <meta property="og:image:width" content="1200" />}
+    {ogIsDefault && <meta property="og:image:height" content="630" />}
     <meta property="og:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

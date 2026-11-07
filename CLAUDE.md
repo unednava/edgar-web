@@ -137,7 +137,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Despliegue en Cloudflare                         | `wrangler.jsonc`                |
 
 Componentes en `src/components/`: Header, Hero, About, Topics, Videos, ShopTeaser, ProductCard,
-Newsletter, Footer, Icon. Páginas: `index`, `recursos`, `404`.
+Newsletter, Footer, Icon, BuyBox, Blog. Páginas: `index`, `recursos/index`, `recursos/[id]`
+(una por producto), `404`.
 
 ## Comandos
 
@@ -210,11 +211,23 @@ La web solo **muestra** los recursos con diseño de tienda; la compra se hace fu
   del día. **El precio en la web va solo en dólares**: la tasa cambia casi a diario.
 - Precio 0 → "Gratis" y botón "Descargar gratis" (sin opción de bolívares).
 
+**Cada producto tiene su propia página: `/recursos/<id>/`** (nov. 2026, pedido por Edgar),
+generada desde `src/pages/recursos/[id].astro`. Contiene: ruta "Recursos / nombre", ficha
+(formato, nombre, descripción), bloque de compra (`BuyBox.astro`: precio en USD, "Comprar en
+dólares" → Gumroad y "Pagar en bolívares" → WhatsApp), "Qué incluye", "Para quién es",
+"Sobre este recurso", "Cómo comprar" (no en los gratis) y "Otros recursos". Con portada: imagen a
+la izquierda; sin portada: ficha y compra lado a lado (el nombre no se repite). La portada es
+también la imagen al compartir el enlace. Datos para buscadores `Product` + `BreadcrumbList`.
+Las tarjetas (`ProductCard.astro`, en la tienda, el adelanto y "Otros recursos") son enteras un
+enlace a la página del producto y muestran precio y "Ver recurso"; los botones de compra solo
+están en la página del producto. El `id` es la dirección: no cambiarlo una vez publicado.
+
 Dónde se edita: `src/data/shop.ts` → `products` (id, title, format, description, includes,
-priceUsd, gumroad, cover opcional en `public/recursos/` 1280×720, featured) y `shop.whatsapp`
-(número con código de país; vacío = sin botón de bolívares). Componentes: `ProductCard.astro`,
-`ShopTeaser.astro` (adelanto con hasta 3 destacados en la principal, tras los videos) y
-`src/pages/recursos.astro` (todos los productos + "Cómo comprar" + datos `Product` para buscadores).
+forWho y details opcionales, priceUsd, gumroad, cover opcional en `public/recursos/` 1280×720,
+featured) y `shop.whatsapp` (número con código de país; vacío = sin botón de bolívares).
+Componentes: `ProductCard.astro`, `BuyBox.astro`, `ShopTeaser.astro` (adelanto con hasta 3
+destacados en la principal, tras los videos), `src/pages/recursos/index.astro` (todos los
+productos + "Cómo comprar") y `src/pages/recursos/[id].astro` (página de cada producto).
 
 Mientras `products` esté vacío: sin enlace "Recursos" en el menú, sin adelanto en la principal,
 `/recursos` dice que los primeros están en preparación, lleva `noindex` y no entra en el sitemap

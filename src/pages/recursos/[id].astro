@@ -1,0 +1,345 @@
+---
+// Página propia de cada producto: /recursos/<id>/
+// Se genera una por cada producto de src/data/shop.ts (si no hay productos, no se genera ninguna).
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Icon from '../../components/Icon.astro';
+import BuyBox from '../../components/BuyBox.astro';
+import { products, shop, productUrl, type Product } from '../../data/shop';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return products.map((product) => ({ params: { id: product.id }, props: { product } }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product: p } = Astro.props;
+const free = p.priceUsd === 0;
+const others = products.filter((x) => x.id !== p.id).slice(0, 3);
+const waDigits = shop.whatsapp.replace(/\D/g, '');
+const contactHref = waDigits ? `https://wa.me/${waDigits}` : site.social.linkedin;
+const pageUrl = new URL(productUrl(p), Astro.site).href;
+
+// Datos para buscadores: el producto con su precio y la ruta Recursos › producto.
+const jsonLd = JSON.stringify([
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.title,
+    description: p.description,
+    url: pageUrl,
+    ...(p.cover ? { image: new URL(p.cover, Astro.site).href } : {}),
+    brand: { '@type': 'Person', name: site.name },
+    offers: {
+      '@type': 'Offer',
+      price: p.priceUsd.toFixed(2),
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: p.gumroad,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Recursos', item: new URL('/recursos/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: p.title, item: pageUrl },
+    ],
+  },
+]);
+---
+
+<Base
+  title={`${p.title} · ${site.name}`}
+  description={p.description}
+  image={p.cover}
+  imageAlt={p.cover ? p.title : undefined}
+>
+  <Header />
+  <main id="principal" class="wrap page">
+    <nav class="crumbs" aria-label="Ruta">
+      <a href="/recursos/">Recursos</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{p.title}</span>
+    </nav>
+
+    <!-- Con portada: imagen | ficha y compra. Sin portada: ficha | compra (el nombre no se repite). -->
+    <div class:list={['top', { 'no-cover': !p.cover }]}>
+      {
+        p.cover && (
+          <div class="cover">
+            <img src={p.cover} alt="" width="1280" height="720" decoding="async" />
+          </div>
+        )
+      }
+      <div class="info">
+        <p class="format">{p.format}</p>
+        <h1>{p.title}</h1>
+        <p class="lead">{p.description}</p>
+        {p.cover && <BuyBox product={p} />}
+      </div>
+      {!p.cover && <BuyBox product={p} />}
+    </div>
+
+    {
+      (p.includes?.length || p.forWho?.length) && (
+        <div class="lists">
+          {p.includes && p.includes.length > 0 && (
+            <section aria-labelledby="incluye">
+              <h2 id="incluye">Qué incluye</h2>
+              <ul>
+                {p.includes.map((item) => (
+                  <li>
+                    <span class="check" aria-hidden="true">
+                      <Icon name="check" size={18} />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+          {p.forWho && p.forWho.length > 0 && (
+            <section aria-labelledby="para-quien">
+              <h2 id="para-quien">Para quién es</h2>
+              <ul>
+                {p.forWho.map((item) => (
+                  <li>
+                    <span class="check" aria-hidden="true">
+                      <Icon name="arrow" size={18} />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      )
+    }
+
+    {
+      p.details && p.details.length > 0 && (
+        <section class="about" aria-labelledby="sobre">
+          <h2 id="sobre">Sobre este recurso</h2>
+          {p.details.map((t) => (
+            <p>{t}</p>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      !free && (
+        <section class="how" aria-labelledby="como">
+          <h2 id="como">Cómo comprar</h2>
+          <div class="how-grid">
+            {shop.howToBuy.map((h) => (
+              <div>
+                <h3>{h.title}</h3>
+                <p>{h.text}</p>
+              </div>
+            ))}
+          </div>
+          <p class="small">
+            ¿Tienes dudas antes de comprar?{' '}
+            <a href={contactHref} target="_blank" rel="noopener">
+              Escríbeme
+            </a>{' '}
+            y te respondo.
+          </p>
+        </section>
+      )
+    }
+
+    {
+      others.length > 0 && (
+        <section class="others" aria-labelledby="otros">
+          <div class="others-head">
+            <h2 id="otros">Otros recursos</h2>
+            <a href="/recursos/">
+              Ver todos <Icon name="arrow" size={16} />
+            </a>
+          </div>
+          <div class="grid">
+            {others.map((o) => (
+              <ProductCard product={o} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </main>
+  <Footer />
+  <script type="application/ld+json" set:html={jsonLd} />
+</Base>
+
+<style>
+  .page {
+    padding-block: clamp(24px, 5vw, 48px) clamp(56px, 8vw, 96px);
+  }
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.9375rem;
+    color: var(--muted);
+    margin-bottom: clamp(20px, 4vw, 32px);
+  }
+  .crumbs a {
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 56px);
+    align-items: start;
+  }
+  .cover {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--accent-soft);
+    border: 1px solid var(--line);
+  }
+  .cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Sin portada: la ficha a la izquierda y el bloque de compra a la derecha */
+  .top.no-cover {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: end;
+    padding-bottom: clamp(28px, 4vw, 40px);
+    border-bottom: 1px solid var(--line);
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .info :global(.buy) {
+    margin-top: 12px;
+  }
+  .format {
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  h1 {
+    font-size: clamp(2rem, 4.2vw, 2.875rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    text-wrap: balance;
+  }
+  .lead {
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+
+  .lists {
+    margin-top: clamp(40px, 6vw, 64px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 32px 56px;
+  }
+  h2 {
+    font-size: 1.375rem;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  .lists ul {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .lists li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--ink-2);
+  }
+  .check {
+    flex: none;
+    margin-top: 4px;
+    color: var(--ink);
+  }
+  .about {
+    margin-top: clamp(40px, 6vw, 64px);
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .about p {
+    color: var(--ink-2);
+  }
+  .how {
+    margin-top: clamp(40px, 6vw, 64px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .how-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 48px;
+  }
+  .how h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+  }
+  .how-grid p {
+    margin-top: 4px;
+    color: var(--ink-2);
+  }
+  .small {
+    margin-top: 20px;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  .others {
+    margin-top: clamp(48px, 7vw, 80px);
+  }
+  .others-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .others-head a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 20px;
+  }
+  @media (max-width: 880px) {
+    .top,
+    .top.no-cover {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .how-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
