@@ -3,7 +3,7 @@
 // Son decorativos: el texto de al lado ya explica lo que significan.
 
 interface Props {
-  name: 'check' | 'arrow' | 'sun' | 'moon';
+  name: 'check' | 'arrow' | 'sun' | 'moon' | 'menu' | 'close';
   size?: number;
 }
 
@@ -11,6 +11,8 @@ const { name, size = 24 } = Astro.props;
 
 const paths: Record<Props['name'], string> = {
   check: 'M20 6 9 17l-5-5',
+  menu: 'M4 7h16 M4 12h16 M4 17h16',
+  close: 'M6 6l12 12 M18 6 6 18',
   arrow: 'M5 12h14 M13 6l6 6-6 6',
   sun: 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M12 2v2 M12 20v2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M2 12h2 M20 12h2 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4',
   moon: 'M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z',

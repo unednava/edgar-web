@@ -78,6 +78,10 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 - Movimiento sutil: aparición de esos pasos y botones que reaccionan al pulsar.
   Con `prefers-reduced-motion` todo aparece sin animación.
 - Barra superior translúcida (desenfoque), sólida con `prefers-reduced-transparency`.
+- **Menú en móvil** (≤ 760 px): botón ☰ que despliega los enlaces bajo la barra (se cierra con
+  la X, Escape, tocar fuera o elegir un enlace). En ≤ 560 px el botón "Suscribirme" de la barra
+  pasa al final del menú, porque no caben todos los botones. Los enlaces que se añadan en
+  `Header.astro` salen solos en escritorio y en el menú.
 - Monograma "EN" como logo y como avatar hasta que haya foto.
 - **Ilustraciones chibi de Edgar: probadas y descartadas** (nov. 2026). Se colocaron en el
   encabezado, el saludo, "Sobre mí", la newsletter, la 404 y la imagen para redes, y a Edgar no
