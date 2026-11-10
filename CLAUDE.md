@@ -70,7 +70,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   enlaces en negro `#141414` (en oscuro, botones amarillos con texto negro); amarillo `#fcd812`
   (`--hl`) para tiras, monograma "EN" y relleno de la gráfica; rojo de los rayos `#9c301e`
   (`--warn`) solo para "algo deja de funcionar" en la animación del inicio.
-- Tipografía única: **Plus Jakarta Sans** (Google Fonts), 18 px de base; títulos con tracking negativo.
+- Tipografía única: **Plus Jakarta Sans** alojada en la propia web (paquete `@fontsource-variable/plus-jakarta-sans`, solo subconjuntos latino y latino extendido; sin Google Fonts), 18 px de base; títulos con tracking negativo.
 - Elemento distintivo: la tarjeta animada del inicio, "Así cuida la IA una campaña". Una gráfica
   de clientes por semana (SVG propio, sin librerías) se dibuja sola: baja (1), la IA pausa lo que
   falla (2) y se recupera (3); cada paso de la lista se ilumina a su tiempo y hay botón para repetir.
@@ -135,6 +135,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | URL pública (`site`), integraciones              | `astro.config.mjs`              |
 | Imagen Open Graph (1200×630)                     | `public/og.png`, plantilla en `scripts/og.html` |
 | Despliegue en Cloudflare                         | `wrangler.jsonc`                |
+| Caché y cabeceras de seguridad                   | `public/_headers`               |
 
 Componentes en `src/components/`: Header, Hero, About, Topics, Videos, ShopTeaser, ProductCard,
 Newsletter, Footer, Icon, BuyBox, Blog. Páginas: `index`, `recursos/index`, `recursos/[id]`
@@ -181,18 +182,12 @@ defecto de Substack; se puede cambiar en sus ajustes). El enlace "Blog" (menú y
 en `src/data/blog.ts`); como se leen al compilar, tras publicar el primer artículo hay que volver
 a publicar la web (un push a main) para que aparezcan.
 
-Edgar eligió **Substack** para el blog y la newsletter (nov. 2026), con un **botón que lleva a
-Substack** (no un formulario dentro de la web) y un **enlace "Blog"** en el menú y el pie.
-
-1. Edgar crea su publicación en substack.com.
-2. Se pega la dirección en `site.substack` (`src/data/site.ts`), p. ej. `'edgarnavarro.substack.com'`
-   (con o sin `https://`; también vale un dominio propio). Commit y push.
-3. Al tener dirección, cambia todo solo:
-   - Botones principales (inicio y encabezado): "Suscribirme" → `<dirección>/subscribe`.
-   - Sección newsletter: título, texto, "¿Te sumas?" y botón "Suscribirme en Substack".
-   - Enlace "Blog" en el menú (oculto en móvil) y en el pie → `<dirección>`.
-   - Datos para buscadores (`sameAs`) incluyen el Substack.
-4. Mientras esté vacía: botones a LinkedIn, "La newsletter arranca pronto" y sin enlace "Blog".
+Edgar eligió **Substack** (nov. 2026) con un **botón que lleva a Substack** (no un formulario
+dentro de la web). Cómo funciona `site.substack` (`src/data/site.ts`; vale con o sin `https://`
+y también un dominio propio):
+- Con dirección: botones "Suscribirme" → `<dirección>/subscribe`, sección newsletter con "¿Te sumas?"
+  y datos para buscadores (`sameAs`) con el Substack.
+- Vacía: botones a LinkedIn y "La newsletter arranca pronto".
 
 Descartado a propósito: el formulario incrustado de Substack (iframe con su estilo, no respeta el
 diseño ni el modo oscuro) y el envío del correo a su API no documentada (puede romperse sin aviso).
@@ -249,7 +244,7 @@ Falta de Edgar: el número de WhatsApp para ventas y los primeros productos con 
 ## Accesibilidad (ya revisado; mantenerlo)
 
 - Contraste de texto AA/AAA en claro y oscuro; borde del campo de correo `--field-border` ≥ 3:1.
-- Foco visible (`:focus-visible` verde) y enlace "Saltar al contenido".
+- Foco visible (`:focus-visible`, color de acento) y enlace "Saltar al contenido".
 - Página 404 propia (`src/pages/404.astro`), servida por Cloudflare gracias a
   `"not_found_handling": "404-page"` en `wrangler.jsonc`.
 - Datos estructurados `Person` (JSON-LD) en `Base.astro` para buscadores.
