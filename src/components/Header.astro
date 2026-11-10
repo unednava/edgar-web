@@ -7,13 +7,13 @@ import Icon from './Icon.astro';
 
 <a href="#principal" class="skip-link">Saltar al contenido</a>
 
-<header class="header">
+<header class="header" id="site-header">
   <nav class="wrap nav" aria-label="Principal">
     <a href="/" class="brand">
       <span class="mark" aria-hidden="true">EN</span>
       <span class="brand-name">{site.name}</span>
     </a>
-    <div class="links">
+    <div class="links" id="site-menu">
       <a href="/#sobre-mi">Sobre mí</a>
       <a href="/#aprende">De qué hablo</a>
       <a href="/#videos">Videos</a>
@@ -25,6 +25,13 @@ import Icon from './Icon.astro';
           </a>
         )
       }
+      <a
+        href={cta.href}
+        class="menu-cta btn btn-primary"
+        {...cta.external ? { target: '_blank', rel: 'noopener' } : {}}
+      >
+        {cta.label}
+      </a>
     </div>
     <button type="button" class="theme" id="theme-toggle" aria-label="Activar modo oscuro">
       <span class="i-moon"><Icon name="moon" size={20} /></span>
@@ -38,6 +45,17 @@ import Icon from './Icon.astro';
     >
       {cta.short}
     </a>
+    <button
+      type="button"
+      class="menu-btn"
+      id="menu-toggle"
+      aria-label="Abrir el menú"
+      aria-expanded="false"
+      aria-controls="site-menu"
+    >
+      <span class="i-open"><Icon name="menu" size={22} /></span>
+      <span class="i-close"><Icon name="close" size={22} /></span>
+    </button>
   </nav>
 </header>
 
@@ -134,9 +152,75 @@ import Icon from './Icon.astro';
   :global([data-theme='dark']) .i-sun {
     display: grid;
   }
+  .menu-btn,
+  .menu-cta {
+    display: none;
+  }
+  .menu-btn {
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .menu-btn:active {
+    transform: scale(0.92);
+  }
+  .i-open,
+  .i-close {
+    display: grid;
+  }
+  .i-close,
+  .menu-btn[aria-expanded='true'] .i-open {
+    display: none;
+  }
+  .menu-btn[aria-expanded='true'] .i-close {
+    display: grid;
+  }
+  /* En móvil los enlaces pasan a un menú desplegable bajo la barra */
   @media (max-width: 760px) {
+    .menu-btn {
+      display: grid;
+    }
     .links {
       display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 24px 20px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 24px 40px -24px rgba(20, 20, 20, 0.25);
+    }
+    .links.open {
+      display: flex;
+    }
+    .links a:not(.menu-cta) {
+      display: flex;
+      align-items: center;
+      min-height: 52px;
+      font-size: 1.0625rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .links a.menu-cta {
+      display: none;
+      margin-top: 16px;
+      color: var(--on-accent);
+    }
+  }
+  @media (max-width: 560px) {
+    .cta {
+      display: none;
+    }
+    .links a.menu-cta {
+      display: inline-flex;
     }
   }
   @media (max-width: 480px) {
@@ -174,6 +258,34 @@ import Icon from './Icon.astro';
 </style>
 
 <script>
+  // Menú desplegable (móvil): se abre con ☰, se cierra con Escape, al tocar fuera o al elegir un enlace
+  const menu = document.getElementById('site-menu');
+  const menuBtn = document.getElementById('menu-toggle');
+  const siteHeader = document.getElementById('site-header');
+
+  function setMenu(open: boolean) {
+    menu?.classList.toggle('open', open);
+    menuBtn?.setAttribute('aria-expanded', String(open));
+    menuBtn?.setAttribute('aria-label', open ? 'Cerrar el menú' : 'Abrir el menú');
+  }
+
+  menuBtn?.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) setMenu(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuBtn?.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      menuBtn.focus();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (siteHeader && !siteHeader.contains(e.target as Node)) setMenu(false);
+  });
+  window.matchMedia('(min-width: 761px)').addEventListener('change', (e) => {
+    if (e.matches) setMenu(false);
+  });
+
   const root = document.documentElement;
   const button = document.getElementById('theme-toggle');
   const meta = document.getElementById('theme-color');
