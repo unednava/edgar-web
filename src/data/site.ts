@@ -36,6 +36,7 @@ export const site = {
   headline: 'Marketing con IA que sí funciona.',
   headlineHighlight: 'funciona', // palabra del titular con tira amarilla de collage
   greeting: 'Hola, soy Edgar Navarro',
+  motto: 'Lo que aprendí gastando presupuesto de verdad.', // lema del logo (pie de página e imagen para redes)
   intro:
     'Llevo más de 7 años haciendo campañas en Meta y Google. Ahora te enseño a usar la IA en las tuyas, con ejemplos reales y sin tecnicismos.',
 

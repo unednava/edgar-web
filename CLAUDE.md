@@ -88,6 +88,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   saludo del inicio (hasta que haya foto), en el favicon (`favicon.png`, `apple-touch-icon.png`)
   y en la imagen para redes. Originales en `assets-src/logo/` (horizontal claro/oscuro, con y sin
   el lema "Lo que aprendí gastando presupuesto de verdad.", icono cuadrado).
+  El lema (`site.motto` en `site.ts`) va en el pie de página, bajo el logo, y en la imagen para redes.
 - **Ilustraciones chibi de Edgar: probadas y descartadas** (nov. 2026). Se colocaron en el
   encabezado, el saludo, "Sobre mí", la newsletter, la 404 y la imagen para redes, y a Edgar no
   le gustó; se quitaron todas. Los archivos siguen en el historial de git (commit `71cb0eb`,
