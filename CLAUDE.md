@@ -68,7 +68,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   En oscuro, los recortes llevan un contorno claro sutil (`--paper-shadow`) para no perderse.
 - **Colores: amarillo y negro del collage** (el verde anterior se retiró en nov. 2026). Botones y
   enlaces en negro `#141414` (en oscuro, botones amarillos con texto negro); amarillo `#fcd812`
-  (`--hl`) para tiras, monograma "EN" y relleno de la gráfica; rojo de los rayos `#9c301e`
+  (`--hl`) para tiras y relleno de la gráfica; rojo de los rayos `#9c301e`
   (`--warn`) solo para "algo deja de funcionar" en la animación del inicio.
 - Tipografía única: **Plus Jakarta Sans** alojada en la propia web (paquete `@fontsource-variable/plus-jakarta-sans`, solo subconjuntos latino y latino extendido; sin Google Fonts), 18 px de base; títulos con tracking negativo.
 - Elemento distintivo: la tarjeta animada del inicio, "Así cuida la IA una campaña". Una gráfica
@@ -82,7 +82,12 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   la X, Escape, tocar fuera o elegir un enlace). En ≤ 560 px el botón "Suscribirme" de la barra
   pasa al final del menú, porque no caben todos los botones. Los enlaces que se añadan en
   `Header.astro` salen solos en escritorio y en el menú.
-- Monograma "EN" como logo y como avatar hasta que haya foto.
+- **Logo (nov. 2026):** llama amarilla con borde negro y flecha roja hacia arriba + "Edgar Navarro"
+  en Plus Jakarta Sans 800. En la web: la llama como imagen (`public/brand/llama.webp`, versión
+  con borde claro, sirve en claro y oscuro) y el nombre como texto. Va en el encabezado, junto al
+  saludo del inicio (hasta que haya foto), en el favicon (`favicon.png`, `apple-touch-icon.png`)
+  y en la imagen para redes. Originales en `assets-src/logo/` (horizontal claro/oscuro, con y sin
+  el lema "Lo que aprendí gastando presupuesto de verdad.", icono cuadrado).
 - **Ilustraciones chibi de Edgar: probadas y descartadas** (nov. 2026). Se colocaron en el
   encabezado, el saludo, "Sobre mí", la newsletter, la 404 y la imagen para redes, y a Edgar no
   le gustó; se quitaron todas. Los archivos siguen en el historial de git (commit `71cb0eb`,
