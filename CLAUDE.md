@@ -24,6 +24,9 @@ Inspiración: fazt.dev (lo mismo, pero para desarrollo con IA).
   automatizaciones) en la tienda `/recursos`. Solo ahí hay precios; el resto de la web no vende.
   Sigue sin haber plan PRO ni asesorías visibles.
 - Idioma: español neutro.
+- **Voz de Edgar (nov. 2026):** los textos se reescribieron con la skill `escribir-como-edgar`
+  (artesano, no gurú: calmado, sin promesas, los problemas se llaman problemas, frases cortas).
+  Úsala para cualquier texto nuevo. Titular actual: "Cómo uso la IA en campañas reales."
 - **No cambies el concepto visual, los textos ni el tono sin preguntar a Edgar.** Si algo es mejorable,
   propónlo primero.
 - No añadas dependencias innecesarias: la web tiene que seguir siendo ligera.
