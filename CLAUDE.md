@@ -84,11 +84,13 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   `Header.astro` salen solos en escritorio y en el menú.
 - **Logo (nov. 2026):** llama amarilla con borde negro y flecha roja hacia arriba + "Edgar Navarro"
   en Plus Jakarta Sans 800. En la web: la llama como imagen (`public/brand/llama.webp`, versión
-  con borde claro, sirve en claro y oscuro) y el nombre como texto. Va en el encabezado, junto al
-  saludo del inicio (hasta que haya foto), en el favicon (`favicon.png`, `apple-touch-icon.png`)
+  con borde claro, sirve en claro y oscuro) y el nombre como texto. Va en el encabezado, en el
+  pie de página, en el favicon (`favicon.png`, `apple-touch-icon.png`)
   y en la imagen para redes. Originales en `assets-src/logo/` (horizontal claro/oscuro, con y sin
   el lema "Lo que aprendí gastando presupuesto de verdad.", icono cuadrado).
   El lema (`site.motto` en `site.ts`) va en el pie de página, bajo el logo, y en la imagen para redes.
+  El saludo del inicio va solo en texto (la llama se quitó de ahí para no repetirla con la del
+  encabezado); cuando haya foto de Edgar, va junto al saludo.
 - **Ilustraciones chibi de Edgar: probadas y descartadas** (nov. 2026). Se colocaron en el
   encabezado, el saludo, "Sobre mí", la newsletter, la 404 y la imagen para redes, y a Edgar no
   le gustó; se quitaron todas. Los archivos siguen en el historial de git (commit `71cb0eb`,
