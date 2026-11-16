@@ -10,7 +10,7 @@ import Icon from './Icon.astro';
 <header class="header" id="site-header">
   <nav class="wrap nav" aria-label="Principal">
     <a href="/" class="brand">
-      <span class="mark" aria-hidden="true">EN</span>
+      <img class="mark" src="/brand/llama.webp" alt="" width="34" height="40" />
       <span class="brand-name">{site.name}</span>
     </a>
     <div class="links" id="site-menu">
@@ -82,24 +82,18 @@ import Icon from './Icon.astro';
     gap: 10px;
     color: var(--ink);
     text-decoration: none;
-    font-weight: 700;
-    font-size: 1.0625rem;
-    letter-spacing: -0.01em;
+    font-weight: 800;
+    font-size: 1.125rem;
+    letter-spacing: -0.02em;
     white-space: nowrap;
     margin-right: auto;
   }
+  /* Logo: llama con flecha + nombre en texto (se adapta solo al modo oscuro) */
   .mark {
     flex: none;
-    display: grid;
-    place-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 11px;
-    background: var(--hl);
-    color: #141414;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    display: block;
+    width: 34px;
+    height: 40px;
   }
   .links {
     display: flex;

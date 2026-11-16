@@ -16,7 +16,11 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="wrap row">
-    <span>© {year} {site.name}</span>
+    <div class="sign">
+      <p class="brand"><img src="/brand/llama.webp" alt="" width="24" height="28" loading="lazy" />{site.name}</p>
+      <p class="motto">{site.motto}</p>
+      <p class="copy">© {year}</p>
+    </div>
     <nav class="links" aria-label="Blog y redes">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
@@ -36,6 +40,32 @@ const year = new Date().getFullYear();
     padding-block: 32px 40px;
     font-size: 0.9375rem;
     color: var(--muted);
+  }
+  .sign {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .brand img {
+    display: block;
+    width: 24px;
+    height: 28px;
+  }
+  .motto {
+    color: var(--ink-2);
+    text-wrap: balance;
+  }
+  .copy {
+    font-size: 0.875rem;
   }
   .links {
     display: flex;

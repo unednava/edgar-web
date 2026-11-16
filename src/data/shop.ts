@@ -26,7 +26,7 @@ export const shop = {
   // Mientras esté vacío, el botón "Pagar en bolívares" no aparece.
   whatsapp: '+58 412 0000000', // VISTA PREVIA: número ficticio
   title: 'Recursos',
-  intro: 'Plantillas y guías que uso en mis propias campañas, listas para que las adaptes a la tuya.',
+  intro: 'Plantillas y guías que uso en mis propias campañas, listas para adaptarlas a la tuya.',
   howToBuy: [
     {
       title: 'En dólares',
