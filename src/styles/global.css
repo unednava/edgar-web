@@ -26,20 +26,23 @@
 :root {
   color-scheme: light;
 
-  --bg: #f2f2ef; /* gris papel */
+  /* PRUEBA DE PALETA (solo vista previa): vino, verde oliva y rosa. */
+  --bg: #f8f1ef; /* crema rosado */
   --surface: #ffffff;
-  --ink: #141414; /* 16.4:1 sobre --bg */
-  --ink-2: #45474d; /* 8.3:1 */
-  --muted: #5e6068; /* 5.6:1 */
-  --line: #e2e2dd;
-  --accent: #141414; /* negro: botones y enlaces */
-  --on-accent: #ffffff; /* 18.4:1 sobre --accent */
-  --hl: #fcd812; /* amarillo del collage: tiras detrás de palabras (texto negro encima, 13.1:1) */
-  --accent-soft: #fff3b8; /* amarillo pálido */
-  --warn: #9c301e; /* rojo de los rayos: 6.6:1 */
+  --ink: #22080f; /* 17:1 sobre --bg */
+  --ink-2: #4f3a40; /* 9.4:1 */
+  --muted: #6e5a60; /* 5.7:1 */
+  --line: #ecdfe0;
+  --accent: #5e0b22; /* vino: botones y enlaces (12.2:1) */
+  --on-accent: #ffffff; /* 13.6:1 sobre --accent */
+  --hl: #f5b4d8; /* rosa: tiras detrás de palabras */
+  --hl-ink: #22080f; /* texto sobre la tira (11.2:1) */
+  --good: #6e9b45; /* verde oliva: la campaña se recupera */
+  --accent-soft: #fbe1ee; /* rosa pálido */
+  --warn: #9c301e; /* rojo: 5.9:1 */
   --warn-soft: #f6e3dc;
-  --field-border: #8a8c92; /* 3.4:1 sobre --surface */
-  --header-bg: rgba(242, 242, 239, 0.75);
+  --field-border: #8f7b80; /* 4:1 sobre --surface */
+  --header-bg: rgba(248, 241, 239, 0.75);
   --shadow: 0 1px 2px rgba(20, 20, 20, 0.05), 0 8px 24px rgba(20, 20, 20, 0.07);
   --shadow-lg: 0 2px 4px rgba(20, 20, 20, 0.05), 0 24px 48px rgba(20, 20, 20, 0.12);
   --paper-shadow: drop-shadow(0 6px 10px rgba(20, 20, 20, 0.18));
@@ -54,20 +57,22 @@
 
 :root[data-theme='dark'] {
     color-scheme: dark;
-    --bg: #121212;
-    --surface: #1c1c1c;
-    --ink: #f2f2ef;
-    --ink-2: #c4c4c0;
-    --muted: #9e9e99;
-    --line: #2e2e2b;
-    --accent: #fcd812; /* en oscuro, los botones van en amarillo con texto negro */
-    --on-accent: #141414;
-    --hl: #fcd812;
-    --accent-soft: #3a3410;
+    --bg: #1a070d; /* vino casi negro */
+    --surface: #26101a;
+    --ink: #f8eef0;
+    --ink-2: #d9c6cb;
+    --muted: #b39ca3;
+    --line: #3a1d27;
+    --accent: #f5b4d8; /* en oscuro, los botones van en rosa con texto vino */
+    --on-accent: #3d0716;
+    --hl: #f5b4d8;
+    --hl-ink: #22080f;
+    --good: #8fbf5f;
+    --accent-soft: #3d1626;
     --warn: #ff8a70;
-    --warn-soft: #3a211b;
-    --field-border: #6b6b66;
-    --header-bg: rgba(18, 18, 18, 0.75);
+    --warn-soft: #3e1a1a;
+    --field-border: #7a5c66;
+    --header-bg: rgba(26, 7, 13, 0.75);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
     --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3), 0 24px 48px rgba(0, 0, 0, 0.35);
     /* en oscuro, contorno claro sutil para que las piezas negras no se pierdan */
@@ -192,7 +197,7 @@ main {
   position: relative;
   z-index: 0;
   white-space: nowrap;
-  color: #141414;
+  color: var(--hl-ink);
 }
 .hl::before {
   content: '';
