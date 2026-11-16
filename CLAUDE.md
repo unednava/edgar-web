@@ -73,6 +73,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   enlaces en negro `#141414` (en oscuro, botones amarillos con texto negro); amarillo `#fcd812`
   (`--hl`) para tiras y relleno de la gráfica; rojo de los rayos `#9c301e`
   (`--warn`) solo para "algo deja de funcionar" en la animación del inicio.
+  **Paleta vino / verde oliva / rosa: probada en la vista previa y descartada** (nov. 2026).
+  Edgar prefiere el amarillo y negro; no volver a proponerla.
 - Tipografía única: **Plus Jakarta Sans** alojada en la propia web (paquete `@fontsource-variable/plus-jakarta-sans`, solo subconjuntos latino y latino extendido; sin Google Fonts), 18 px de base; títulos con tracking negativo.
 - Elemento distintivo: la tarjeta animada del inicio, "Así cuida la IA una campaña". Una gráfica
   de clientes por semana (SVG propio, sin librerías) se dibuja sola: baja (1), la IA pausa lo que
