@@ -255,6 +255,8 @@ Falta de Edgar: el número de WhatsApp para ventas y los primeros productos con 
 - `apple-design-hig`: de Dick Wu (github.com/dickwu/apple-design-skill, commit ff4ebdd). Revisión de
   diseño con las Human Interface Guidelines de Apple. El texto de las HIG es de Apple; se omitió
   su script `scripts/pull-hig.mjs` (solo sirve para volver a descargarlas).
+- `escribir-como-edgar`: la voz de Edgar para cualquier texto (copia de la skill de su cuenta de
+  Claude, nov. 2026). Si Edgar la cambia en su cuenta, volver a copiarla aquí.
 - Son una referencia, no un mandato: **no sustituyen el concepto visual descrito arriba** ni las
   reglas de tono de este archivo. Cualquier propuesta que salga de ellas se consulta antes con Edgar.
 
