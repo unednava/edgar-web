@@ -50,11 +50,11 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   mano con pluma (sobre el lema de "Sobre mí"), megáfono / lupa / cerebro (temas de "De qué
   hablo", definidos en `topics[].cutout`), pila de libros ("Junto a cada video"), bocadillo con
   boca (newsletter) y hombre con bombilla (404).
-  **Biblioteca de recortes:** `assets-src/collage/` (no se publica), 82 piezas de 6 láminas en
-  `lamina-1/` … `lamina-6/`, con `catalogo-lamina-N.webp` para verlas de un vistazo y un
+  **Biblioteca de recortes:** `assets-src/collage/` (no se publica), 126 piezas de 10 láminas en
+  `lamina-1/` … `lamina-10/`, con `catalogo-lamina-N.webp` para verlas de un vistazo y un
   `README.md` con todos los nombres (megáfonos, lupas, manos, móviles, laptops, cámaras, trofeo,
-  reloj, cohete, Mona Lisa, mujer con lupa, etc.). Edgar **tiene licencia** de las láminas; se
-  excluyeron 3 piezas con marca de agua de bancos de imágenes (detalle en ese README).
+  reloj, cohete, Mona Lisa, mujer con lupa, diana, embudo, imán, cronómetro, ojo, microscopios, etc.). Edgar **tiene licencia** de las láminas; se
+  excluyeron las piezas con marca de agua de bancos de imágenes (detalle en ese README).
   `main` tiene `overflow-x: clip` para que ningún recorte cause scroll horizontal.
 - **Que no parezca hecha con IA ni con plantilla** (revisión de nov. 2026). No volver a meter:
   etiquetas tipo píldora con punto encima del título; texto verde pequeño encima de cada sección;
