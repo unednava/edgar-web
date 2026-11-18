@@ -10,7 +10,8 @@ Coca-Cola FEMSA, Avior Airlines, Honeywell, Cruz Roja, entre otras). Reducciones
 Herramientas: Google Ads, Meta Ads, GA4, Looker Studio, n8n, LLMs y OpenRouter.
 LinkedIn: https://www.linkedin.com/in/edgnavarros
 
-Está creando una marca personal sobre **marketing real con IA**: paid media, datos y automatización
+Está creando una marca personal como **growth marketer** (nov. 2026: Edgar prefiere presentarse así
+antes que como experto en IA; la IA es una herramienta más). Antes se planteó como **marketing real con IA**: paid media, datos y automatización
 explicados en videos de YouTube de ~7 minutos, con números reales y plantillas de n8n descargables.
 Inspiración: fazt.dev (lo mismo, pero para desarrollo con IA).
 
@@ -30,7 +31,8 @@ Inspiración: fazt.dev (lo mismo, pero para desarrollo con IA).
 - Idioma: español neutro.
 - **Voz de Edgar (nov. 2026):** los textos se reescribieron con la skill `escribir-como-edgar`
   (artesano, no gurú: calmado, sin promesas, los problemas se llaman problemas, frases cortas).
-  Úsala para cualquier texto nuevo. Titular actual: "Cómo uso la IA en campañas reales."
+  Úsala para cualquier texto nuevo. Titular actual: "Cómo hago crecer negocios con datos y campañas."
+  En la introducción se presenta como "growth marketer" y lo explica en la misma frase.
 - **No cambies el concepto visual, los textos ni el tono sin preguntar a Edgar.** Si algo es mejorable,
   propónlo primero.
 - No añadas dependencias innecesarias: la web tiene que seguir siendo ligera.

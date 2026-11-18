@@ -30,15 +30,15 @@ export interface JourneyStep {
 
 export const site = {
   name: 'Edgar Navarro',
-  title: 'Edgar Navarro · Marketing con IA, explicado fácil',
+  title: 'Edgar Navarro · Growth marketing, explicado fácil',
   description:
-    'Llevo más de 7 años haciendo campañas en Meta y Google. Aquí cuento cómo uso la IA en ese trabajo: lo que funciona, lo que no y cuánto cuesta.',
-  headline: 'Cómo uso la IA en campañas reales.',
-  headlineHighlight: 'reales', // palabra del titular con tira amarilla de collage
+    'Soy growth marketer: ayudo a negocios a conseguir más clientes con campañas, datos y automatización. Aquí cuento cómo lo hago: lo que funciona, lo que no y cuánto cuesta.',
+  headline: 'Cómo hago crecer negocios con datos y campañas.',
+  headlineHighlight: 'crecer', // palabra del titular con tira amarilla de collage
   greeting: 'Hola, soy Edgar Navarro',
   motto: 'Lo que aprendí gastando presupuesto de verdad.', // lema del logo (pie de página e imagen para redes)
   intro:
-    'Llevo más de 7 años haciendo campañas de publicidad en Meta y Google. Aquí te cuento cómo uso la IA en ese trabajo, paso a paso y con los problemas incluidos.',
+    'Soy growth marketer: ayudo a negocios a conseguir más clientes con campañas en Meta y Google, datos y automatización. Llevo más de 7 años haciéndolo y aquí te cuento cómo, con los problemas incluidos.',
 
   social: {
     // Deja vacío lo que aún no exista: el enlace se oculta solo.
@@ -90,7 +90,7 @@ export const about = {
   lead: 'De día hago campañas de publicidad. De noche, automatizaciones.',
   text: [
     'En mi trabajo hay una pregunta que se repite: ¿cuánto cuesta conseguir un cliente? Es lo primero que miro en cualquier campaña.',
-    'Aquí comparto lo que voy probando con la IA. Lo que funciona lo cuento, y lo que no, también.',
+    'Aquí comparto lo que voy probando para que un negocio crezca, con la IA como una herramienta más. Lo que funciona lo cuento, y lo que no, también.',
   ],
   mottoLabel: 'Mi regla para todo lo que publico',
   motto: 'Lo que funciona, lo que no y cuánto cuesta.',
