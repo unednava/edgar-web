@@ -223,7 +223,14 @@ la tienda y la newsletter: muestra los 3 últimos artículos. Se llena sola leye
 Substack (`<dirección>/feed`) al compilar, o con `manualPosts` si se quieren elegir a mano.
 Solo se actualiza al volver a publicar la web (un push a main). Sin artículos, no aparece.
 
-## Tienda de recursos (`/recursos`, preparada, sin productos aún)
+## Tienda de recursos (`/recursos`, activa desde nov. 2026)
+
+Tienda de Gumroad: https://soyedgarnavarro.gumroad.com (usuario `soyedgarnavarro`). Productos en la web:
+"Antes de lanzar" (gratis, 18 cartas), "Campañas en claro" ($12, 54 cartas) y "Pídeselo a la IA"
+($9, 36 cartas): mazos tamaño póker en PDF para imprimir. Textos sacados de su ficha en Gumroad;
+portadas en `public/recursos/` (copiadas de Gumroad, 1005×565). Si Edgar cambia precio o textos en
+Gumroad, hay que cambiarlos también en `shop.ts`. Sin número de WhatsApp, "Cómo comprar" solo muestra
+la opción en dólares (el paso de bolívares se oculta).
 
 La web solo **muestra** los recursos con diseño de tienda; la compra se hace fuera:
 - **En dólares:** botón "Comprar en dólares" al producto en **Gumroad** (tarjeta, entrega automática).
@@ -255,7 +262,7 @@ Mientras `products` esté vacío: sin enlace "Recursos" en el menú, sin adelant
 (filtro en `astro.config.mjs`). Sin imagen de portada, la tarjeta usa una portada tipográfica con
 el nombre (que entonces no se repite debajo). Nunca publicar productos de ejemplo.
 
-Falta de Edgar: el número de WhatsApp para ventas y los primeros productos con su enlace de Gumroad.
+Falta de Edgar: el número de WhatsApp para ventas en bolívares.
 
 ## Skills de diseño instaladas (`.claude/skills/`)
 

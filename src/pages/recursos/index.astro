@@ -63,7 +63,7 @@ const itemListJsonLd = hasShop
           <section class="how" aria-labelledby="how-title">
             <h2 id="how-title">Cómo comprar</h2>
             <div class="how-grid">
-              {shop.howToBuy.map((h) => (
+              {shop.howToBuy.filter((h) => waDigits || h.title !== 'En bolívares').map((h) => (
                 <div>
                   <h3>{h.title}</h3>
                   <p>{h.text}</p>
