@@ -2,6 +2,7 @@
 import { site, primaryCta as cta, substack } from '../data/site';
 import { latestPosts } from '../data/blog';
 import { hasShop } from '../data/shop';
+import { hasMentoring } from '../data/mentoring';
 import Icon from './Icon.astro';
 ---
 
@@ -17,6 +18,7 @@ import Icon from './Icon.astro';
       <a href="/#sobre-mi">Sobre mí</a>
       <a href="/#aprende">De qué hablo</a>
       <a href="/#videos">Videos</a>
+      {hasMentoring && <a href="/mentorias/">Mentorías</a>}
       {hasShop && <a href="/recursos">Recursos</a>}
       {
         substack && latestPosts.length > 0 && (

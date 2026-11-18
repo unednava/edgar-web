@@ -22,7 +22,11 @@ Inspiración: fazt.dev (lo mismo, pero para desarrollo con IA).
 - Etapa inicial: la web prioriza credibilidad, contenido gratis y captar correos.
   **Cambio de nov. 2026 (decisión de Edgar):** se pueden vender **recursos** (plantillas, guías,
   automatizaciones) en la tienda `/recursos`. Solo ahí hay precios; el resto de la web no vende.
-  Sigue sin haber plan PRO ni asesorías visibles.
+  **Mentorías (nov. 2026, decisión de Edgar):** página `/mentorias/` con tres mentorías uno a uno
+  (anuncios en Meta y Google, hacer crecer tu negocio, marketing con IA), $40 USD la sesión de 1 hora
+  por Google Meet. Se reservan en su calendario de Google; el pago se coordina después (dólares con
+  tarjeta o bolívares a la tasa del día). Sin promesas de resultados (bloque "Lo que no te prometo").
+  Sigue sin haber plan PRO.
 - Idioma: español neutro.
 - **Voz de Edgar (nov. 2026):** los textos se reescribieron con la skill `escribir-como-edgar`
   (artesano, no gurú: calmado, sin promesas, los problemas se llaman problemas, frases cortas).
@@ -47,7 +51,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   papel amarillo detrás de **una** palabra (clase `.hl`) en el titular, la newsletter y la 404.
   No llenar la web de piezas ni poner tiras en todos los títulos.
   Piezas en uso (`public/collage/`): bombilla con estrellas (inicio, asomando sobre la tarjeta),
-  mano con pluma (sobre el lema de "Sobre mí"), megáfono / lupa / cerebro (temas de "De qué
+  mano con pluma (sobre el lema de "Sobre mí"), diana (adelanto de mentorías), mujer con lupa y
+  gráfica (página de mentorías), megáfono / lupa / cerebro (temas de "De qué
   hablo", definidos en `topics[].cutout`), pila de libros ("Junto a cada video"), bocadillo con
   boca (newsletter) y hombre con bombilla (404).
   **Biblioteca de recortes:** `assets-src/collage/` (no se publica), 126 piezas de 10 láminas en
@@ -108,7 +113,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 - Todos los contrastes de texto ≥ 4.5:1 en ambos modos (valores en `global.css`).
 - Orden: inicio (saludo "Hola, soy Edgar Navarro" + titular + animación), Sobre mí (texto, lema,
   recorrido y logos), De qué hablo, Los primeros videos (+ lo que traerá cada video),
-  Recursos (solo si hay productos), Newsletter. Página aparte: `/recursos` (tienda).
+  Recursos (solo si hay productos), Mentorías (adelanto), Blog (si hay artículos), Newsletter.
+  Páginas aparte: `/recursos` (tienda) y `/mentorias/`.
 - Voz y estructura inspiradas en cómo comunica Vilma Núñez (adaptadas, no copiadas): saludo personal
   al inicio, tuteo cercano, lema propio visible ("Lo que funciona, lo que no y cuánto cuesta"),
   cada tema con su "qué" y su "cómo", recorrido real en pasos y newsletter como invitación ("¿Te sumas?").
@@ -143,6 +149,7 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Lo que traerá cada video                         | `src/data/site.ts` → `extras` |
 | Página de error                                  | `src/pages/404.astro`           |
 | Productos de la tienda y número de WhatsApp      | `src/data/shop.ts`              |
+| Mentorías: textos, precio, enlace del calendario | `src/data/mentoring.ts` (`booking` vacío = no aparecen) |
 | Logos de marcas (archivos en `public/logos/`)    | `src/data/site.ts` → `brands` |
 | Recortes de collage                              | `public/collage/` (biblioteca completa en `assets-src/collage/`, ver su README) |
 | Palabra con tira amarilla en el titular          | `src/data/site.ts` → `site.headlineHighlight` |
@@ -155,8 +162,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
 | Caché y cabeceras de seguridad                   | `public/_headers`               |
 
 Componentes en `src/components/`: Header, Hero, About, Topics, Videos, ShopTeaser, ProductCard,
-Newsletter, Footer, Icon, BuyBox, Blog. Páginas: `index`, `recursos/index`, `recursos/[id]`
-(una por producto), `404`.
+Newsletter, Footer, Icon, BuyBox, Blog, MentoringTeaser. Páginas: `index`, `recursos/index`,
+`recursos/[id]` (una por producto), `mentorias`, `404`.
 
 ## Comandos
 

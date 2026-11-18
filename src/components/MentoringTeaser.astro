@@ -1,0 +1,92 @@
+---
+// Adelanto de las mentorías en la página principal. Lleva a /mentorias/.
+import { mentoring, hasMentoring } from '../data/mentoring';
+import { formatUsd } from '../data/shop';
+import Icon from './Icon.astro';
+---
+
+{
+  hasMentoring && (
+    <section id="mentorias" class="wrap section mentoring" aria-labelledby="mentorias-title">
+      <img
+        class="cutout target"
+        src="/collage/diana.webp"
+        alt=""
+        width="328"
+        height="267"
+        style="--rot: 8deg"
+        loading="lazy"
+        decoding="async"
+      />
+      <h2 class="section-title" id="mentorias-title">
+        {mentoring.title}
+      </h2>
+      <p class="lead">{mentoring.teaser}</p>
+      <ul class="names">
+        {mentoring.items.map((m) => (
+          <li>
+            <a href={`/mentorias/#${m.id}`}>{m.title}</a>
+          </li>
+        ))}
+      </ul>
+      <p class="meta">
+        {formatUsd(mentoring.priceUsd)} USD la sesión · {mentoring.duration} · por {mentoring.place}
+      </p>
+      <a class="btn btn-primary" href="/mentorias/">
+        Ver las mentorías <Icon name="arrow" size={18} />
+      </a>
+    </section>
+  )
+}
+
+<style>
+  .mentoring {
+    position: relative;
+  }
+  .target {
+    position: absolute;
+    top: clamp(24px, 5vw, 56px);
+    right: 0;
+    width: clamp(120px, 18vw, 200px);
+  }
+  .section-title {
+    margin-bottom: 12px;
+  }
+  .lead {
+    max-width: 640px;
+  }
+  .names {
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    max-width: 640px;
+    border-top: 1px solid var(--line);
+  }
+  .names li {
+    border-bottom: 1px solid var(--line);
+  }
+  .names a {
+    display: block;
+    padding: 16px 0;
+    font-size: 1.1875rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .names a:hover {
+    text-decoration: underline;
+  }
+  .meta {
+    margin: 20px 0 24px;
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+  @media (max-width: 760px) {
+    .target {
+      position: static;
+      width: 132px;
+      margin: 0 0 12px auto;
+    }
+  }
+</style>
