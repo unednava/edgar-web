@@ -108,6 +108,9 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   le gustó; se quitaron todas. Los archivos siguen en el historial de git (commit `71cb0eb`,
   carpeta `public/edgar/`). No volver a ponerlas salvo que Edgar lo pida. Las versiones con
   Bulbasaur no deben usarse nunca (personaje de Pokémon, con derechos de autor).
+- **Avatar de Edgar (nov. 2026):** 5 ilustraciones en estilo cómic (riendo, enojado, dudando,
+  pulgar arriba, sorprendido) en `assets-src/avatar/` (no se publica). Edgar las agregó a los
+  recursos del proyecto; **no están en la web**. Antes de colocarlas en alguna parte, preguntarle.
 - Logos de marcas en "Sobre mí", con sus colores originales sobre tarjetas blancas (en ambos modos).
   Sacados de la web oficial de cada marca; Edgar confirmó que puede mostrarlos. Avior solo publica su
   logo en blanco, por eso va sobre su rojo de marca (`#c81414`). **Cruz Roja no aparece**: su emblema
