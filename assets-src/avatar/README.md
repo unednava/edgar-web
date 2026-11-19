@@ -29,5 +29,9 @@ y las cejas), así que se pueden alternar sin que el personaje salte. Para un pr
 - **Hablando:** `hablando.png` (o alternar `hablando` y `hablando-fuerte` según el volumen)
 - `boca-o.png`: sorpresa breve o la vocal "o"
 
+**Parpadeo (solo en `sin-mano/`):** `boca-cerrada-ojos-cerrados.png` y `hablando-ojos-cerrados.png`.
+En el programa de PNGTuber, ponlas como imagen de "ojos cerrados" de cada estado; el programa
+parpadea solo cada pocos segundos. El juego `con-mano/` todavía no tiene versiones con los ojos cerrados.
+
 Los dos juegos también comparten encuadre entre sí: se puede pasar de uno a otro (por ejemplo,
 levantar la mano al explicar algo) sin que la cabeza se mueva.
