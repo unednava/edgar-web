@@ -110,7 +110,8 @@ sin `nombres_con_guiones`, sin nombres de archivo, sin jerga como CPA, LLM o "pa
   Bulbasaur no deben usarse nunca (personaje de Pokémon, con derechos de autor).
 - **Avatar de Edgar (nov. 2026):** ilustraciones en estilo cómic en `assets-src/avatar/` (no se
   publica): 5 expresiones (riendo, enojado, dudando, pulgar arriba, sorprendido) y, en `pngtuber/`,
-  4 posiciones de boca con el mismo encuadre (boca cerrada, boca en «o», hablando, hablando fuerte).
+  dos juegos (`con-mano/` y `sin-mano/`) de 4 posiciones de boca con el mismo encuadre (boca cerrada,
+  boca en «o», hablando, hablando fuerte).
   PNG 1024×1024 con el halo blanco del borde ya corregido (detalle en su README). Edgar las agregó a los
   recursos del proyecto; **no están en la web**. Antes de colocarlas en alguna parte, preguntarle.
 - Logos de marcas en "Sobre mí", con sus colores originales sobre tarjetas blancas (en ambos modos).

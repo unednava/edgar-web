@@ -20,9 +20,14 @@ oscureciendo esos píxeles hacia la línea negra del dibujo. No se tocó nada de
 
 ## pngtuber/
 
-Mismo dibujo y mismo encuadre; solo cambia la boca (y un poco la mandíbula y las cejas), así que se
-pueden alternar sin que el personaje salte. Para un programa de PNGTuber (Veadotube, PNGtuber Plus…):
+Dos juegos con el mismo dibujo y el mismo encuadre: `con-mano/` (mano levantada, como explicando)
+y `sin-mano/` (brazos abajo, más neutro). En cada juego solo cambia la boca (y un poco la mandíbula
+y las cejas), así que se pueden alternar sin que el personaje salte. Para un programa de PNGTuber
+(Veadotube, PNGtuber Plus…), en cada juego:
 
 - **En silencio:** `boca-cerrada.png`
 - **Hablando:** `hablando.png` (o alternar `hablando` y `hablando-fuerte` según el volumen)
 - `boca-o.png`: sorpresa breve o la vocal "o"
+
+Los dos juegos también comparten encuadre entre sí: se puede pasar de uno a otro (por ejemplo,
+levantar la mano al explicar algo) sin que la cabeza se mueva.
