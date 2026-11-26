@@ -24,7 +24,7 @@ export interface Product {
 export const shop = {
   // Número de WhatsApp para pagos en bolívares, con código de país, p. ej. '+58 412 1234567'.
   // Mientras esté vacío, el botón "Pagar en bolívares" no aparece.
-  whatsapp: '',
+  whatsapp: '+58 414 0277848',
   title: 'Recursos',
   intro: 'Mazos de cartas para imprimir con lo que uso en mis propias campañas. Los tienes al lado mientras trabajas.',
   howToBuy: [

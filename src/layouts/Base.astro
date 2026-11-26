@@ -29,7 +29,7 @@ const personJsonLd = JSON.stringify({
   '@type': 'Person',
   name: site.name,
   url: Astro.site?.href,
-  jobTitle: 'Especialista en publicidad digital',
+  jobTitle: 'Growth marketer',
   worksFor: { '@type': 'Organization', name: '4Geeks Academy' },
   sameAs: [...Object.values(site.social), substack?.home ?? ''].filter(Boolean),
 });
