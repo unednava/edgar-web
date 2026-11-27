@@ -11,6 +11,7 @@ interface Props {
 const { product: p } = Astro.props;
 const free = p.priceUsd === 0;
 const wa = whatsappLink(p);
+const gumroadOverlayHref = `${p.gumroad}${p.gumroad.includes('?') ? '&' : '?'}wanted=true`;
 ---
 
 <div class="buy">
@@ -19,27 +20,58 @@ const wa = whatsappLink(p);
     {!free && <span class="currency">USD</span>}
   </p>
   <div class="actions">
-    <a class="btn btn-primary" href={p.gumroad} target="_blank" rel="noopener">
+    <a class="btn btn-primary" href={gumroadOverlayHref} rel="noopener">
       {free ? 'Descargar gratis' : 'Comprar en dólares'}
     </a>
     {
       wa && (
-        <a class="btn btn-ghost" href={wa} target="_blank" rel="noopener">
+        <button type="button" class="btn btn-ghost" data-bs-toggle aria-expanded="false" aria-controls="bs-panel">
           Pagar en bolívares
-        </a>
+        </button>
       )
     }
   </div>
+  {
+    wa && (
+      <div class="bs-panel" id="bs-panel" hidden>
+        <p class="bs-title">Pago en bolívares · {formatUsd(p.priceUsd)} USD a la tasa del día</p>
+        <p class="bs-text">
+          Escríbeme por WhatsApp con el mensaje ya listo. Te paso el monto a la tasa del día y los datos de pago; al
+          confirmarlo, te envío el recurso.
+        </p>
+        <a class="btn btn-primary bs-wa" href={wa} target="_blank" rel="noopener">
+          Abrir WhatsApp con mensaje listo
+        </a>
+      </div>
+    )
+  }
   <p class="note">
     {
       free
-        ? 'Se descarga desde Gumroad: dejas tu correo y te llega al momento.'
+        ? 'La descarga se abre aquí mismo sin salir de la web: dejas tu correo y te llega al momento.'
         : wa
-          ? 'En dólares, pagas con tarjeta en Gumroad. En bolívares, me escribes por WhatsApp y te paso el monto a la tasa del día.'
-          : 'Pagas con tarjeta en Gumroad y el archivo te llega al correo al momento.'
+          ? 'En dólares, el pago con tarjeta se abre aquí mismo. En bolívares, coordinamos por WhatsApp a la tasa del día.'
+          : 'El pago con tarjeta se abre aquí mismo y el archivo te llega al correo al momento.'
     }
   </p>
 </div>
+
+{
+  wa && (
+    <script is:inline>
+      (() => {
+        const btn = document.querySelector('[data-bs-toggle]');
+        const panel = document.getElementById('bs-panel');
+        if (!btn || !panel) return;
+        btn.addEventListener('click', () => {
+          const open = panel.hasAttribute('hidden');
+          panel.toggleAttribute('hidden', !open);
+          btn.setAttribute('aria-expanded', String(open));
+        });
+      })();
+    </script>
+  )
+}
 
 <style>
   .buy {
@@ -74,6 +106,33 @@ const wa = whatsappLink(p);
   }
   .actions .btn {
     flex: 1 1 200px;
+  }
+  .bs-panel {
+    padding: 16px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bs-panel[hidden] {
+    display: none;
+  }
+  .bs-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .bs-text {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+  }
+  .bs-wa {
+    align-self: flex-start;
+    min-height: 44px;
+    padding: 0 20px;
+    font-size: 0.9375rem;
   }
   .note {
     font-size: 0.9375rem;

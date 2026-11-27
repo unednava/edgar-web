@@ -268,7 +268,7 @@ Mientras `products` esté vacío: sin enlace "Recursos" en el menú, sin adelant
 (filtro en `astro.config.mjs`). Sin imagen de portada, la tarjeta usa una portada tipográfica con
 el nombre (que entonces no se repite debajo). Nunca publicar productos de ejemplo.
 
-Falta de Edgar: el número de WhatsApp para ventas en bolívares.
+WhatsApp configurado en `src/data/shop.ts` (`+58 414 0277848`) para pagos en bolívares y consultas.
 
 ## Skills de diseño instaladas (`.claude/skills/`)
 

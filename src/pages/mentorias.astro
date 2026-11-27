@@ -3,12 +3,13 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
-import { mentoring, hasMentoring } from '../data/mentoring';
+import { mentoring, hasMentoring, mentoringWhatsappLink } from '../data/mentoring';
 import { formatUsd } from '../data/shop';
 import { site } from '../data/site';
 
 const price = `${formatUsd(mentoring.priceUsd)} USD`;
 const description = `${mentoring.intro} ${price} la sesión de ${mentoring.duration}.`;
+const waGeneral = mentoringWhatsappLink();
 
 // Datos para buscadores: cada mentoría como un servicio con su precio.
 const jsonLd = hasMentoring
@@ -52,9 +53,19 @@ const jsonLd = hasMentoring
             <p class="meta">
               <strong>{price}</strong> la sesión · {mentoring.duration} · por {mentoring.place}
             </p>
-            <a class="btn btn-primary" href={mentoring.booking} target="_blank" rel="noopener">
-              Reservar una mentoría <Icon name="arrow" size={18} />
-            </a>
+            <p class="pay-note">Pagas en dólares con tarjeta o en bolívares a la tasa del día.</p>
+            <div class="intro-actions">
+              <a class="btn btn-primary" href="#reservar">
+                Reservar una mentoría <Icon name="arrow" size={18} />
+              </a>
+              {
+                waGeneral && (
+                  <a class="btn btn-ghost" href={waGeneral} target="_blank" rel="noopener">
+                    Consultar por WhatsApp
+                  </a>
+                )
+              }
+            </div>
           </>
         ) : (
           <>
@@ -71,33 +82,69 @@ const jsonLd = hasMentoring
       hasMentoring && (
         <>
           <ul class="rows">
-            {mentoring.items.map((m) => (
-              <li class="row" id={m.id}>
-                <div class="name">
-                  <h2>{m.title}</h2>
-                  <a class="book" href={mentoring.booking} target="_blank" rel="noopener">
-                    Reservar esta mentoría <Icon name="arrow" size={16} />
-                  </a>
-                </div>
-                <dl class="qa">
-                  <div>
-                    <dt>Para quién es</dt>
-                    <dd>{m.forWho}</dd>
+            {mentoring.items.map((m) => {
+              const waTopic = mentoringWhatsappLink(m.title);
+              return (
+                <li class="row" id={m.id}>
+                  <div class="name">
+                    <h2>{m.title}</h2>
+                    <div class="row-actions">
+                      <a class="book" href="#reservar">
+                        Reservar esta mentoría <Icon name="arrow" size={16} />
+                      </a>
+                      {
+                        waTopic && (
+                          <a class="ask" href={waTopic} target="_blank" rel="noopener">
+                            Preguntar por WhatsApp
+                          </a>
+                        )
+                      }
+                    </div>
                   </div>
-                  <div>
-                    <dt>Qué revisamos</dt>
-                    <dd>
-                      <ul class="covers">
-                        {m.covers.map((c) => (
-                          <li>{c}</li>
-                        ))}
-                      </ul>
-                    </dd>
-                  </div>
-                </dl>
-              </li>
-            ))}
+                  <dl class="qa">
+                    <div>
+                      <dt>Para quién es</dt>
+                      <dd>{m.forWho}</dd>
+                    </div>
+                    <div>
+                      <dt>Qué revisamos</dt>
+                      <dd>
+                        <ul class="covers">
+                          {m.covers.map((c) => (
+                            <li>{c}</li>
+                          ))}
+                        </ul>
+                      </dd>
+                    </div>
+                  </dl>
+                </li>
+              );
+            })}
           </ul>
+
+          <section id="reservar" class="booking" aria-labelledby="reservar-title">
+            <h2 id="reservar-title">Elige día y hora</h2>
+            <p class="booking-lead">
+              Reserva directo aquí sin salir de la web. El pago se coordina después: en dólares con tarjeta o en
+              bolívares a la tasa del día.
+            </p>
+            <div class="calendar-frame">
+              <iframe
+                src={mentoring.bookingEmbed}
+                title="Calendario de reservas de mentorías con Edgar Navarro"
+                loading="lazy"
+                width="100%"
+                height="640"
+              />
+            </div>
+            <p class="booking-fallback">
+              ¿Prefieres verlo en pantalla completa?{' '}
+              <a href={mentoring.booking} target="_blank" rel="noopener">
+                Abrir el calendario en otra pestaña
+              </a>
+              .
+            </p>
+          </section>
 
           <section class="how" aria-labelledby="how-title">
             <h2 id="how-title">Cómo funciona</h2>
@@ -116,9 +163,17 @@ const jsonLd = hasMentoring
             <p>{mentoring.honest.text}</p>
             <p class="note">
               ¿Tienes dudas antes de reservar?{' '}
-              <a href={site.social.linkedin} target="_blank" rel="noopener">
-                Escríbeme en LinkedIn
-              </a>{' '}
+              {
+                waGeneral ? (
+                  <a href={waGeneral} target="_blank" rel="noopener">
+                    Escríbeme por WhatsApp
+                  </a>
+                ) : (
+                  <a href={site.social.linkedin} target="_blank" rel="noopener">
+                    Escríbeme en LinkedIn
+                  </a>
+                )
+              }{' '}
               y te respondo.
             </p>
           </section>
@@ -161,7 +216,14 @@ const jsonLd = hasMentoring
   .meta strong {
     color: var(--ink);
   }
-  .intro .btn {
+  .pay-note {
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  .intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 6px;
   }
 
@@ -185,17 +247,63 @@ const jsonLd = hasMentoring
     letter-spacing: -0.02em;
     font-weight: 700;
   }
+  .row-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 12px;
+  }
   .book {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 12px;
     font-size: 0.9375rem;
     font-weight: 600;
     text-decoration: none;
   }
   .book:hover {
     text-decoration: underline;
+  }
+  .ask {
+    font-size: 0.875rem;
+    color: var(--muted);
+    text-decoration: underline;
+  }
+  .ask:hover {
+    color: var(--ink);
+  }
+  .booking {
+    margin-top: clamp(48px, 7vw, 72px);
+    scroll-margin-top: 96px;
+  }
+  .booking h2 {
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  .booking-lead {
+    margin-top: 8px;
+    max-width: 680px;
+    color: var(--ink-2);
+  }
+  .calendar-frame {
+    margin-top: 20px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .calendar-frame iframe {
+    display: block;
+    width: 100%;
+    height: 640px;
+    border: 0;
+  }
+  .booking-fallback {
+    margin-top: 12px;
+    font-size: 0.9375rem;
+    color: var(--muted);
   }
   .qa {
     margin: 0;

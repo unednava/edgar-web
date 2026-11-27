@@ -3,6 +3,8 @@
 // en dólares con tarjeta o en bolívares a la tasa del día.
 // Textos con la voz de Edgar (skill escribir-como-edgar): sin promesas de resultados.
 
+import { shop } from './shop';
+
 export interface Mentoring {
   id: string; // ancla en /mentorias/#id: no cambiarlo una vez publicado
   title: string;
@@ -14,6 +16,9 @@ export const mentoring = {
   title: 'Mentorías',
   // Enlace de reservas de Google Calendar. Vacío = la sección y la página no aparecen.
   booking: 'https://calendar.app.google/QDLzgJ1rsmEatKQ69',
+  // Versión embebible del mismo calendario (Google Calendar Appointment Schedule).
+  bookingEmbed:
+    'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3gC2GLOHa44jmzvzBtvpTFfyB07uFoCH0VHdblHxuyv0qPOaCJbTwHOLB_pYJmHclSIZ96HW-l?gv=true',
   priceUsd: 40,
   duration: '1 hora',
   place: 'Google Meet',
@@ -74,3 +79,14 @@ export const mentoring = {
 };
 
 export const hasMentoring = mentoring.booking.trim() !== '';
+
+const whatsappDigits = shop.whatsapp.replace(/\D/g, '');
+
+/** Enlace de WhatsApp con mensaje listo para consultar sobre mentorías, o null si no hay número. */
+export function mentoringWhatsappLink(topicTitle?: string): string | null {
+  if (!whatsappDigits) return null;
+  const text = topicTitle
+    ? `Hola, Edgar. Quiero consultar sobre la mentoría «${topicTitle}».`
+    : 'Hola, Edgar. Tengo una duda sobre las mentorías.';
+  return `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(text)}`;
+}
