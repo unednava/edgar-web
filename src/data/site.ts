@@ -52,7 +52,7 @@ export const site = {
   // por ejemplo 'edgarnavarro.substack.com' (con o sin https://; también vale un dominio propio).
   // Mientras esté vacía: los botones llevan a LinkedIn, la newsletter dice que arranca pronto
   // y no aparece el enlace "Blog". Al pegarla, todo cambia solo.
-  substack: 'edgar14np.substack.com',
+  substack: 'edgarnavarro.substack.com',
 } as const;
 
 // Dirección de Substack normalizada (https://, sin barra final), o null si aún no hay.
