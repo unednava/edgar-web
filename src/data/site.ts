@@ -44,8 +44,8 @@ export const site = {
     // Deja vacío lo que aún no exista: el enlace se oculta solo.
     youtube: '',
     linkedin: 'https://www.linkedin.com/in/edgnavarros',
-    instagram: '',
-    tiktok: '',
+    instagram: 'https://www.instagram.com/esedgarnavarro/',
+    tiktok: 'https://www.tiktok.com/@esedgarnavarro',
   },
 
   // Blog y newsletter: Substack. Pega aquí la dirección de tu publicación cuando la tengas,
