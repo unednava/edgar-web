@@ -11,7 +11,6 @@ interface Props {
 const { product: p } = Astro.props;
 const free = p.priceUsd === 0;
 const wa = whatsappLink(p);
-const gumroadOverlayHref = `${p.gumroad}${p.gumroad.includes('?') ? '&' : '?'}wanted=true`;
 ---
 
 <div class="buy">
@@ -20,7 +19,11 @@ const gumroadOverlayHref = `${p.gumroad}${p.gumroad.includes('?') ? '&' : '?'}wa
     {!free && <span class="currency">USD</span>}
   </p>
   <div class="actions">
-    <a class="btn btn-primary" href={gumroadOverlayHref} rel="noopener">
+    {
+      // Sin añadir nada al enlace: gumroad.js le pone ?overlay=true y abre el pago encima de la web.
+      // Con ?wanted=true, Gumroad se salta el modal y saca al visitante de la página.
+    }
+    <a class="btn btn-primary" href={p.gumroad} rel="noopener">
       {free ? 'Descargar gratis' : 'Comprar en dólares'}
     </a>
     {
@@ -106,6 +109,11 @@ const gumroadOverlayHref = `${p.gumroad}${p.gumroad.includes('?') ? '&' : '?'}wa
   }
   .actions .btn {
     flex: 1 1 200px;
+  }
+  /* Gumroad mete un <span class="logo-full"></span> vacío dentro del botón al abrir el modal:
+     suma 8 px de hueco a la derecha del texto. Se oculta (no lleva el atributo de estilo propio). */
+  .actions :global(.logo-full) {
+    display: none;
   }
   .bs-panel {
     padding: 16px;

@@ -179,10 +179,16 @@ Newsletter, Footer, Icon, BuyBox, Blog, MentoringTeaser. Páginas: `index`, `rec
 npm install
 npm run dev       # http://localhost:4321
 npm run build     # astro check (tipos) + astro build → dist/
+npm test          # pruebas del sitio: node --test tests/site.test.mjs (0 dependencias)
 npm run preview   # sirve dist/ en local
 ```
 
 `npm run build` tiene que terminar con 0 errores, 0 warnings y 0 hints antes de hacer push.
+
+`npm test` usa el corredor de pruebas que ya trae Node 24 (`node --test`), sin paquetes añadidos.
+`tests/site.test.mjs` revisa sobre `dist/` las 7 páginas y el sitemap, que las imágenes referidas
+existan, el JSON-LD válido, los enlaces internos, el Gumroad Overlay y el calendario incrustado de
+mentorías. Conviene correrlo después de `npm run build` (necesita `dist/` generado).
 
 ## Cómo se publica
 
@@ -205,14 +211,13 @@ npm run preview   # sirve dist/ en local
 4. Cambiar `site` en `astro.config.mjs` y la línea `Sitemap:` en `public/robots.txt`, commit y push.
 5. Opcional: desactivar la URL `*.workers.dev` en Settings → Domains & Routes para evitar contenido duplicado.
 
-## Blog y newsletter: Substack (activo: https://edgar14np.substack.com)
+## Blog y newsletter: Substack (activo: https://edgarnavarro.substack.com)
 
-Estado (nov. 2026): `site.substack = 'edgar14np.substack.com'`. Los botones "Suscribirme" llevan a
-`/subscribe`. La publicación aún no tiene artículos y se llama "El Substack de Edgar" (nombre por
-defecto de Substack; se puede cambiar en sus ajustes). El enlace "Blog" (menú y pie) y la sección
-"Lo último del blog" **solo aparecen cuando el RSS tiene al menos un artículo** (`latestPosts`
-en `src/data/blog.ts`); como se leen al compilar, tras publicar el primer artículo hay que volver
-a publicar la web (un push a main) para que aparezcan.
+Estado (nov. 2026): `site.substack = 'edgarnavarro.substack.com'`. Los botones "Suscribirme" llevan a
+`/subscribe`. Edgar cambió la dirección al empezar (antes era `edgar14np.substack.com`); si la cambia
+otra vez, se toca solo esa línea en `src/data/site.ts`. Ya hay un artículo publicado
+(`por-que-abro-este-espacio-y-que-es`), así que el enlace "Blog" (menú y pie) y la sección
+"Lo último del blog" aparecen, con los artículos que traiga el RSS.
 
 Edgar eligió **Substack** (nov. 2026) con un **botón que lleva a Substack** (no un formulario
 dentro de la web). Cómo funciona `site.substack` (`src/data/site.ts`; vale con o sin `https://`
@@ -235,14 +240,25 @@ Tienda de Gumroad: https://soyedgarnavarro.gumroad.com (usuario `soyedgarnavarro
 "Antes de lanzar" (gratis, 18 cartas), "Campañas en claro" ($12, 54 cartas) y "Pídeselo a la IA"
 ($9, 36 cartas): mazos tamaño póker en PDF para imprimir. Textos sacados de su ficha en Gumroad;
 portadas en `public/recursos/` (copiadas de Gumroad, 1005×565). Si Edgar cambia precio o textos en
-Gumroad, hay que cambiarlos también en `shop.ts`. Sin número de WhatsApp, "Cómo comprar" solo muestra
-la opción en dólares (el paso de bolívares se oculta).
+Gumroad, hay que cambiarlos también en `shop.ts`. El número de WhatsApp (`+58 414 0277848`) está
+configurado en `shop.ts`, así que "Cómo comprar" muestra las dos opciones.
 
-La web solo **muestra** los recursos con diseño de tienda; la compra se hace fuera:
-- **En dólares:** botón "Comprar en dólares" al producto en **Gumroad** (tarjeta, entrega automática).
-- **En bolívares:** botón "Pagar en bolívares" que abre **WhatsApp** con un mensaje listo
-  ("Quiero comprar «X» ($19 USD) y pagar en bolívares"). Edgar responde con el monto a la tasa
-  del día. **El precio en la web va solo en dólares**: la tasa cambia casi a diario.
+La web solo **muestra** los recursos con diseño de tienda; el cobro lo sigue haciendo Gumroad o
+Edgar por WhatsApp, pero ya no hace falta salir de la página:
+- **En dólares (Gumroad Overlay):** en la ficha, "Comprar en dólares" (y "Descargar gratis" en
+  los gratis) abre la ventana de Gumroad **encima de la propia página**. Se arma con
+  `gumroad.js` y un enlace normal al producto en Gumroad (`href={p.gumroad}` en `BuyBox.astro`):
+  el script añade `?overlay=true` y abre el formulario de pago/descarga sin salir de la web.
+  **No añadir `?wanted=true` al enlace**: con ese parámetro Gumroad se salta el modal y manda al
+  visitante a su propia página. Gumroad cobra y envía el PDF por correo como siempre. El script
+  solo se carga en las fichas de producto: la portada y la tienda quedan sin JavaScript externo.
+  Al abrir el modal, Gumroad inyecta un `<span class="logo-full"></span>` vacío dentro del botón;
+  se oculta con `.actions :global(.logo-full) { display: none; }` para que no deje 8 px de hueco.
+- **En bolívares (panel desplegable):** "Pagar en bolívares" despliega un panel en la misma ficha
+  con el precio de referencia en USD, cómo se paga a tasa del día y un botón a **WhatsApp**
+  (`+58 414 0277848`) con el mensaje listo ("Quiero comprar «X» ($19 USD) y pagar en bolívares").
+  Edgar responde con el monto del día. **El precio en la web va solo en dólares**: la tasa cambia
+  casi a diario.
 - Precio 0 → "Gratis" y botón "Descargar gratis" (sin opción de bolívares).
 
 **Cada producto tiene su propia página: `/recursos/<id>/`** (nov. 2026, pedido por Edgar),
@@ -251,13 +267,15 @@ generada desde `src/pages/recursos/[id].astro`. Contiene: ruta "Recursos / nombr
 dólares" → Gumroad y "Pagar en bolívares" → WhatsApp), "Qué incluye", "Para quién es",
 "Sobre este recurso", "Cómo comprar" (no en los gratis) y "Otros recursos". Con portada: imagen a
 la izquierda; sin portada: ficha y compra lado a lado (el nombre no se repite). La portada es
-también la imagen al compartir el enlace. Datos para buscadores `Product` + `BreadcrumbList`.
+también la imagen al compartir el enlace: se pasa a `Base.astro` con `image`, `imageAlt`,
+`imageWidth` e `imageHeight` (1005×565), que emiten `og:image:width` y `og:image:height`. Sin esas
+props, la imagen general `og.png` declara sus 1200×630. Datos para buscadores `Product` + `BreadcrumbList`.
 Las tarjetas (`ProductCard.astro`, en la tienda, el adelanto y "Otros recursos") son enteras un
 enlace a la página del producto y muestran precio y "Ver recurso"; los botones de compra solo
 están en la página del producto. El `id` es la dirección: no cambiarlo una vez publicado.
 
 Dónde se edita: `src/data/shop.ts` → `products` (id, title, format, description, includes,
-forWho y details opcionales, priceUsd, gumroad, cover opcional en `public/recursos/` 1280×720,
+forWho y details opcionales, priceUsd, gumroad, cover opcional en `public/recursos/` 1005×565,
 featured) y `shop.whatsapp` (número con código de país; vacío = sin botón de bolívares).
 Componentes: `ProductCard.astro`, `BuyBox.astro`, `ShopTeaser.astro` (adelanto con hasta 3
 destacados en la principal, tras los videos), `src/pages/recursos/index.astro` (todos los
@@ -269,6 +287,25 @@ Mientras `products` esté vacío: sin enlace "Recursos" en el menú, sin adelant
 el nombre (que entonces no se repite debajo). Nunca publicar productos de ejemplo.
 
 WhatsApp configurado en `src/data/shop.ts` (`+58 414 0277848`) para pagos en bolívares y consultas.
+
+## Mentorías (`/mentorias/`, activa desde nov. 2026)
+
+Tres mentorías uno a uno de 1 hora por Google Meet a $40 USD: anuncios en Meta y Google, hacer
+crecer tu negocio y marketing con IA. El contenido vive en `src/data/mentoring.ts` (`mentoring`,
+`plans` y `hasMentoring`); la página es `src/pages/mentorias.astro`.
+
+- **Calendario dentro de la web:** `mentoring.bookingEmbed` (versión embebible del mismo
+  Appointment Schedule de Google Calendar) se incrusta en la página y el botón "Ver horarios"
+  salta a `#reservar`. `mentoring.booking` es el enlace normal para abrirlo en otra pestaña, como
+  respaldo. Se reserva día y hora ahí; el pago se coordina después.
+- **Consultas por WhatsApp:** el número de `shop.whatsapp` (`+58 414 0277848`) con mensaje ya
+  escrito (`mentoringWhatsappLink()` en `mentoring.ts`) aparece junto al precio, en cada una de las tres
+  mentorías y en el pie de dudas (antes ese enlace llevaba a LinkedIn).
+- **Pago claro desde arriba:** junto a `$40 USD` se indica que se acepta tarjeta en dólares o
+  bolívares a la tasa del día.
+- Sin promesas de resultados (bloque "Lo que no te prometo").
+
+Acotación: `booking` vacío = la sección de mentorías no aparece y `hasMentoring` queda en `false`.
 
 ## Skills de diseño instaladas (`.claude/skills/`)
 

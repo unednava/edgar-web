@@ -37,6 +37,10 @@ function clean(text: string): string {
     .replace(/&#39;|&apos;/g, "'")
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    // El RSS de Substack manda acentos como entidades numéricas (medici&#243;n): se pasan a su carácter.
+    // Va después de &amp; para que un texto doblemente codificado (&amp;#243;) también quede bien.
+    .replace(/&#(\d+);/g, (_match: string, dec: string) => String.fromCharCode(Number(dec)))
+    .replace(/&#x([0-9a-f]+);/gi, (_match: string, hex: string) => String.fromCharCode(parseInt(hex, 16)))
     .replace(/\s+/g, ' ')
     .trim();
 }

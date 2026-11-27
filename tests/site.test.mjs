@@ -90,3 +90,28 @@ test('recursos cargan Gumroad Overlay y mentorías incrustan el calendario', () 
   assert.match(mentHtml, /calendar\.google\.com\/calendar\/appointments\/schedules\/.*\?gv=true/);
   assert.match(mentHtml, /wa\.me\/584140277848/);
 });
+
+// Regresión de los dos fallos que aparecieron en producción (nov. 2026):
+// el botón de Gumroad sacaba de la web por `?wanted=true` y el extracto del blog mostraba
+// entidades numéricas del RSS (`medici&#243;n`) en lugar del texto con acentos.
+test('las fichas no piden ?wanted=true y el blog muestra los acentos decodificados', () => {
+  for (const id of ['antes-de-lanzar', 'campanas-en-claro', 'pideselo-a-la-ia']) {
+    const html = fs.readFileSync(path.join(distDir, 'recursos', id, 'index.html'), 'utf8');
+    const gumroadLinks = [...html.matchAll(/href="(https:\/\/[^"]*gumroad[^"]*)"/g)].map((m) => m[1]);
+    assert.ok(gumroadLinks.length > 0, `La ficha ${id} no tiene enlace a Gumroad`);
+    for (const link of gumroadLinks) {
+      assert.ok(
+        !link.includes('wanted=true'),
+        `La ficha ${id} lleva ?wanted=true (Gumroad saca al visitante de la web): ${link}`,
+      );
+    }
+  }
+
+  const indexHtml = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
+  const start = indexHtml.indexOf('id="blog"');
+  assert.ok(start > -1, 'No se encontró la sección del blog en la portada');
+  const blogSection = indexHtml.slice(start, indexHtml.indexOf('</section>', start));
+  // Atrapa tanto `&#243;` como `&amp;#243;` (el segundo es como sale una entidad sin decodificar).
+  const leftover = blogSection.match(/&(?:amp;)?#\d+;|&#x[0-9a-f]+;/gi) ?? [];
+  assert.deepEqual(leftover, [], `Entidades sin decodificar en el blog: ${leftover.join(', ')}`);
+});
